@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Runi Course Ratings",
   description: "A platform for running university students to rate and review courses",
+  viewport: 'width=device-width,initial-scale=1',
 };
 
 export default async function RootLayout({

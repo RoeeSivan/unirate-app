@@ -13,6 +13,15 @@ export default function ThemeToggle() {
         } else {
             const m = window.matchMedia('(prefers-color-scheme: dark)')
             setTheme(m.matches ? 'dark' : 'light')
+
+            // listen for changes and update only when user hasn't chosen explicitly
+            const listener = (e: MediaQueryListEvent) => {
+                if (!localStorage.getItem('theme')) {
+                    setTheme(e.matches ? 'dark' : 'light')
+                }
+            }
+            m.addEventListener('change', listener)
+            return () => m.removeEventListener('change', listener)
         }
     }, [])
 

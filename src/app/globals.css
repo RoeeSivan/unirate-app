@@ -159,6 +159,56 @@ h6 {
   padding: 0 1.5rem;
 }
 
+/* responsive helpers for course page */
+.grid-2cols {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 2rem;
+}
+
+/* sidebar stickiness only on larger screens */
+.sticky-sidebar {
+  position: sticky;
+  top: 6rem;
+}
+
+@media (max-width: 768px) {
+  .grid-2cols {
+    grid-template-columns: 1fr;
+  }
+  .sticky-sidebar {
+    display: none;            /* hide the sidebar entirely on phones */
+  }
+  .sticky-sidebar > div {
+    width: 100%;
+  }
+  .card {
+    padding: 1rem;
+  }
+  .course-header {
+    padding: 1rem;
+  }
+  .course-title {
+    font-size: 2rem !important;
+  }
+  .course-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .course-header p {
+    font-size: 0.9rem;
+  }
+  .mobile-only { display: block !important; }
+  .desktop-only { display: none !important; }
+  /* make sure any element inside mobile-only spans full width */
+  .mobile-only > * { width: 100%; }
+}
+
+/* default visibility for utility helpers */
+.mobile-only { display: none; }
+.desktop-only { display: block; }
+
 .navbar {
   display: flex;
   justify-content: space-between;

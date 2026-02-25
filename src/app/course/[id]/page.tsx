@@ -28,7 +28,7 @@ export default async function CoursePage({ params }: { params: { id: string } })
     return (
         <div className="course-page animate-fade-in py-12" style={{ padding: '2rem 0' }}>
             <div className="course-header card card-glass" style={{ marginBottom: '2rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem' }}>
+                <div className="course-header-row" style={{ marginBottom: '0.5rem' }}>
                     <h1 className="course-title" style={{ fontSize: '2.5rem', margin: 0 }}>{course.title}</h1>
                     {course.isMandatory && (
                         <span style={{ fontSize: '0.875rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary)', border: '1px solid rgba(99, 102, 241, 0.2)', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>Mandatory</span>
@@ -42,8 +42,13 @@ export default async function CoursePage({ params }: { params: { id: string } })
                 </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: '2rem' }}>
+            <div className="grid-2cols">
                 <div className="space-y-6" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    {session && (
+                        <div className="mobile-only" style={{ width: '100%', marginBottom: '1.5rem' }}>
+                            <AddReviewForm courseId={course.id} />
+                        </div>
+                    )}
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Reviews</h2>
                     {course.reviews.length === 0 ? (
                         <div className="card" style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-muted)' }}>No reviews yet. Be the first!</div>
@@ -84,17 +89,19 @@ export default async function CoursePage({ params }: { params: { id: string } })
                     )}
                 </div>
 
-                <div>
-                    <div style={{ position: 'sticky', top: '6rem' }}>
-                        {session ? (
-                            <AddReviewForm courseId={course.id} />
-                        ) : (
-                            <div className="card" style={{ textAlign: 'center' }}>
-                                <h3 style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>Want to add a review?</h3>
-                                <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>Sign in with your university email to share your experience.</p>
-                                <a href="/login" className="btn-primary" style={{ display: 'block', width: '100%', textAlign: 'center' }}>Sign In</a>
-                            </div>
-                        )}
+                <div className="sticky-sidebar">
+                    <div>
+                                <div className="desktop-only">
+                            {session ? (
+                                <AddReviewForm courseId={course.id} />
+                            ) : (
+                                <div className="card" style={{ textAlign: 'center' }}>
+                                    <h3 style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>Want to add a review?</h3>
+                                    <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>Sign in with your university email to share your experience.</p>
+                                    <a href="/login" className="btn-primary" style={{ display: 'block', width: '100%', textAlign: 'center' }}>Sign In</a>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
