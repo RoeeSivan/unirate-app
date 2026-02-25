@@ -22,8 +22,22 @@
   --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 }
 
+/* dark palette when user has explicitly chosen dark theme */
+[data-theme="dark"] {
+  --primary: #818cf8;
+  --primary-hover: #6366f1;
+  --bg-color: #0f111a;
+  --surface: #1e2130;
+  --surface-hover: #2a2d3e;
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+  --border: #2a2d3e;
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* fall back to system preference if no explicit theme selected */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --primary: #818cf8;
     --primary-hover: #6366f1;
     --bg-color: #0f111a;

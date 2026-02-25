@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import AddReviewForm from '@/components/AddReviewForm'
+import DeleteReviewButton from '@/components/DeleteReviewButton'
 import { getSession } from '@/lib/auth'
 import { Star } from 'lucide-react'
 
@@ -58,7 +59,12 @@ export default async function CoursePage({ params }: { params: { id: string } })
                                         </div>
                                         <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>{review.user.name}</p>
                                     </div>
-                                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{new Date(review.createdAt).toLocaleDateString()}</span>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{new Date(review.createdAt).toLocaleDateString()}</span>
+                                        {session?.userId === review.userId && (
+                                            <DeleteReviewButton reviewId={review.id} />
+                                        )}
+                                    </div>
                                 </div>
 
                                 {review.courseTip && (

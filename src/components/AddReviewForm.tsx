@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { addReviewAction } from '@/lib/actions'
 import { Star } from 'lucide-react'
@@ -11,6 +11,7 @@ export default function AddReviewForm({ courseId }: { courseId: string }) {
     const [hoverRating, setHoverRating] = useState(0)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const formRef = useRef<HTMLFormElement>(null)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -22,23 +23,37 @@ export default function AddReviewForm({ courseId }: { courseId: string }) {
         setLoading(true)
         setError('')
 
-        const formData = new FormData(e.currentTarget)
+        // grab a reference to the form before any awaits so it can't be nulled by
+        // React's event pooling
+        const formElement = formRef.current
+        const formData = new FormData(formElement || e.currentTarget)
         formData.append('courseId', courseId)
         formData.append('rating', rating.toString())
 
+        let res: any
         try {
-            const res = await addReviewAction(formData)
+            res = await addReviewAction(formData)
+            console.log('addReviewAction result', res)
             if (res?.error) {
                 setError(res.error)
-            } else {
-                setRating(0)
-                e.currentTarget.reset()
-                router.refresh()
+                return
             }
+            // clear form state on success
+            setRating(0)
+            if (formElement) formElement.reset()
         } catch (err) {
+            console.error('add review caught', err)
             setError('An unexpected error occurred.')
+            return
         } finally {
             setLoading(false)
+        }
+
+        // refresh after we finish the work above; failure here doesn't show an error
+        try {
+            router.refresh()
+        } catch (err) {
+            console.error('router.refresh failed', err)
         }
     }
 
@@ -47,12 +62,12 @@ export default function AddReviewForm({ courseId }: { courseId: string }) {
             <h3 style={{ fontWeight: 'bold', fontSize: '1.25rem', marginBottom: '1rem' }}>Add Your Rating</h3>
 
             {error && (
-                <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', padding: '0.75rem', borderRadius: '8px', fontSize: '0.875rem', marginBottom: '1rem' }}>
+                <div style={{ backgroundColor: 'white', color: '#ef4444', padding: '0.75rem', borderRadius: '8px', fontSize: '0.875rem', marginBottom: '1rem', border: '1px solid #ef4444' }}>
                     {error}
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div>
                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Overall Rating</label>
                     <div style={{ display: 'flex', gap: '0.25rem' }}>
@@ -102,7 +117,12 @@ export default function AddReviewForm({ courseId }: { courseId: string }) {
                     />
                 </div>
 
-                <button type="submit" className="btn-primary w-full" disabled={loading} style={{ width: '100%' }}>
+                <button
+                    type="submit"
+                    className="btn-primary w-full"
+                    disabled={loading || rating === 0}
+                    style={{ width: '100%' }}
+                >
                     {loading ? 'Submitting...' : 'Submit Rating'}
                 </button>
             </form>

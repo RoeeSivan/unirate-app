@@ -4,6 +4,7 @@ import "./globals.css";
 import { getSession } from "@/lib/auth";
 import { logoutAction } from "@/lib/actions";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +36,7 @@ export default async function RootLayout({
             <span className="text-gradient">UniRate</span>
           </Link>
           <div className="navbar-links" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <ThemeToggle />
             {session ? (
               <>
                 <span className="text-muted">Hey, {session.email.split('@')[0]}</span>
