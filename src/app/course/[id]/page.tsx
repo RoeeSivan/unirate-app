@@ -29,7 +29,14 @@ export default async function CoursePage({ params }: { params: { id: string } })
         <div className="course-page animate-fade-in py-12" style={{ padding: '2rem 0' }}>
             <div className="course-header card card-glass" style={{ marginBottom: '2rem' }}>
                 <div className="course-header-row" style={{ marginBottom: '0.5rem' }}>
-                    <h1 className="course-title" style={{ fontSize: '2.5rem', margin: 0 }}>{course.title}</h1>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                      <h1 className="course-title" style={{ fontSize: '2.5rem', margin: 0 }}>{course.title}</h1>
+                      {course.tags && course.tags.length > 0 && (
+                        <span style={{ fontSize: '0.875rem', fontWeight: '500', textTransform: 'uppercase', backgroundColor: 'var(--surface-hover)', color: 'var(--text-muted)', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>
+                          {course.tags.join(', ')}
+                        </span>
+                      )}
+                    </div>
                     {course.isMandatory && (
                         <span style={{ fontSize: '0.875rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary)', border: '1px solid rgba(99, 102, 241, 0.2)', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>Mandatory</span>
                     )}

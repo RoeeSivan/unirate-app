@@ -33,6 +33,13 @@ async function main() {
         { title: "Computer Graphics", description: "Fundamentals of 2D and 3D graphics.", isMandatory: true },
         { title: "Presentation Skills", description: "Effective communication and presentation.", isMandatory: true },
         { title: "Functional & Logic Programming", description: "Functional and declarative programming paradigms.", isMandatory: true },
+
+        // additional electives
+        { title: "Advanced Machine Learning", description: "Deep dive into ML algorithms.", isMandatory: false, tags: ["Elective","E","A","ML"] },
+        { title: "Reinforcement Learning", description: "Agents that learn by interacting with environments.", isMandatory: false, tags: ["Elective","E","B","ML"] },
+        { title: "Cryptography", description: "Encryption, decryption and security protocols.", isMandatory: false, tags: ["Elective","A"] },
+        { title: "Data Streaming and Online Learning", description: "Real-time data processing techniques.", isMandatory: false, tags: ["Elective","B","ML"] },
+        { title: "Natural Language Processing", description: "Computational treatment of human language.", isMandatory: false, tags: ["Elective","E","B","ML"] },
     ]
 
     // Delete all existing courses since we removed the code field
