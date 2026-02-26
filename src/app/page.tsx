@@ -2,8 +2,25 @@ import { BookOpen, Star, MessageSquare } from "lucide-react";
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 
-export default async function Home() {
+export default async function Home({ searchParams }: { searchParams: { q?: string, year?: string, semester?: string, mandatory?: string } }) {
+  const { q, year, semester, mandatory } = searchParams;
+
+  const where: any = {};
+  if (q) {
+    where.title = { contains: q, mode: 'insensitive' };
+  }
+  if (year) {
+    const y = parseInt(year, 10);
+    if (!isNaN(y)) where.year = y;
+  }
+  if (semester && (semester === 'A' || semester === 'B')) {
+    where.semester = semester;
+  }
+  if (mandatory === 'true') where.isMandatory = true;
+  else if (mandatory === 'false') where.isMandatory = false;
+
   const courses = await prisma.course.findMany({
+    where,
     include: { reviews: true }
   });
 
@@ -19,12 +36,36 @@ export default async function Home() {
         </p>
 
         <div className="search-bar-wrapper">
-          <input
-            type="text"
-            className="input search-input"
-            placeholder="Search for a course (e.g., Intro to Computer Science)..."
-          />
-          <button className="btn-primary" style={{ padding: '0 2rem', borderRadius: '50px' }}>Search</button>
+          <form method="get" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <input
+              name="q"
+              defaultValue={q || ''}
+              type="text"
+              className="input search-input"
+              placeholder="Search for a course (e.g., Intro to Computer Science)..."
+            />
+
+            <select name="year" defaultValue={year || ''} className="input">
+              <option value="">Year</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+
+            <select name="semester" defaultValue={semester || ''} className="input">
+              <option value="">Semester</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+            </select>
+
+            <select name="mandatory" defaultValue={mandatory || ''} className="input">
+              <option value="">All</option>
+              <option value="true">Mandatory</option>
+              <option value="false">Elective</option>
+            </select>
+
+            <button className="btn-primary" style={{ padding: '0 2rem', borderRadius: '50px' }}>Filter</button>
+          </form>
         </div>
       </header>
 
