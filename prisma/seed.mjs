@@ -40,7 +40,26 @@ async function main() {
         { title: "Cryptography", description: "Encryption, decryption and security protocols.", isMandatory: false, tags: ["Elective","A"] },
         { title: "Data Streaming and Online Learning", description: "Real-time data processing techniques.", isMandatory: false, tags: ["Elective","B","ML"] },
         { title: "Natural Language Processing", description: "Computational treatment of human language.", isMandatory: false, tags: ["Elective","E","B","ML"] },
-    ]
+        { title: "Software Engineering using Desing Patterns", description: "", isMandatory: false, tags: ["Elective","E","A"] },
+        { title: "Artificial intelligence and Moral", description: "", isMandatory: false, tags: ["Elective","E","A"] },
+        { title: "3D Graphics and Animation with Unreal engine", description: "learn the key concepts of high end digital animation", isMandatory: false, tags: ["Elective","E","A"] },
+
+        // Courses from computer science curriculum
+        { title: "Computational Geometry", description: "Geometric algorithms and computational geometry techniques.", isMandatory: false, tags: ["Elective"] },
+        { title: "Algorithms in Computational Biology", description: "Computational approaches to biological problems.", isMandatory: false, tags: ["Elective"] },
+        { title: "Advanced Data Structures", description: "Advanced techniques in data structure design and analysis.", isMandatory: false, tags: ["Elective"] },
+        { title: "Data Streaming Algorithms and Online Learning", description: "Algorithms for streaming data and online learning systems.", isMandatory: false, tags: ["Elective","ML"] },
+        { title: "Statistics and Data Analysis", description: "Statistical methods and data analysis techniques.", isMandatory: false, tags: ["Elective","ML"] },
+        { title: "Recommendation Systems", description: "Personalized recommendation algorithms and systems.", isMandatory: false, tags: ["Elective","ML"] },
+        { title: "Reinforcement Learning", description: "Learning through interaction with environments.", isMandatory: false, tags: ["Elective","ML"] },
+        { title: "Introduction to Speech Recognition", description: "Fundamentals of automatic speech recognition technology.", isMandatory: false, tags: ["Elective"] },
+        { title: "The Art of Rhetoric in the Hi-Tech World", description: "Effective communication and rhetoric in technology contexts.", isMandatory: false, tags: ["Elective"] },
+        { title: "Attacks on Secure Implementations", description: "Security vulnerabilities and attacks in cryptographic implementations.", isMandatory: false, tags: ["Elective"] },
+        { title: "Applied Methods in Computer Science", description: "Practical application of computational methods.", isMandatory: false, tags: ["Elective"] },
+        { title: "Intelligent Autonomous Agents: Design and Implementation", description: "Design and implementation of autonomous intelligent agents.", isMandatory: false, tags: ["Elective"] }
+
+        
+    ]   
 
     // Delete all existing courses since we removed the code field
     await prisma.review.deleteMany({})
