@@ -2,8 +2,8 @@ import { BookOpen, Star, MessageSquare } from "lucide-react";
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 
-export default async function Home({ searchParams }: { searchParams: { q?: string, year?: string, semester?: string, mandatory?: string } }) {
-  const { q, year, semester, mandatory } = searchParams;
+export default async function Home({ searchParams }: { searchParams: Promise<{ q?: string, year?: string, semester?: string, mandatory?: string }> }) {
+  const { q, year, semester, mandatory } = await searchParams;
 
   const where: any = {};
   if (q) {
