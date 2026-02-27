@@ -1,9 +1,10 @@
+export const dynamic = 'force-dynamic';
 import { BookOpen, Star, MessageSquare } from "lucide-react";
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import CoursesList from '../components/CoursesList';
 
-export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   // fetch all courses once on the server; filtering will happen client-side
   const courses = await prisma.course.findMany({
