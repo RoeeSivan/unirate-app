@@ -36,23 +36,23 @@ export default function CoursesList({ courses }: CoursesListProps) {
     if (!courses) return [];
     return courses.filter(c => {
       // we check that the fields are there before the filtering
-      const matchesQuery = !q || c.title.toLowerCase().includes(q.toLowerCase());
-      const matchesYear = !year || c.year?.toString() === year;
-      const matchesSemester = !semester || c.semester === semester;
+      const matchesQuery = !q || c.title?.toLowerCase().includes(q.toLowerCase());
+      const matchesYear = !year || c.year?.toString() == year;
+      const matchesSemester = !semester || c.semester?.toLowerCase() === semester.toLowerCase();
       
       let matchesMandatory = true;
       if (mandatory === 'true') matchesMandatory = c.isMandatory === true;
-      if (mandatory === 'false') matchesMandatory = c.isMandatory === false;
+      if (mandatory === 'false') matchesMandatory = !c.isMandatory === false;
 
       return matchesQuery && matchesYear && matchesSemester && matchesMandatory;
     });
   }, [courses, q, year, semester, mandatory]);
 
-  if (!mounted) return null; // מחכה לטעינה בדפדפן
+  if (!mounted) return null; // waites for the page to load 
 
   return (
     <>
-      {/* כאן נשאר ה-JSX שלך, הוא נראה מצוין */}
+      {/* jsx */}
       <div className="search-bar-wrapper" style={{ marginBottom: '1.5rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
         <input
           placeholder="Search courses..."
