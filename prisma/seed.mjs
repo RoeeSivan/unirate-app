@@ -11,7 +11,7 @@ async function main() {
         { title: "Calculus II", description: "Advanced topics in calculus.", isMandatory: true, year: 1, semester: "B" },
         { title: "Linear Algebra II", description: "Advanced linear algebra topics.", isMandatory: true, year: 1, semester: "B" },
         { title: "Logic and Set Theory", description: "Formal logic and set theory fundamentals.", isMandatory: true, year: 1, semester: "B" },
-        { title: "Data Structure", description: "Fundamental data structures and algorithms.", isMandatory: true, year: 1, semester: "B" },
+        { title: "Data Structures", description: "Fundamental data structures and algorithms.", isMandatory: true, year: 1, semester: "B" },
         { title: "System Programming in C", description: "Low-level system programming.", isMandatory: true, year: 1, semester: "B" },
         { title: "Computer Science English Advanced 2", description: "Advanced English for CS students.", isMandatory: true, year: 1, semester: "B" },
 
@@ -35,28 +35,30 @@ async function main() {
         { title: "Functional & Logic Programming", description: "Functional and declarative programming paradigms.", isMandatory: true, year: 3, semester: "B" },
 
         // additional electives
-        { title: "Advanced Machine Learning", description: "Deep dive into ML algorithms.", isMandatory: false, tags: ["Elective","E","A","ML"] },
-        { title: "Reinforcement Learning", description: "Agents that learn by interacting with environments.", isMandatory: false, tags: ["Elective","E","B","ML"] },
-        { title: "Cryptography", description: "Encryption, decryption and security protocols.", isMandatory: false, tags: ["Elective","A"] },
-        { title: "Data Streaming and Online Learning", description: "Real-time data processing techniques.", isMandatory: false, tags: ["Elective","B","ML"] },
-        { title: "Natural Language Processing", description: "Computational treatment of human language.", isMandatory: false, tags: ["Elective","E","B","ML"] },
-        { title: "Software Engineering using Desing Patterns", description: "", isMandatory: false, tags: ["Elective","E","A"] },
-        { title: "Artificial intelligence and Moral", description: "", isMandatory: false, tags: ["Elective","E","A"] },
-        { title: "3D Graphics and Animation with Unreal engine", description: "learn the key concepts of high end digital animation", isMandatory: false, tags: ["Elective","E","A"] },
+        { title: "Advanced Machine Learning", description: "Deep dive into ML algorithms.", isMandatory: false,year:3, tags: ["Elective","E","A","ML"] ,semester:"A"},
+        { title: "Reinforcement Learning", description: "Agents that learn by interacting with environments.", isMandatory: false,year:3, tags: ["Elective","E","B","ML"],semester:"A" },
+        { title: "Cryptography", description: "Encryption, decryption and security protocols.", isMandatory: false, tags: ["Elective","A"],semester:"A",year:3 },
+        { title: "Data Streaming and Online Learning", description: "Real-time data processing techniques.", isMandatory: false, tags: ["Elective","B","ML"],semester:"A",year:3 },
+        { title: "Natural Language Processing", description: "Computational treatment of human language.", isMandatory: false, tags: ["Elective","E","B","ML"] ,semester:"B",year:3},
+        { title: "Artificial intelligence and Moral", description: "", isMandatory: false, tags: ["Elective","E","A"] ,semester:"A",year:2},
+        { title: "3D Graphics and Animation with Unreal engine", description: "learn the key concepts of high end digital animation", isMandatory: false, tags: ["Elective","E","A"],semester:"A",year:2 },
 
         // Courses from computer science curriculum
-        { title: "Computational Geometry", description: "Geometric algorithms and computational geometry techniques.", isMandatory: false, tags: ["Elective"] },
-        { title: "Algorithms in Computational Biology", description: "Computational approaches to biological problems.", isMandatory: false, tags: ["Elective"] },
-        { title: "Advanced Data Structures", description: "Advanced techniques in data structure design and analysis.", isMandatory: false, tags: ["Elective"] },
-        { title: "Data Streaming Algorithms and Online Learning", description: "Algorithms for streaming data and online learning systems.", isMandatory: false, tags: ["Elective","ML"] },
-        { title: "Statistics and Data Analysis", description: "Statistical methods and data analysis techniques.", isMandatory: false, tags: ["Elective","ML"] },
-        { title: "Recommendation Systems", description: "Personalized recommendation algorithms and systems.", isMandatory: false, tags: ["Elective","ML"] },
-        { title: "Introduction to Speech Recognition", description: "Fundamentals of automatic speech recognition technology.", isMandatory: false, tags: ["Elective"] },
-        { title: "The Art of Rhetoric in the Hi-Tech World", description: "Effective communication and rhetoric in technology contexts.", isMandatory: false, tags: ["Elective"] },
-        { title: "Attacks on Secure Implementations", description: "Security vulnerabilities and attacks in cryptographic implementations.", isMandatory: false, tags: ["Elective"] },
-        { title: "Applied Methods in Computer Science", description: "Practical application of computational methods.", isMandatory: false, tags: ["Elective"] },
-        { title: "Intelligent Autonomous Agents: Design and Implementation", description: "Design and implementation of autonomous intelligent agents.", isMandatory: false, tags: ["Elective"] }        
-    ]   
+        { title: "Computational Geometry", description: "Geometric algorithms and computational geometry techniques.", isMandatory: false, tags: ["Elective"] ,semester:"A",year:3},
+        { title: "Algorithms in Computational Biology", description: "Computational approaches to biological problems.", isMandatory: false, tags: ["Elective"] ,semester:"A",year:3},
+        { title: "Advanced Data Structures", description: "Advanced techniques in data structure design and analysis.", isMandatory: false, tags: ["Elective"] ,semester:"A",year:3},
+        { title: "Statistics and Data Analysis", description: "Statistical methods and data analysis techniques.", isMandatory: false, tags: ["Elective","ML"] ,semester:"A"},
+        { title: "Recommendation Systems", description: "Personalized recommendation algorithms and systems.", isMandatory: false, tags: ["Elective","ML"],semester:"A",year:3 },
+        { title: "Introduction to Speech Recognition", description: "Fundamentals of automatic speech recognition technology.", isMandatory: false, tags: ["Elective"],semester:"A" ,year:3},
+        { title: "The Art of Rhetoric in the Hi-Tech World", description: "Effective communication and rhetoric in technology contexts.", isMandatory: false, tags: ["Elective"],semester:"A" ,year:3},
+        { title: "Attacks on Secure Implementations", description: "Security vulnerabilities and attacks in cryptographic implementations.", isMandatory: false, tags: ["Elective"],semester:"A" ,year:3},
+        { title: "Applied Methods in Computer Science", description: "Practical application of computational methods.", isMandatory: false, tags: ["Elective"] ,semester:"A",year:3},
+        { title: "Intelligent Autonomous Agents: Design and Implementation", description: "Design and implementation of autonomous intelligent agents.", isMandatory: false, tags: ["Elective"],semester:"A" ,year:3},
+        {title:"Introdcution to Image Processing and Analysis",description:"Introdcution to Image Processing and Analysis",isMandatory:false,tags: ["Elective"],semester:"A" ,year:3},
+        {title:"Text Retreival and Search Engines",description:"Text Retreival and Search Engines",isMandatory:false,tags: ["Elective"],semester:"A" ,year:3},
+         {title:"Cloud Computing and Software Engineering",description:"Cloud Computing and Software Engineering",isMandatory:false,tags: ["Elective"],semester:"A" ,year:3}      
+    ]          
+    
 
     // The previous version wiped the whole database, which also removed
     // user reviews whenever the seed script ran. To preserve existing
