@@ -73,7 +73,11 @@ export default async function CoursePage({ params }: { params: { id: string } })
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{new Date(review.createdAt).toLocaleDateString()}</span>
-                                        {session?.userId === review.userId && (
+                                        {/* allow delete if the reviewer or the admin email */}
+                                        {(
+                                            session?.userId === review.userId ||
+                                            session?.email === 'roee.sivan@post.runi.ac.il'
+                                        ) && (
                                             <DeleteReviewButton reviewId={review.id} />
                                         )}
                                     </div>

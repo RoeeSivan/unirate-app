@@ -78,7 +78,7 @@ export default function CoursesList({ courses }: CoursesListProps) {
         </select>
       </div>
       
-      {/* רינדור הקורסים */}
+      {/* rendering of the courses*/}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {filtered.length > 0 ? (
           filtered.map(course => {

@@ -86,7 +86,8 @@ export async function addReviewAction(formData: FormData) {
 
     return { success: true }
 }
-// server-side action to delete a review; only the author may remove it
+// server-side action to delete a review; the author may remove it, and a specific admin user
+// (roee.sivan@post.runi.ac.il) can delete any review
 export async function deleteReviewAction(reviewId: string) {
     const session = await getSession()
     if (!session) return { error: 'Unauthorized' }
@@ -95,7 +96,14 @@ export async function deleteReviewAction(reviewId: string) {
 
     const review = await prisma.review.findUnique({ where: { id: reviewId } })
     if (!review) return { error: 'Review not found' }
-    if (review.userId !== session.userId) return { error: 'Forbidden' }
+
+    const ADMIN_EMAIL = 'roee.sivan@post.runi.ac.il'
+    const isAdmin = session.email === ADMIN_EMAIL
+
+    // allow if author or admin
+    if (review.userId !== session.userId && !isAdmin) {
+        return { error: 'Forbidden' }
+    }
 
     try {
         await prisma.review.delete({ where: { id: reviewId } })
