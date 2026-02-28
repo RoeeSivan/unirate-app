@@ -112,11 +112,29 @@ export default function CoursesList({ courses }: CoursesListProps) {
                   </div>
                   <p style={{ color: 'var(--text-muted)' }}>{course.description}</p>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                  <Star size={20} style={{ color: '#fbbf24', fill: '#fbbf24' }} />
-                  <span style={{ fontWeight: 'bold' }}>{avgRating.toFixed(1)}</span>
-                  <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginLeft: '0.5rem' }}>({course.reviews?.length || 0})</span>
+                
+                {/* Updated Rating Section (5 Stars) */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <div style={{ display: 'flex', gap: '2px' }}>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        size={16}
+                        style={{
+                          color: star <= Math.round(avgRating) ? '#fbbf24' : '#d1d5db',
+                          fill: star <= Math.round(avgRating) ? '#fbbf24' : 'transparent',
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    <span style={{ fontWeight: 'bold' }}>{avgRating.toFixed(1)}</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+                      ({course.reviews?.length || 0})
+                    </span>
+                  </div>
                 </div>
+
               </Link>
             );
           })
