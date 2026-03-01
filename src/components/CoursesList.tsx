@@ -30,7 +30,7 @@ export default function CoursesList({ courses }: CoursesListProps) {
   useEffect(() => {
     setMounted(true);
   }, []);
-
+  console.log("Courses Data in Client:", courses);
   const filtered = useMemo(() => {
     if (!courses) return [];
     
