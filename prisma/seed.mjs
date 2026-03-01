@@ -18,14 +18,17 @@ async function main() {
         // Year II
         { title: "Algorithms", description: "Design and analysis of algorithms.", isMandatory: true, year: 2, semester: "A" },
         { title: "Advanced Programming", description: "Advanced programming paradigms and techniques.", isMandatory: true, year: 2, semester: "A" },
-        { title: "Probability Theory", description: "Probability and statistics.", isMandatory: true, year: 2, semester: "A" },
+        { title: "Introduction to Probability", description: "Probability and statistics.", isMandatory: true, year: 2, semester: "A" },
         { title: "Operating Systems", description: "Principles of operating systems design.", isMandatory: true, year: 2, semester: "A" },
         { title: "Machine Learning from Data", description: "Introduction to machine learning algorithms.", isMandatory: true, year: 2, semester: "B" },
         { title: "Computational Models", description: "Automata theory and formal languages.", isMandatory: true, year: 2, semester: "B" },
-        { title: "Microeconomics", description: "Principles of microeconomics.", isMandatory: true, year: 2, semester: "B" },
-        { title: "Finance Fundamentals", description: "Basic concepts of finance.", isMandatory: true, year: 2, semester: "B" },
+        { title: "Introduction to Microeconomics", description: "Principles of microeconomics.", isMandatory: true, year: 2, semester: "B" },
+        { title: "Fundamentals of Finance", description: "Basic concepts of finance.", isMandatory: true, year: 2, semester: "B" },
         { title: "Digital Architectures", description: "Computer architecture and organization.", isMandatory: true, year: 2, semester: "B" },
         { title: "Digital systems", description: "Design of digital logic circuits.", isMandatory: true, year: 2, semester: "B" },
+        { title: "Object Oriented Programming with C# and .NET", description: "Object Oriented Programming with C# and .NET", isMandatory: false, year: 2, semester: "B" },
+        { title: "Algorithmic Game Theory", description: "Algorithmic Game Theory", isMandatory: false, year: 2, semester: "B" },
+        { title: "Algorithmic Game Theory", description: "Algorithmic Game Theory", isMandatory: false, year: 2, semester: "B" },
 
         // Year III
         { title: "Computer Networks", description: "Principles of computer networking.", isMandatory: true, year: 3, semester: "A" },
