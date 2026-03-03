@@ -5,6 +5,7 @@ import { getSession } from "@/lib/auth";
 import { logoutAction } from "@/lib/actions";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,6 +58,10 @@ export default async function RootLayout({
         <main className="container">
           {children}
         </main>
+        
+        {/* Vercel Analytics Component */}
+        <Analytics />
+        
       </body>
     </html>
   );

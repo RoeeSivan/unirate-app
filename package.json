@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.2",
+    "@vercel/analytics": "^1.6.1",
     "bcryptjs": "^3.0.3",
     "formdata-node": "^6.0.3",
     "jose": "^6.1.3",
