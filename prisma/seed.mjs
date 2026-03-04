@@ -22,7 +22,6 @@ async function main() {
         { title: "Operating Systems", description: "Principles of operating systems design.", isMandatory: true, year: 2, semester: "A" },
         { title: "Machine Learning from Data", description: "Introduction to machine learning algorithms.", isMandatory: true, year: 2, semester: "B" },
         { title: "Computational Models", description: "Automata theory and formal languages.", isMandatory: true, year: 2, semester: "B" },
-        { title: "Introduction to Microeconomics", description: "Principles of microeconomics.", isMandatory: true, year: 2, semester: "A" },
         { title: "Fundamentals of Finance", description: "Basic concepts of finance.", isMandatory: true, year: 2, semester: "B" },
         { title: "Digital Architectures", description: "Computer architecture and organization.", isMandatory: true, year: 2, semester: "B" },
         { title: "Digital systems", description: "Design of digital logic circuits.", isMandatory: true, year: 2, semester: "B" },
