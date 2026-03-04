@@ -28,7 +28,7 @@ async function main() {
         { title: "Digital systems", description: "Design of digital logic circuits.", isMandatory: true, year: 2, semester: "B" },
         { title: "Object Oriented Programming with C# and .NET", description: "Object Oriented Programming with C# and .NET", isMandatory: false, year: 2, semester: "B" },
         { title: "Algorithmic Game Theory", description: "Algorithmic Game Theory", isMandatory: false, year: 2, semester: "B" },
-        { title: "Algorithmic Game Theory", description: "Algorithmic Game Theory", isMandatory: false, year: 2, semester: "B" },
+        { title: "From idea to App Using AI tools", description: "This course is an intensive, fast-paced program designed to help students leverage Generative AI as a force multiplier in product development. By integrating AI tools into the coding, graphic design, and brainstorming processes, the goal is to move from initial idea to a market-ready application or website in record time.", isMandatory: false, year: 2, semester: "B" },
 
         // Year III
         { title: "Computer Networks", description: "Principles of computer networking.", isMandatory: true, year: 3, semester: "A" },
