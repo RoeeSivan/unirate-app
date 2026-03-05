@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { addReviewAction } from '@/lib/actions'
 import { Star } from 'lucide-react'
 
-export default function AddReviewForm({ courseId }: { courseId: string }) {
+export default function AddReviewForm({ courseId, isMandatory }: { courseId: string, isMandatory: boolean }) {
     const router = useRouter()
     const [rating, setRating] = useState(0)
     const [hoverRating, setHoverRating] = useState(0)
@@ -15,7 +15,7 @@ export default function AddReviewForm({ courseId }: { courseId: string }) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (rating === 0) {
+        if (!isMandatory && rating === 0) {
             setError('Please select a rating')
             return
         }
@@ -68,30 +68,32 @@ export default function AddReviewForm({ courseId }: { courseId: string }) {
             )}
 
             <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div>
-                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Overall Rating</label>
-                    <div style={{ display: 'flex', gap: '0.25rem' }}>
-                        {[1, 2, 3, 4, 5].map((star) => (
-                            <button
-                                key={star}
-                                type="button"
-                                onClick={() => setRating(star)}
-                                onMouseEnter={() => setHoverRating(star)}
-                                onMouseLeave={() => setHoverRating(0)}
-                                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem' }}
-                            >
-                                <Star
-                                    size={28}
-                                    style={{
-                                        color: star <= (hoverRating || rating) ? "#fbbf24" : "var(--border)",
-                                        fill: star <= (hoverRating || rating) ? "#fbbf24" : "none",
-                                        transition: 'all 0.2s'
-                                    }}
-                                />
-                            </button>
-                        ))}
+                {!isMandatory && (
+                    <div>
+                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Overall Rating</label>
+                        <div style={{ display: 'flex', gap: '0.25rem' }}>
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <button
+                                    key={star}
+                                    type="button"
+                                    onClick={() => setRating(star)}
+                                    onMouseEnter={() => setHoverRating(star)}
+                                    onMouseLeave={() => setHoverRating(0)}
+                                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem' }}
+                                >
+                                    <Star
+                                        size={28}
+                                        style={{
+                                            color: star <= (hoverRating || rating) ? "#fbbf24" : "var(--border)",
+                                            fill: star <= (hoverRating || rating) ? "#fbbf24" : "none",
+                                            transition: 'all 0.2s'
+                                        }}
+                                    />
+                                </button>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 <div>
                     <label htmlFor="courseTip" style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Course Tip (Optional)</label>
@@ -120,7 +122,7 @@ export default function AddReviewForm({ courseId }: { courseId: string }) {
                 <button
                     type="submit"
                     className="btn-primary w-full"
-                    disabled={loading || rating === 0}
+                    disabled={loading || (!isMandatory && rating === 0)}
                     style={{ width: '100%' }}
                 >
                     {loading ? 'Submitting...' : 'Submit Rating'}

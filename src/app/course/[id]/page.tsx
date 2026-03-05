@@ -42,18 +42,20 @@ export default async function CoursePage({ params }: { params: { id: string } })
                     )}
                 </div>
                 <p className="text-muted text-lg mt-2">{course.description}</p>
-                <div className="rating-badge" style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
-                    <Star style={{ color: '#fbbf24', fill: '#fbbf24' }} />
-                    <span style={{ fontWeight: 'bold', fontSize: '1.25rem', marginLeft: '0.5rem' }}>{avgRating.toFixed(1)}</span>
-                    <span className="text-muted" style={{ marginLeft: '0.5rem' }}>({course.reviews.length} reviews)</span>
-                </div>
+                {!course.isMandatory && (
+                    <div className="rating-badge" style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
+                        <Star style={{ color: '#fbbf24', fill: '#fbbf24' }} />
+                        <span style={{ fontWeight: 'bold', fontSize: '1.25rem', marginLeft: '0.5rem' }}>{avgRating.toFixed(1)}</span>
+                        <span className="text-muted" style={{ marginLeft: '0.5rem' }}>({course.reviews.length} reviews)</span>
+                    </div>
+                )}
             </div>
 
             <div className="grid-2cols">
                 <div className="space-y-6" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                     {session && (
                         <div className="mobile-only" style={{ width: '100%', marginBottom: '1.5rem' }}>
-                            <AddReviewForm courseId={course.id} />
+                            <AddReviewForm courseId={course.id} isMandatory={course.isMandatory} />
                         </div>
                     )}
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Reviews</h2>
@@ -64,11 +66,13 @@ export default async function CoursePage({ params }: { params: { id: string } })
                             <div key={review.id} className="card">
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                                     <div>
-                                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                                            {[1, 2, 3, 4, 5].map(star => (
-                                                <Star key={star} size={16} style={{ color: star <= review.rating ? "#fbbf24" : "var(--border)", fill: star <= review.rating ? "#fbbf24" : "none" }} />
-                                            ))}
-                                        </div>
+                                        {!course.isMandatory && (
+                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                {[1, 2, 3, 4, 5].map(star => (
+                                                    <Star key={star} size={16} style={{ color: star <= review.rating ? "#fbbf24" : "var(--border)", fill: star <= review.rating ? "#fbbf24" : "none" }} />
+                                                ))}
+                                            </div>
+                                        )}
                                         <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>{review.user.name}</p>
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -104,7 +108,7 @@ export default async function CoursePage({ params }: { params: { id: string } })
                     <div>
                                 <div className="desktop-only">
                             {session ? (
-                                <AddReviewForm courseId={course.id} />
+                                <AddReviewForm courseId={course.id} isMandatory={course.isMandatory} />
                             ) : (
                                 <div className="card" style={{ textAlign: 'center' }}>
                                     <h3 style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>Want to add a review?</h3>

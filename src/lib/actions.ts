@@ -42,11 +42,11 @@ export async function addReviewAction(formData: FormData) {
 
     const courseId = formData.get('courseId') as string
     const ratingRaw = formData.get('rating')
-    const rating = typeof ratingRaw === 'string' ? parseInt(ratingRaw, 10) : NaN
+    const rating = typeof ratingRaw === 'string' ? parseInt(ratingRaw, 10) : 0
     const courseTip = (formData.get('courseTip') as string) || null
     const testTip = (formData.get('testTip') as string) || null
 
-    if (!courseId || !rating || isNaN(rating)) {
+    if (!courseId || isNaN(rating)) {
         return { error: 'Missing or invalid required fields' }
     }
 
