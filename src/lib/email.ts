@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 export async function sendVerificationEmail(email: string, token: string) {
     const verifyUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${token}`
 
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
         from: 'Uni-Rate <noreply@uni-rate.com>',
         to: email,
         subject: 'Verify your Uni-Rate account',
@@ -22,4 +22,5 @@ export async function sendVerificationEmail(email: string, token: string) {
             </div>
         `,
     })
+    if (error) throw new Error(error.message)
 }
