@@ -35,7 +35,7 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <nav className="navbar container">
           <Link href="/" className="navbar-logo">
-            <span className="text-gradient">Uni-Rate</span>
+            <span className="text-gradient">Uni-Rate.com</span>
           </Link>
           <div className="navbar-links" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <ThemeToggle />
