@@ -1,92 +1,77 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { sendMagicLinkAction } from '@/lib/actions'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { loginAction } from '@/lib/actions'
 
 export default function LoginPage() {
-    const searchParams = useSearchParams()
+    const router = useRouter()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const [emailSent, setEmailSent] = useState(false)
-    const [submittedEmail, setSubmittedEmail] = useState('')
-
-    useEffect(() => {
-        if (searchParams.get('error') === 'invalid') {
-            setError('This sign-in link is invalid or has already been used. Please request a new one.')
-        }
-    }, [searchParams])
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setLoading(true)
         setError('')
-
         const formData = new FormData(e.currentTarget)
-        const email = formData.get('email') as string
         try {
-            const res = await sendMagicLinkAction(formData)
+            const res = await loginAction(formData)
             if (res?.error) {
                 setError(res.error)
             } else {
-                setSubmittedEmail(email)
-                setEmailSent(true)
+                router.push('/')
+                router.refresh()
             }
-        } catch (err) {
+        } catch {
             setError('An unexpected error occurred.')
         } finally {
             setLoading(false)
         }
     }
 
-    if (emailSent) {
-        return (
-            <div className="auth-container animate-fade-in">
-                <div className="card card-glass auth-card" style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📬</div>
-                    <h1 className="auth-title">Check Your Inbox</h1>
-                    <p className="auth-subtitle">
-                        We sent a sign-in link to<br />
-                        <strong>{submittedEmail}</strong>
-                    </p>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginTop: '1rem' }}>
-                        Open your Reichman email and click the link to sign in. It expires in 24 hours.
-                    </p>
-                    <button
-                        onClick={() => { setEmailSent(false); setSubmittedEmail('') }}
-                        style={{ marginTop: '2rem', background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 500 }}
-                    >
-                        Use a different email
-                    </button>
-                </div>
-            </div>
-        )
-    }
-
     return (
         <div className="auth-container animate-fade-in">
             <div className="card card-glass auth-card">
                 <h1 className="auth-title">Sign In</h1>
-                <p className="auth-subtitle">Enter your Reichman email and we'll send you a sign-in link.</p>
+                <p className="auth-subtitle">Use your Reichman university account.</p>
 
                 {error && <div className="error-message">{error}</div>}
 
                 <form onSubmit={handleSubmit} className="auth-form">
                     <div className="form-group">
-                        <label htmlFor="email">University Email</label>
+                        <label htmlFor="username">Username</label>
+                        <div className="email-input-row">
+                            <input
+                                id="username"
+                                name="username"
+                                type="text"
+                                className="input"
+                                placeholder="roee.sivan"
+                                required
+                            />
+                            <span className="email-suffix">@post.runi.ac.il</span>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
                         <input
-                            id="email"
-                            name="email"
-                            type="email"
+                            id="password"
+                            name="password"
+                            type="password"
                             className="input"
-                            placeholder="name@post.runi.ac.il"
+                            placeholder="••••••••"
                             required
                         />
                     </div>
                     <button type="submit" className="btn-primary w-full" disabled={loading}>
-                        {loading ? 'Sending link...' : 'Send Sign-In Link'}
+                        {loading ? 'Signing in...' : 'Sign In'}
                     </button>
                 </form>
+
+                <p className="auth-footer">
+                    No account yet? <Link href="/register" className="text-primary-link">Create one</Link>
+                </p>
             </div>
 
             <style>{`
@@ -97,31 +82,26 @@ export default function LoginPage() {
           min-height: calc(100vh - 200px);
           padding: 2rem;
         }
-
         .auth-card {
           width: 100%;
           max-width: 400px;
           padding: 2.5rem 2rem;
         }
-
         .auth-title {
           font-size: 2rem;
           margin-bottom: 0.5rem;
           text-align: center;
         }
-
         .auth-subtitle {
           color: var(--text-muted);
           text-align: center;
           margin-bottom: 2rem;
         }
-
         .auth-form {
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
         }
-
         .form-group label {
           display: block;
           font-size: 0.875rem;
@@ -129,9 +109,21 @@ export default function LoginPage() {
           margin-bottom: 0.5rem;
           color: var(--text-muted);
         }
-
+        .email-input-row {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .email-input-row .input {
+          flex: 1;
+          min-width: 0;
+        }
+        .email-suffix {
+          font-size: 0.875rem;
+          color: var(--text-muted);
+          white-space: nowrap;
+        }
         .w-full { width: 100%; }
-
         .error-message {
           background-color: rgba(239, 68, 68, 0.1);
           color: #ef4444;
@@ -140,6 +132,19 @@ export default function LoginPage() {
           font-size: 0.875rem;
           margin-bottom: 1.5rem;
           border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .auth-footer {
+          margin-top: 2rem;
+          text-align: center;
+          font-size: 0.875rem;
+          color: var(--text-muted);
+        }
+        .text-primary-link {
+          color: var(--primary);
+          font-weight: 500;
+        }
+        .text-primary-link:hover {
+          text-decoration: underline;
         }
       `}</style>
         </div>

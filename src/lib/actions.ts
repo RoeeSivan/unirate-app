@@ -1,34 +1,51 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { logout, getSession } from '@/lib/auth'
-import { sendVerificationEmail } from '@/lib/email'
-import { randomBytes } from 'crypto'
+import bcrypt from 'bcryptjs'
+import { cookies } from 'next/headers'
+import { encrypt, logout, getSession } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 
-export async function sendMagicLinkAction(formData: FormData) {
-    const email = formData.get('email') as string
+export async function registerAction(formData: FormData) {
+    const username = formData.get('username') as string
+    const password = formData.get('password') as string
 
-    if (!email) return { error: 'Please enter your email.' }
-    if (!email.endsWith('@post.runi.ac.il')) {
-        return { error: 'Only @post.runi.ac.il emails are allowed.' }
-    }
+    if (!username || !password) return { error: 'Missing fields' }
 
-    const token = randomBytes(32).toString('hex')
+    const email = `${username}@post.runi.ac.il`
 
-    // Upsert: create account if new, otherwise just refresh the token
-    await prisma.user.upsert({
-        where: { email },
-        update: { verificationToken: token },
-        create: {
-            email,
-            name: email.split('@')[0],
-            verificationToken: token,
-            emailVerified: false,
-        },
+    const existing = await prisma.user.findUnique({ where: { email } })
+    if (existing) return { error: 'An account with this username already exists.' }
+
+    const passwordHash = await bcrypt.hash(password, 10)
+    const user = await prisma.user.create({
+        data: { email, passwordHash, name: username, emailVerified: true }
     })
 
-    await sendVerificationEmail(email, token)
+    const session = await encrypt({ userId: user.id, email: user.email })
+    const cookieStore = await cookies()
+    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/' })
+
+    return { success: true }
+}
+
+export async function loginAction(formData: FormData) {
+    const username = formData.get('username') as string
+    const password = formData.get('password') as string
+
+    if (!username || !password) return { error: 'Missing fields' }
+
+    const email = `${username}@post.runi.ac.il`
+
+    const user = await prisma.user.findUnique({ where: { email } })
+    if (!user || !user.passwordHash) return { error: 'Invalid username or password.' }
+
+    const isValid = await bcrypt.compare(password, user.passwordHash)
+    if (!isValid) return { error: 'Invalid username or password.' }
+
+    const session = await encrypt({ userId: user.id, email: user.email })
+    const cookieStore = await cookies()
+    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/' })
 
     return { success: true }
 }
