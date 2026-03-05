@@ -22,7 +22,7 @@ export default async function Home() {
         </h1>
         <p className="hero-subtitle">
           Real ratings and test tips from your peers at the university.
-          Make informed decisions for your next semester.
+          Make informed decisions for your next semester. For more precise information about the courses, you should search the <a href="https://www.runi.ac.il/yedion/en/pages/generalsearch.aspx" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'inherit' }}>Yedion</a>
         </p>
 
 
