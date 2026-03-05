@@ -1,47 +1,23 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import bcrypt from 'bcryptjs'
 import { cookies } from 'next/headers'
 import { encrypt, logout, getSession } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 
-export async function registerAction(formData: FormData) {
-    const username = formData.get('username') as string
-    const password = formData.get('password') as string
-
-    if (!username || !password) return { error: 'Missing fields' }
-
-    const email = `${username}@post.runi.ac.il`
-
-    const existing = await prisma.user.findUnique({ where: { email } })
-    if (existing) return { error: 'An account with this username already exists.' }
-
-    const passwordHash = await bcrypt.hash(password, 10)
-    const user = await prisma.user.create({
-        data: { email, passwordHash, name: username, emailVerified: true }
-    })
-
-    const session = await encrypt({ userId: user.id, email: user.email })
-    const cookieStore = await cookies()
-    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/', maxAge: 60 * 60 * 24 * 30 })
-
-    return { success: true }
-}
-
 export async function loginAction(formData: FormData) {
     const username = formData.get('username') as string
-    const password = formData.get('password') as string
 
-    if (!username || !password) return { error: 'Missing fields' }
+    if (!username) return { error: 'Please enter your username.' }
 
     const email = `${username}@post.runi.ac.il`
 
-    const user = await prisma.user.findUnique({ where: { email } })
-    if (!user || !user.passwordHash) return { error: 'Invalid username or password.' }
-
-    const isValid = await bcrypt.compare(password, user.passwordHash)
-    if (!isValid) return { error: 'Invalid username or password.' }
+    let user = await prisma.user.findUnique({ where: { email } })
+    if (!user) {
+        user = await prisma.user.create({
+            data: { email, name: username, emailVerified: true }
+        })
+    }
 
     const session = await encrypt({ userId: user.id, email: user.email })
     const cookieStore = await cookies()

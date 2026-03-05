@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 import { loginAction } from '@/lib/actions'
 
 export default function LoginPage() {
@@ -47,31 +46,16 @@ export default function LoginPage() {
                                 name="username"
                                 type="text"
                                 className="input"
-                                placeholder="roee.sivan"
+                                placeholder="firstname.lastname"
                                 required
                             />
                             <span className="email-suffix">@post.runi.ac.il</span>
                         </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            className="input"
-                            placeholder="••••••••"
-                            required
-                        />
-                    </div>
                     <button type="submit" className="btn-primary w-full" disabled={loading}>
                         {loading ? 'Signing in...' : 'Sign In'}
                     </button>
                 </form>
-
-                <p className="auth-footer">
-                    No account yet? <Link href="/register" className="text-primary-link">Create one</Link>
-                </p>
             </div>
 
             <style>{`
