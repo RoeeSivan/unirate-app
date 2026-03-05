@@ -1,13 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { loginAction } from '@/lib/actions'
 
 export default function LoginPage() {
-    const router = useRouter()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const [sent, setSent] = useState(false)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -18,15 +17,25 @@ export default function LoginPage() {
             const res = await loginAction(formData)
             if (res?.error) {
                 setError(res.error)
-            } else {
-                router.push('/')
-                router.refresh()
+            } else if (res?.sent) {
+                setSent(true)
             }
         } catch {
             setError('An unexpected error occurred.')
         } finally {
             setLoading(false)
         }
+    }
+
+    if (sent) {
+        return (
+            <div className="auth-container animate-fade-in">
+                <div className="card card-glass auth-card" style={{ textAlign: 'center' }}>
+                    <h1 className="auth-title">Check your inbox</h1>
+                    <p className="auth-subtitle">We sent a sign-in link to your Reichman email. Click it to get in.</p>
+                </div>
+            </div>
+        )
     }
 
     return (
@@ -53,7 +62,7 @@ export default function LoginPage() {
                         </div>
                     </div>
                     <button type="submit" className="btn-primary w-full" disabled={loading}>
-                        {loading ? 'Signing in...' : 'Sign In'}
+                        {loading ? 'Sending link...' : 'Sign In'}
                     </button>
                 </form>
             </div>

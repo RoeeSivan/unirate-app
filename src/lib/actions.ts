@@ -1,9 +1,10 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { cookies } from 'next/headers'
-import { encrypt, logout, getSession } from '@/lib/auth'
+import { logout, getSession } from '@/lib/auth'
 import { redirect } from 'next/navigation'
+import { sendVerificationEmail } from '@/lib/email'
+import { randomBytes } from 'crypto'
 
 export async function loginAction(formData: FormData) {
     const username = formData.get('username') as string
@@ -15,15 +16,19 @@ export async function loginAction(formData: FormData) {
     let user = await prisma.user.findUnique({ where: { email } })
     if (!user) {
         user = await prisma.user.create({
-            data: { email, name: username, emailVerified: true }
+            data: { email, name: username, emailVerified: false }
         })
     }
 
-    const session = await encrypt({ userId: user.id, email: user.email })
-    const cookieStore = await cookies()
-    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/', maxAge: 60 * 60 * 24 * 30 })
+    const token = randomBytes(32).toString('hex')
+    await prisma.user.update({
+        where: { id: user.id },
+        data: { verificationToken: token },
+    })
 
-    return { success: true }
+    await sendVerificationEmail(email, token)
+
+    return { sent: true }
 }
 
 export async function logoutAction() {
