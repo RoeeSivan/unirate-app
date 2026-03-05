@@ -73,7 +73,7 @@ export default async function CoursePage({ params }: { params: { id: string } })
                                                 ))}
                                             </div>
                                         )}
-                                        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>{review.user.name}</p>
+                                        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>{review.isAnonymous ? 'Anonymous' : review.user.name}</p>
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{new Date(review.createdAt).toLocaleDateString()}</span>

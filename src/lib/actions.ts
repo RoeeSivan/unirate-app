@@ -45,6 +45,7 @@ export async function addReviewAction(formData: FormData) {
     const rating = typeof ratingRaw === 'string' ? parseInt(ratingRaw, 10) : 0
     const courseTip = (formData.get('courseTip') as string) || null
     const testTip = (formData.get('testTip') as string) || null
+    const isAnonymous = formData.get('isAnonymous') === 'true'
 
     if (!courseId || isNaN(rating)) {
         return { error: 'Missing or invalid required fields' }
@@ -56,6 +57,7 @@ export async function addReviewAction(formData: FormData) {
                 userId: session.userId as string,
                 courseId,
                 rating,
+                isAnonymous,
                 courseTip,
                 testTip,
             },

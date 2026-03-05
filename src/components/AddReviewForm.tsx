@@ -9,6 +9,7 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
     const router = useRouter()
     const [rating, setRating] = useState(0)
     const [hoverRating, setHoverRating] = useState(0)
+    const [anonymous, setAnonymous] = useState(false)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const formRef = useRef<HTMLFormElement>(null)
@@ -29,6 +30,7 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
         const formData = new FormData(formElement || e.currentTarget)
         formData.append('courseId', courseId)
         formData.append('rating', rating.toString())
+        formData.append('isAnonymous', anonymous.toString())
 
         let res: any
         try {
@@ -118,6 +120,16 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                         style={{ resize: 'vertical' }}
                     />
                 </div>
+
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+                    <input
+                        type="checkbox"
+                        checked={anonymous}
+                        onChange={e => setAnonymous(e.target.checked)}
+                        style={{ width: '1rem', height: '1rem', cursor: 'pointer' }}
+                    />
+                    Post anonymously
+                </label>
 
                 <button
                     type="submit"

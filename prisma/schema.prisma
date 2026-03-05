@@ -36,9 +36,10 @@ model Course {
 
 model Review {
   id        String   @id @default(cuid())
-  rating    Int      // 1-5
-  courseTip String?
-  testTip   String?
+  rating      Int      // 1-5
+  courseTip   String?
+  testTip     String?
+  isAnonymous Boolean  @default(false)
   
   courseId  String
   course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
