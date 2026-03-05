@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     // Set session cookie and redirect home
     const session = await encrypt({ userId: user.id, email: user.email })
     const cookieStore = await cookies()
-    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/' })
+    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/', maxAge: 60 * 60 * 24 * 30 })
 
     return NextResponse.redirect(new URL('/', request.url))
 }
