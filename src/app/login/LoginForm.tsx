@@ -49,7 +49,7 @@ export default function LoginForm() {
             <div className="auth-container animate-fade-in">
                 <div className="card card-glass auth-card" style={{ textAlign: 'center' }}>
                     <h1 className="auth-title">Check your inbox</h1>
-                    <p className="auth-subtitle">We sent a sign-in link to your Reichman email. Click it and you'll be signed in automatically.</p>
+                    <p className="auth-subtitle">We sent a sign-in link to your Reichman email. Click it and you'll be signed in automatically, in the meantime, close this tab.</p>
                     <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '1.5rem' }}>Waiting for verification...</p>
                 </div>
             </div>
