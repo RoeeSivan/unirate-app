@@ -54,7 +54,7 @@ export default function RegisterPage() {
                                 name="username"
                                 type="text"
                                 className="input"
-                                placeholder="roee.sivan"
+                                placeholder="firstname.lastname"
                                 required
                             />
                             <span className="email-suffix">@post.runi.ac.il</span>
