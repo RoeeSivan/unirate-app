@@ -13,22 +13,27 @@ export async function loginAction(formData: FormData) {
 
     const email = `${username}@post.runi.ac.il`
 
-    let user = await prisma.user.findUnique({ where: { email } })
-    if (!user) {
-        user = await prisma.user.create({
-            data: { email, name: username, emailVerified: false }
+    try {
+        let user = await prisma.user.findUnique({ where: { email } })
+        if (!user) {
+            user = await prisma.user.create({
+                data: { email, name: username, emailVerified: false }
+            })
+        }
+
+        const token = randomBytes(32).toString('hex')
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { verificationToken: token },
         })
+
+        await sendVerificationEmail(email, token)
+
+        return { sent: true }
+    } catch (err) {
+        console.error('loginAction error:', err)
+        return { error: 'Something went wrong. Please try again.' }
     }
-
-    const token = randomBytes(32).toString('hex')
-    await prisma.user.update({
-        where: { id: user.id },
-        data: { verificationToken: token },
-    })
-
-    await sendVerificationEmail(email, token)
-
-    return { sent: true }
 }
 
 export async function logoutAction() {

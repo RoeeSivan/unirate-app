@@ -1,12 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { loginAction } from '@/lib/actions'
 
 export default function LoginForm() {
     const router = useRouter()
-    const [error, setError] = useState('')
+    const searchParams = useSearchParams()
+    const [error, setError] = useState(
+        searchParams.get('error') === 'invalid'
+            ? 'This link has expired or already been used. Enter your username to get a new one.'
+            : ''
+    )
     const [loading, setLoading] = useState(false)
     const [sent, setSent] = useState(false)
 
