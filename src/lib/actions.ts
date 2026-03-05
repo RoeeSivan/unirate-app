@@ -24,7 +24,7 @@ export async function registerAction(formData: FormData) {
 
     const session = await encrypt({ userId: user.id, email: user.email })
     const cookieStore = await cookies()
-    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/' })
+    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/', maxAge: 60 * 60 * 24 * 30 })
 
     return { success: true }
 }
@@ -45,7 +45,7 @@ export async function loginAction(formData: FormData) {
 
     const session = await encrypt({ userId: user.id, email: user.email })
     const cookieStore = await cookies()
-    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/' })
+    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/', maxAge: 60 * 60 * 24 * 30 })
 
     return { success: true }
 }
