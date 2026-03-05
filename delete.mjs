@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("connecting to neon database");
 
-  const courseTitle = "Introduction to Microeconomics";
+  const courseTitle = "Finance Fundamentals";
 
   try {
     const deletedCourse = await prisma.course.delete({
