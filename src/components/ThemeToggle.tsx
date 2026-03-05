@@ -35,10 +35,10 @@ export default function ThemeToggle() {
     return (
         <button
             onClick={toggle}
-            className="btn-outline"
-            style={{ fontSize: '0.875rem' }}
+            className="btn-primary"
+            style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}
         >
-            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+            {theme === 'dark' ? '☀ Light' : '☾ Dark'}
         </button>
     )
 }
