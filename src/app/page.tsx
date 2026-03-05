@@ -3,9 +3,11 @@ import { BookOpen, Star, MessageSquare } from "lucide-react";
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import CoursesList from '../components/CoursesList';
+import { getSession } from '@/lib/auth';
 
 
 export default async function Home() {
+  const session = await getSession();
   // fetch all courses once on the server; filtering will happen client-side
   const courses = await prisma.course.findMany({
     include: { reviews: true }
@@ -27,7 +29,7 @@ export default async function Home() {
       </header>
 
       <section style={{ maxWidth: '800px', margin: '0 auto 4rem auto' }}>
-        <CoursesList courses={courses} />
+        <CoursesList courses={courses} isLoggedIn={!!session} />
       </section>
 
       <section className="features-grid">

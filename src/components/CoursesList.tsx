@@ -18,9 +18,10 @@ interface CourseData {
 
 interface CoursesListProps {
   courses: CourseData[];
+  isLoggedIn: boolean;
 }
 
-export default function CoursesList({ courses }: CoursesListProps) {
+export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
   const [mounted, setMounted] = useState(false);
   const [q, setQ] = useState('');
   const [year, setYear] = useState('');
@@ -56,6 +57,9 @@ export default function CoursesList({ courses }: CoursesListProps) {
 
   if (!mounted) return null;
 
+  const visibleCourses = isLoggedIn ? filtered : filtered.slice(0, 10);
+  const hiddenCount = isLoggedIn ? 0 : filtered.length - visibleCourses.length;
+
   return (
     <>
       {/* Filters Section */}
@@ -87,7 +91,7 @@ export default function CoursesList({ courses }: CoursesListProps) {
       {/* Render Filtered Courses List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {filtered.length > 0 ? (
-          filtered.map(course => {
+          visibleCourses.map(course => {
             const avgRating = course.reviews && course.reviews.length > 0
               ? course.reviews.reduce((acc, r) => acc + r.rating, 0) / course.reviews.length
               : 0;
@@ -141,6 +145,13 @@ export default function CoursesList({ courses }: CoursesListProps) {
           })
         ) : (
           <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>No courses found matching your filters.</p>
+        )}
+        {hiddenCount > 0 && (
+          <div style={{ textAlign: 'center', padding: '2rem', borderRadius: 'var(--radius)', border: '1px dashed var(--border)', marginTop: '0.5rem' }}>
+            <p style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>+{hiddenCount} more courses</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: '1rem' }}>Sign in with your Reichman account to see all courses.</p>
+            <a href="/login" className="btn-primary" style={{ display: 'inline-block', padding: '0.5rem 1.5rem' }}>Sign In</a>
+          </div>
         )}
       </div>
     </>
