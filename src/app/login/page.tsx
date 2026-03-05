@@ -1,14 +1,21 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { loginAction } from '@/lib/actions'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { sendMagicLinkAction } from '@/lib/actions'
 
 export default function LoginPage() {
-    const router = useRouter()
+    const searchParams = useSearchParams()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const [emailSent, setEmailSent] = useState(false)
+    const [submittedEmail, setSubmittedEmail] = useState('')
+
+    useEffect(() => {
+        if (searchParams.get('error') === 'invalid') {
+            setError('This sign-in link is invalid or has already been used. Please request a new one.')
+        }
+    }, [searchParams])
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -16,13 +23,14 @@ export default function LoginPage() {
         setError('')
 
         const formData = new FormData(e.currentTarget)
+        const email = formData.get('email') as string
         try {
-            const res = await loginAction(formData)
+            const res = await sendMagicLinkAction(formData)
             if (res?.error) {
                 setError(res.error)
             } else {
-                router.push('/')
-                router.refresh()
+                setSubmittedEmail(email)
+                setEmailSent(true)
             }
         } catch (err) {
             setError('An unexpected error occurred.')
@@ -31,11 +39,35 @@ export default function LoginPage() {
         }
     }
 
+    if (emailSent) {
+        return (
+            <div className="auth-container animate-fade-in">
+                <div className="card card-glass auth-card" style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📬</div>
+                    <h1 className="auth-title">Check Your Inbox</h1>
+                    <p className="auth-subtitle">
+                        We sent a sign-in link to<br />
+                        <strong>{submittedEmail}</strong>
+                    </p>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginTop: '1rem' }}>
+                        Open your Reichman email and click the link to sign in. It expires in 24 hours.
+                    </p>
+                    <button
+                        onClick={() => { setEmailSent(false); setSubmittedEmail('') }}
+                        style={{ marginTop: '2rem', background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 500 }}
+                    >
+                        Use a different email
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="auth-container animate-fade-in">
             <div className="card card-glass auth-card">
-                <h1 className="auth-title">Welcome Back</h1>
-                <p className="auth-subtitle">Sign in to rate courses and see tips.</p>
+                <h1 className="auth-title">Sign In</h1>
+                <p className="auth-subtitle">Enter your Reichman email and we'll send you a sign-in link.</p>
 
                 {error && <div className="error-message">{error}</div>}
 
@@ -47,29 +79,14 @@ export default function LoginPage() {
                             name="email"
                             type="email"
                             className="input"
-                            placeholder="e.g. name@post.runi.ac.il"
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            className="input"
-                            placeholder="••••••••"
+                            placeholder="name@post.runi.ac.il"
                             required
                         />
                     </div>
                     <button type="submit" className="btn-primary w-full" disabled={loading}>
-                        {loading ? 'Signing In...' : 'Sign In'}
+                        {loading ? 'Sending link...' : 'Send Sign-In Link'}
                     </button>
                 </form>
-
-                <p className="auth-footer">
-                    Don't have an account? <Link href="/register" className="text-primary-link">Register</Link>
-                </p>
             </div>
 
             <style>{`
@@ -80,7 +97,7 @@ export default function LoginPage() {
           min-height: calc(100vh - 200px);
           padding: 2rem;
         }
-        
+
         .auth-card {
           width: 100%;
           max-width: 400px;
@@ -113,9 +130,7 @@ export default function LoginPage() {
           color: var(--text-muted);
         }
 
-        .w-full {
-          width: 100%;
-        }
+        .w-full { width: 100%; }
 
         .error-message {
           background-color: rgba(239, 68, 68, 0.1);
@@ -125,23 +140,6 @@ export default function LoginPage() {
           font-size: 0.875rem;
           margin-bottom: 1.5rem;
           border: 1px solid rgba(239, 68, 68, 0.2);
-        }
-
-        .auth-footer {
-          margin-top: 2rem;
-          text-align: center;
-          font-size: 0.875rem;
-          color: var(--text-muted);
-        }
-
-        .text-primary-link {
-          color: var(--primary);
-          font-weight: 500;
-        }
-        
-        .text-primary-link:hover {
-          color: var(--primary-hover);
-          text-decoration: underline;
         }
       `}</style>
         </div>

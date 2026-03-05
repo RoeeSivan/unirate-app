@@ -1,50 +1,35 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import bcrypt from 'bcryptjs'
-import { cookies } from 'next/headers'
-import { encrypt, logout, getSession } from '@/lib/auth'
+import { logout, getSession } from '@/lib/auth'
+import { sendVerificationEmail } from '@/lib/email'
+import { randomBytes } from 'crypto'
 import { redirect } from 'next/navigation'
 
-export async function registerAction(formData: FormData) {
+export async function sendMagicLinkAction(formData: FormData) {
     const email = formData.get('email') as string
-    const password = formData.get('password') as string
 
-    if (!email || !password) return { error: 'Missing fields' }
+    if (!email) return { error: 'Please enter your email.' }
     if (!email.endsWith('@post.runi.ac.il')) {
-        return { error: 'Email must end with @post.runi.ac.il to register.' }
+        return { error: 'Only @post.runi.ac.il emails are allowed.' }
     }
 
-    const existing = await prisma.user.findUnique({ where: { email } })
-    if (existing) return { error: 'Email already exists' }
+    const token = randomBytes(32).toString('hex')
 
-    const passwordHash = await bcrypt.hash(password, 10)
-    const user = await prisma.user.create({
-        data: { email, passwordHash, name: email.split('@')[0] }
+    // Upsert: create account if new, otherwise just refresh the token
+    await prisma.user.upsert({
+        where: { email },
+        update: { verificationToken: token },
+        create: {
+            email,
+            name: email.split('@')[0],
+            verificationToken: token,
+            emailVerified: false,
+        },
     })
 
-    // Log in immediately
-    const session = await encrypt({ userId: user.id, email: user.email })
-    const cookieStore = await cookies()
-    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/' })
-    return { success: true }
-}
+    await sendVerificationEmail(email, token)
 
-export async function loginAction(formData: FormData) {
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-
-    if (!email || !password) return { error: 'Missing fields' }
-
-    const user = await prisma.user.findUnique({ where: { email } })
-    if (!user) return { error: 'Invalid credentials' }
-
-    const isValid = await bcrypt.compare(password, user.passwordHash)
-    if (!isValid) return { error: 'Invalid credentials' }
-
-    const session = await encrypt({ userId: user.id, email: user.email })
-    const cookieStore = await cookies()
-    cookieStore.set('session', session, { httpOnly: true, secure: true, sameSite: 'lax', path: '/' })
     return { success: true }
 }
 
@@ -57,7 +42,6 @@ export async function addReviewAction(formData: FormData) {
     const session = await getSession()
     if (!session) return { error: 'Unauthorized' }
 
-    // extract and validate incoming data
     const courseId = formData.get('courseId') as string
     const ratingRaw = formData.get('rating')
     const rating = typeof ratingRaw === 'string' ? parseInt(ratingRaw, 10) : NaN
@@ -80,14 +64,12 @@ export async function addReviewAction(formData: FormData) {
         })
     } catch (err) {
         console.error('Failed to create review:', err)
-        // bubble a descriptive message back so client doesn't fall into the generic catch
         return { error: 'Failed to save review, please try again later.' }
     }
 
     return { success: true }
 }
-// server-side action to delete a review; the author may remove it, and a specific admin user
-// (roee.sivan@post.runi.ac.il) can delete any review
+
 export async function deleteReviewAction(reviewId: string) {
     const session = await getSession()
     if (!session) return { error: 'Unauthorized' }
@@ -100,7 +82,6 @@ export async function deleteReviewAction(reviewId: string) {
     const ADMIN_EMAIL = 'roee.sivan@post.runi.ac.il'
     const isAdmin = session.email === ADMIN_EMAIL
 
-    // allow if author or admin
     if (review.userId !== session.userId && !isAdmin) {
         return { error: 'Forbidden' }
     }
