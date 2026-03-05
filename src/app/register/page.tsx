@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { registerAction } from '@/lib/actions'
+import { loginAction } from '@/lib/actions'
 
 export default function RegisterPage() {
     const router = useRouter()
@@ -15,15 +15,8 @@ export default function RegisterPage() {
         setLoading(true)
         setError('')
         const formData = new FormData(e.currentTarget)
-        const password = formData.get('password') as string
-        const confirm = formData.get('confirm') as string
-        if (password !== confirm) {
-            setError('Passwords do not match.')
-            setLoading(false)
-            return
-        }
         try {
-            const res = await registerAction(formData)
+            const res = await loginAction(formData)
             if (res?.error) {
                 setError(res.error)
             } else {
