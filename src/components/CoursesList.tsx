@@ -131,6 +131,11 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
                         {course.tags.join(', ')}
                       </span>
                     )}
+                    {course.year && (
+                      <span style={{ fontSize: '0.7rem', fontWeight: 'bold', backgroundColor: 'var(--surface-hover)', color: 'var(--text-muted)', padding: '0.125rem 0.375rem', borderRadius: '4px' }}>
+                        {lang === 'he' ? `שנה ${course.year}` : `Year ${course.year}`}
+                      </span>
+                    )}
                     {course.isMandatory && (
                       <span style={{ fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary)', border: '1px solid rgba(99, 102, 241, 0.2)', padding: '0.125rem 0.375rem', borderRadius: '4px' }}>{t('mandatory', lang)}</span>
                     )}
