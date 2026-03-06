@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { BookOpen, Star, MessageSquare } from "lucide-react";
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import CoursesList from '../components/CoursesList';
 import { getSession } from '@/lib/auth';
 
@@ -29,7 +30,9 @@ export default async function Home() {
       </header>
 
       <section style={{ maxWidth: '800px', margin: '0 auto 4rem auto' }}>
-        <CoursesList courses={courses} isLoggedIn={!!session} />
+        <Suspense fallback={null}>
+          <CoursesList courses={courses} isLoggedIn={!!session} />
+        </Suspense>
       </section>
 
       <section className="features-grid">

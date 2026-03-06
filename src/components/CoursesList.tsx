@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 // Updated to match the data types coming from the Prisma schema
 interface CourseData {
   id: string;
   title: string;
   description: string | null;
-  year?: number | null; 
+  year?: number | null;
   semester?: string | null;
   isMandatory?: boolean;
   tags?: string[];
@@ -22,11 +23,23 @@ interface CoursesListProps {
 }
 
 export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
-  const [q, setQ] = useState('');
-  const [year, setYear] = useState('');
-  const [semester, setSemester] = useState('');
-  const [mandatory, setMandatory] = useState('');
+  const [q, setQ] = useState(searchParams.get('q') || '');
+  const [year, setYear] = useState(searchParams.get('year') || '');
+  const [semester, setSemester] = useState(searchParams.get('semester') || '');
+  const [mandatory, setMandatory] = useState(searchParams.get('type') || '');
+
+  const updateURL = useCallback((key: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }, [searchParams, router]);
 
   useEffect(() => {
     setMounted(true);
@@ -68,20 +81,20 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
           placeholder="Search courses..."
           className="input"
           value={q}
-          onChange={e => setQ(e.target.value)}
+          onChange={e => { setQ(e.target.value); updateURL('q', e.target.value); }}
         />
-        <select value={year} className="input" onChange={e => setYear(e.target.value)}>
+        <select value={year} className="input" onChange={e => { setYear(e.target.value); updateURL('year', e.target.value); }}>
           <option value="">Year</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
         </select>
-        <select value={semester} className="input" onChange={e => setSemester(e.target.value)}>
+        <select value={semester} className="input" onChange={e => { setSemester(e.target.value); updateURL('semester', e.target.value); }}>
           <option value="">Semester</option>
           <option value="A">A</option>
           <option value="B">B</option>
         </select>
-        <select value={mandatory} className="input" onChange={e => setMandatory(e.target.value)}>
+        <select value={mandatory} className="input" onChange={e => { setMandatory(e.target.value); updateURL('type', e.target.value); }}>
           <option value="">All</option>
           <option value="true">Mandatory</option>
           <option value="false">Elective</option>

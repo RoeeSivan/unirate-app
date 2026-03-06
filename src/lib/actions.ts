@@ -11,6 +11,11 @@ export async function loginAction(formData: FormData) {
 
     if (!username) return { error: 'Please enter your username.' }
 
+    // Only allow letters, numbers, dots, hyphens, underscores (valid email usernames)
+    if (!/^[a-zA-Z0-9._-]+$/.test(username)) {
+        return { error: 'Invalid username. Use only letters, numbers, dots, or hyphens.' }
+    }
+
     const email = `${username}@post.runi.ac.il`
 
     try {
