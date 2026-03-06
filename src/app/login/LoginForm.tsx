@@ -3,13 +3,16 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { loginAction } from '@/lib/actions'
+import { useLang } from '@/components/LanguageProvider'
+import { t } from '@/lib/translations'
 
 export default function LoginForm() {
+    const { lang } = useLang()
     const router = useRouter()
     const searchParams = useSearchParams()
     const [error, setError] = useState(
         searchParams.get('error') === 'invalid'
-            ? 'This link has expired or already been used. Enter your username to get a new one.'
+            ? t('linkExpired', lang)
             : ''
     )
     const [loading, setLoading] = useState(false)
@@ -53,9 +56,9 @@ export default function LoginForm() {
         return (
             <div className="auth-container animate-fade-in">
                 <div className="card card-glass auth-card" style={{ textAlign: 'center' }}>
-                    <h1 className="auth-title">Check your inbox</h1>
-                    <p className="auth-subtitle">We sent a sign-in link to your Reichman email. Click it and you'll be signed in automatically, in the meantime, close this tab.</p>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '1.5rem' }}>Waiting for verification...</p>
+                    <h1 className="auth-title">{t('checkInbox', lang)}</h1>
+                    <p className="auth-subtitle">{t('checkInboxDesc', lang)}</p>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '1.5rem' }}>{t('waitingForVerification', lang)}</p>
                 </div>
             </div>
         )
@@ -64,14 +67,14 @@ export default function LoginForm() {
     return (
         <div className="auth-container animate-fade-in">
             <div className="card card-glass auth-card">
-                <h1 className="auth-title">Sign In</h1>
-                <p className="auth-subtitle">Use your Reichman university account.</p>
+                <h1 className="auth-title">{t('signInTitle', lang)}</h1>
+                <p className="auth-subtitle">{t('useReichmanAccount', lang)}</p>
 
                 {error && <div className="error-message">{error}</div>}
 
                 <form onSubmit={handleSubmit} className="auth-form">
                     <div className="form-group">
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username">{t('username', lang)}</label>
                         <div className="email-input-row">
                             <input
                                 id="username"
@@ -85,7 +88,7 @@ export default function LoginForm() {
                         </div>
                     </div>
                     <button type="submit" className="btn-primary w-full" disabled={loading}>
-                        {loading ? 'Sending link...' : 'Sign In'}
+                        {loading ? t('sendingLink', lang) : t('signIn', lang)}
                     </button>
                 </form>
             </div>

@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { getSession } from "@/lib/auth";
-import { logoutAction } from "@/lib/actions";
-import Link from "next/link";
-import ThemeToggle from "@/components/ThemeToggle";
+import { LanguageProvider } from "@/components/LanguageProvider";
+import Navbar from "@/components/Navbar";
 import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
@@ -33,35 +32,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <nav className="navbar container">
-          <Link href="/" className="navbar-logo">
-            <span className="text-gradient">Uni-Rate.com</span>
-          </Link>
-          <div className="navbar-links" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-            <ThemeToggle />
-            {session ? (
-              <>
-                <span className="text-muted">Hey, {session.email.split('@')[0]}</span>
-                <form action={logoutAction}>
-                  <button type="submit" className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
-                    Sign Out
-                  </button>
-                </form>
-              </>
-            ) : (
-              <Link href="/login" className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
-                Sign In
-              </Link>
-            )}
-          </div>
-        </nav>
-        <main className="container">
-          {children}
-        </main>
-        
-        {/* Vercel Analytics Component */}
+        <LanguageProvider>
+          <Navbar session={session ? { email: session.email } : null} />
+          <main className="container">
+            {children}
+          </main>
+        </LanguageProvider>
+
         <Analytics />
-        
+
       </body>
     </html>
   );

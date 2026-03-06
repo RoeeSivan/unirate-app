@@ -1,33 +1,20 @@
 export const dynamic = 'force-dynamic';
-import { BookOpen, Star, MessageSquare } from "lucide-react";
 import { prisma } from '@/lib/prisma';
-import Link from 'next/link';
 import { Suspense } from 'react';
 import CoursesList from '../components/CoursesList';
+import { HeroSection, FeaturesSection } from '../components/HomeContent';
 import { getSession } from '@/lib/auth';
 
 
 export default async function Home() {
   const session = await getSession();
-  // fetch all courses once on the server; filtering will happen client-side
   const courses = await prisma.course.findMany({
     include: { reviews: true }
   });
 
-
   return (
     <div className="page-wrapper animate-fade-in">
-      <header className="hero">
-        <h1 className="hero-title">
-          Discover the Best <span className="text-gradient">Courses</span>
-        </h1>
-        <p className="hero-subtitle">
-          Real ratings and test tips from your peers at the university.
-          Make informed decisions for your next semester. For more precise information about the courses, you should search the <a href="https://www.runi.ac.il/yedion/en/pages/generalsearch.aspx" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'inherit' }}>Yedion</a>
-        </p>
-
-
-      </header>
+      <HeroSection />
 
       <section style={{ maxWidth: '800px', margin: '0 auto 4rem auto' }}>
         <Suspense fallback={null}>
@@ -35,25 +22,7 @@ export default async function Home() {
         </Suspense>
       </section>
 
-      <section className="features-grid">
-        <div className="card feature-card delay-100" style={{ boxShadow: 'var(--shadow-sm)' }}>
-          <div className="feature-icon"><Star size={24} /></div>
-          <h3>Honest Ratings</h3>
-          <p className="text-muted">See what students really think about the workload and difficulty.</p>
-        </div>
-
-        <div className="card feature-card delay-200" style={{ boxShadow: 'var(--shadow-sm)' }}>
-          <div className="feature-icon"><BookOpen size={24} /></div>
-          <h3>Course Tips</h3>
-          <p className="text-muted">Get a head start with advice on assignments and lectures.</p>
-        </div>
-
-        <div className="card feature-card delay-300" style={{ boxShadow: 'var(--shadow-sm)' }}>
-          <div className="feature-icon"><MessageSquare size={24} /></div>
-          <h3>Test Strategies</h3>
-          <p className="text-muted">Learn exactly how to study for the midterm and final exams.</p>
-        </div>
-      </section>
+      <FeaturesSection />
 
       <style>{`
         .page-wrapper {

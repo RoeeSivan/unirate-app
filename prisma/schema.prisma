@@ -23,7 +23,9 @@ model User {
 model Course {
   id          String   @id @default(cuid())
   title       String   @unique
+  titleHe     String?
   description String?
+  descriptionHe String?
   isMandatory Boolean  @default(true)
   tags        String[] @default([])   // e.g. "Elective","E","A","ML"
   // added for filtering

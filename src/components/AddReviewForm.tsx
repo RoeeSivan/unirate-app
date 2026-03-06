@@ -4,8 +4,11 @@ import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { addReviewAction } from '@/lib/actions'
 import { Star } from 'lucide-react'
+import { useLang } from './LanguageProvider'
+import { t } from '@/lib/translations'
 
 export default function AddReviewForm({ courseId, isMandatory }: { courseId: string, isMandatory: boolean }) {
+    const { lang } = useLang()
     const router = useRouter()
     const [rating, setRating] = useState(0)
     const [hoverRating, setHoverRating] = useState(0)
@@ -17,7 +20,7 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (!isMandatory && rating === 0) {
-            setError('Please select a rating')
+            setError(t('pleaseSelectRating', lang))
             return
         }
 
@@ -61,7 +64,7 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
 
     return (
         <div className="card card-glass">
-            <h3 style={{ fontWeight: 'bold', fontSize: '1.25rem', marginBottom: '1rem' }}>Add Your Rating</h3>
+            <h3 style={{ fontWeight: 'bold', fontSize: '1.25rem', marginBottom: '1rem' }}>{t('addYourRating', lang)}</h3>
 
             {error && (
                 <div style={{ backgroundColor: 'white', color: '#ef4444', padding: '0.75rem', borderRadius: '8px', fontSize: '0.875rem', marginBottom: '1rem', border: '1px solid #ef4444' }}>
@@ -72,7 +75,7 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
             <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 {!isMandatory && (
                     <div>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Overall Rating</label>
+                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>{t('overallRating', lang)}</label>
                         <div style={{ display: 'flex', gap: '0.25rem' }}>
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <button
@@ -98,35 +101,35 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                 )}
 
                 <div>
-                    <label htmlFor="courseTip" style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Course Tip (Optional)</label>
+                    <label htmlFor="courseTip" style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>{t('courseTipOptional', lang)}</label>
                     <textarea
                         id="courseTip"
                         name="courseTip"
                         dir="auto"
                         className="input"
-                        placeholder="What should students know about the lectures, assignments, etc.?"
+                        placeholder={t('courseTipPlaceholder', lang)}
                         rows={3}
                         style={{ resize: 'vertical' }}
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="testTip" style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Test Tip (Optional)</label>
+                    <label htmlFor="testTip" style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>{t('testTipOptional', lang)}</label>
                     <textarea
                         id="testTip"
                         name="testTip"
                         dir="auto"
                         className="input"
-                        placeholder="How should someone study for the exams?"
+                        placeholder={t('testTipPlaceholder', lang)}
                         rows={2}
                         style={{ resize: 'vertical' }}
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="yearTaken" style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Year Taken</label>
+                    <label htmlFor="yearTaken" style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>{t('yearTaken', lang)}</label>
                     <select id="yearTaken" name="yearTaken" className="input" defaultValue="" style={{ cursor: 'pointer' }}>
-                        <option value="" disabled>Select year</option>
+                        <option value="" disabled>{t('selectYear', lang)}</option>
                         {[2022, 2023, 2024, 2025, 2026].map(y => (
                             <option key={y} value={y}>{y}</option>
                         ))}
@@ -140,7 +143,7 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                         onChange={e => setAnonymous(e.target.checked)}
                         style={{ width: '1rem', height: '1rem', cursor: 'pointer' }}
                     />
-                    Post anonymously
+                    {t('postAnonymously', lang)}
                 </label>
 
                 <button
@@ -149,7 +152,7 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                     disabled={loading || (!isMandatory && rating === 0)}
                     style={{ width: '100%' }}
                 >
-                    {loading ? 'Submitting...' : 'Submit Rating'}
+                    {loading ? t('submitting', lang) : t('submitRating', lang)}
                 </button>
             </form>
         </div>

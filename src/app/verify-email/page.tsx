@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import { encrypt } from '@/lib/auth'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import VerifyEmailContent from '@/components/VerifyEmailContent'
 
 export default async function VerifyEmailPage({
     searchParams,
@@ -39,17 +40,5 @@ export default async function VerifyEmailPage({
         redirect('/')
     }
 
-    return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '2rem' }}>
-            <div style={{ textAlign: 'center', maxWidth: '400px' }}>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Sign in to Uni-Rate</h1>
-                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Click the button below to complete your sign-in.</p>
-                <form action={confirm}>
-                    <button type="submit" className="btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1rem' }}>
-                        Complete Sign In
-                    </button>
-                </form>
-            </div>
-        </div>
-    )
+    return <VerifyEmailContent confirmAction={confirm} />
 }

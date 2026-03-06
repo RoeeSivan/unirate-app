@@ -1,10 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
-import AddReviewForm from '@/components/AddReviewForm'
-import DeleteReviewButton from '@/components/DeleteReviewButton'
-import LikeButton from '@/components/LikeButton'
 import { getSession } from '@/lib/auth'
-import { Star } from 'lucide-react'
+import CoursePageClient from '@/components/CoursePageClient'
 
 export default async function CoursePage({ params }: { params: { id: string } }) {
     const { id } = await params
@@ -28,112 +25,11 @@ export default async function CoursePage({ params }: { params: { id: string } })
         : 0
 
     return (
-        <div className="course-page animate-fade-in py-12" style={{ padding: '2rem 0' }}>
-            <div className="course-header card card-glass" style={{ marginBottom: '2rem' }}>
-                <div className="course-header-row" style={{ marginBottom: '0.5rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                      <h1 className="course-title" style={{ fontSize: '2.5rem', margin: 0 }}>{course.title}</h1>
-                      {course.tags && course.tags.length > 0 && (
-                        <span style={{ fontSize: '0.875rem', fontWeight: '500', textTransform: 'uppercase', backgroundColor: 'var(--surface-hover)', color: 'var(--text-muted)', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>
-                          {course.tags.join(', ')}
-                        </span>
-                      )}
-                    </div>
-                    {course.isMandatory && (
-                        <span style={{ fontSize: '0.875rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary)', border: '1px solid rgba(99, 102, 241, 0.2)', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>Mandatory</span>
-                    )}
-                </div>
-                <p className="text-muted text-lg mt-2">{course.description}</p>
-                {!course.isMandatory && (
-                    <div className="rating-badge" style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
-                        <Star style={{ color: '#fbbf24', fill: '#fbbf24' }} />
-                        <span style={{ fontWeight: 'bold', fontSize: '1.25rem', marginLeft: '0.5rem' }}>{avgRating.toFixed(1)}</span>
-                        <span className="text-muted" style={{ marginLeft: '0.5rem' }}>({course.reviews.length} reviews)</span>
-                    </div>
-                )}
-            </div>
-
-            <div className="grid-2cols">
-                <div className="space-y-6" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                    {session && (
-                        <div className="mobile-only" style={{ width: '100%', marginBottom: '1.5rem' }}>
-                            <AddReviewForm courseId={course.id} isMandatory={course.isMandatory} />
-                        </div>
-                    )}
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Reviews</h2>
-                    {sortedReviews.length === 0 ? (
-                        <div className="card" style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-muted)' }}>No reviews yet. Be the first!</div>
-                    ) : (
-                        sortedReviews.map(review => (
-                            <div key={review.id} className="card">
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                                    <div>
-                                        {!course.isMandatory && (
-                                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                {[1, 2, 3, 4, 5].map(star => (
-                                                    <Star key={star} size={16} style={{ color: star <= review.rating ? "#fbbf24" : "var(--border)", fill: star <= review.rating ? "#fbbf24" : "none" }} />
-                                                ))}
-                                            </div>
-                                        )}
-                                        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
-                                            {review.isAnonymous ? 'Anonymous' : review.user.name}
-                                            {review.yearTaken && <span style={{ marginLeft: '0.5rem', opacity: 0.7 }}>({review.yearTaken})</span>}
-                                        </p>
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{new Date(review.createdAt).toLocaleDateString()}</span>
-                                        {/* allow delete if the reviewer or the admin email */}
-                                        {(
-                                            session?.userId === review.userId ||
-                                            session?.email === 'roee.sivan@post.runi.ac.il'
-                                        ) && (
-                                            <DeleteReviewButton reviewId={review.id} />
-                                        )}
-                                    </div>
-                                </div>
-
-                                {review.courseTip && (
-                                    <div style={{ marginTop: '1rem' }}>
-                                        <h4 style={{ fontWeight: 'bold', fontSize: '0.875rem', color: 'var(--primary)', marginBottom: '0.25rem' }}>Course Tip</h4>
-                                        <p dir="auto" style={{ fontSize: '0.875rem', backgroundColor: 'var(--bg-color)', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)' }}>{review.courseTip}</p>
-                                    </div>
-                                )}
-                                {review.testTip && (
-                                    <div style={{ marginTop: '1rem' }}>
-                                        <h4 style={{ fontWeight: 'bold', fontSize: '0.875rem', color: '#a855f7', marginBottom: '0.25rem' }}>Test Tip</h4>
-                                        <p dir="auto" style={{ fontSize: '0.875rem', backgroundColor: 'var(--bg-color)', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)' }}>{review.testTip}</p>
-                                    </div>
-                                )}
-                                {session && (
-                                    <div style={{ marginTop: '0.75rem' }}>
-                                        <LikeButton
-                                            reviewId={review.id}
-                                            initialLiked={review.likes.some((l: any) => l.userId === session.userId)}
-                                            initialCount={review.likes.length}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        ))
-                    )}
-                </div>
-
-                <div className="sticky-sidebar">
-                    <div>
-                                <div className="desktop-only">
-                            {session ? (
-                                <AddReviewForm courseId={course.id} isMandatory={course.isMandatory} />
-                            ) : (
-                                <div className="card" style={{ textAlign: 'center' }}>
-                                    <h3 style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>Want to add a review?</h3>
-                                    <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>Sign in with your university email to share your experience.</p>
-                                    <a href="/login" className="btn-primary" style={{ display: 'block', width: '100%', textAlign: 'center' }}>Sign In</a>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <CoursePageClient
+            course={JSON.parse(JSON.stringify(course))}
+            sortedReviews={JSON.parse(JSON.stringify(sortedReviews))}
+            avgRating={avgRating}
+            session={session ? { userId: session.userId as string, email: session.email as string } : null}
+        />
     )
 }

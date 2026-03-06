@@ -3,8 +3,11 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { deleteReviewAction } from '@/lib/actions'
+import { useLang } from './LanguageProvider'
+import { t } from '@/lib/translations'
 
 export default function DeleteReviewButton({ reviewId }: { reviewId: string }) {
+    const { lang } = useLang()
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
@@ -42,7 +45,7 @@ export default function DeleteReviewButton({ reviewId }: { reviewId: string }) {
                 className="btn-outline"
                 style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}
             >
-                {loading ? 'Deleting...' : 'Delete'}
+                {loading ? t('deleting', lang) : t('delete', lang)}
             </button>
         </div>
     )
