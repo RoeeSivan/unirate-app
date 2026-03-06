@@ -36,6 +36,11 @@ export default function CoursePageClient({ course, sortedReviews, avgRating, ses
                     )}
                 </div>
                 <p dir="auto" className="text-muted text-lg mt-2">{courseDesc}</p>
+                {course.courseNumber && (
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.5rem', opacity: 0.7 }}>
+                        {t('courseNumber', lang)}: {course.courseNumber}
+                    </p>
+                )}
                 {!course.isMandatory && (
                     <div className="rating-badge" style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
                         <Star style={{ color: '#fbbf24', fill: '#fbbf24' }} />

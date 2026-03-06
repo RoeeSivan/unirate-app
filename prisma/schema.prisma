@@ -26,6 +26,7 @@ model Course {
   titleHe     String?
   description String?
   descriptionHe String?
+  courseNumber String?
   isMandatory Boolean  @default(true)
   tags        String[] @default([])   // e.g. "Elective","E","A","ML"
   // added for filtering

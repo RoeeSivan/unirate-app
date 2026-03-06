@@ -38,6 +38,7 @@ const translations = {
   reviews: { en: 'reviews', he: 'ביקורות' },
 
   // Course page
+  courseNumber: { en: 'Course Number', he: 'מספר הקורס' },
   reviewsTitle: { en: 'Reviews', he: 'ביקורות' },
   noReviewsYet: { en: 'No reviews yet. Be the first!', he: 'אין עדיין ביקורות. היו הראשונים!' },
   courseTip: { en: 'Course Tip', he: 'טיפ לקורס' },
