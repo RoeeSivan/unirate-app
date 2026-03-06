@@ -62,8 +62,10 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
         }
     }
 
+    const isRtl = lang === 'he'
+
     return (
-        <div className="card card-glass">
+        <div className="card card-glass" dir={isRtl ? 'rtl' : 'ltr'}>
             <h3 style={{ fontWeight: 'bold', fontSize: '1.25rem', marginBottom: '1rem' }}>{t('addYourRating', lang)}</h3>
 
             {error && (
@@ -109,7 +111,7 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                         className="input"
                         placeholder={t('courseTipPlaceholder', lang)}
                         rows={3}
-                        style={{ resize: 'vertical' }}
+                        style={{ resize: 'vertical', textAlign: isRtl ? 'right' : 'left' }}
                     />
                 </div>
 
@@ -122,13 +124,13 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                         className="input"
                         placeholder={t('testTipPlaceholder', lang)}
                         rows={2}
-                        style={{ resize: 'vertical' }}
+                        style={{ resize: 'vertical', textAlign: isRtl ? 'right' : 'left' }}
                     />
                 </div>
 
                 <div>
                     <label htmlFor="yearTaken" style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>{t('yearTaken', lang)}</label>
-                    <select id="yearTaken" name="yearTaken" className="input" defaultValue="" style={{ cursor: 'pointer' }}>
+                    <select id="yearTaken" name="yearTaken" className="input" defaultValue="" style={{ cursor: 'pointer', textAlign: isRtl ? 'right' : 'left' }}>
                         <option value="" disabled>{t('selectYear', lang)}</option>
                         {[2022, 2023, 2024, 2025, 2026].map(y => (
                             <option key={y} value={y}>{y}</option>
