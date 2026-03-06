@@ -130,7 +130,13 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
                   <p style={{ color: 'var(--text-muted)' }}>{course.description}</p>
                 </div>
                 
-                {!course.isMandatory && (
+                {course.isMandatory ? (
+                  course.reviews?.length > 0 && (
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem', whiteSpace: 'nowrap' }}>
+                      {course.reviews.length} {course.reviews.length === 1 ? 'review' : 'reviews'}
+                    </span>
+                  )
+                ) : (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <div style={{ display: 'flex', gap: '2px' }}>
                       {[1, 2, 3, 4, 5].map((star) => (
