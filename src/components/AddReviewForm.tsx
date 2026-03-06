@@ -102,6 +102,7 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                     <textarea
                         id="courseTip"
                         name="courseTip"
+                        dir="auto"
                         className="input"
                         placeholder="What should students know about the lectures, assignments, etc.?"
                         rows={3}
@@ -114,6 +115,7 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                     <textarea
                         id="testTip"
                         name="testTip"
+                        dir="auto"
                         className="input"
                         placeholder="How should someone study for the exams?"
                         rows={2}
