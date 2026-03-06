@@ -39,6 +39,7 @@ model Review {
   rating      Int      // 1-5
   courseTip   String?
   testTip     String?
+  yearTaken   Int?
   isAnonymous Boolean  @default(false)
   
   courseId  String

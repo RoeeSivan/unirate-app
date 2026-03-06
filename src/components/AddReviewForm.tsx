@@ -121,6 +121,16 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                     />
                 </div>
 
+                <div>
+                    <label htmlFor="yearTaken" style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Year Taken</label>
+                    <select id="yearTaken" name="yearTaken" className="input" defaultValue="" style={{ cursor: 'pointer' }}>
+                        <option value="" disabled>Select year</option>
+                        {[2022, 2023, 2024, 2025, 2026].map(y => (
+                            <option key={y} value={y}>{y}</option>
+                        ))}
+                    </select>
+                </div>
+
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
                     <input
                         type="checkbox"
