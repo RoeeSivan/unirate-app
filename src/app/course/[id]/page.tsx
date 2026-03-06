@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import AddReviewForm from '@/components/AddReviewForm'
 import DeleteReviewButton from '@/components/DeleteReviewButton'
+import LikeButton from '@/components/LikeButton'
 import { getSession } from '@/lib/auth'
 import { Star } from 'lucide-react'
 
@@ -12,7 +13,7 @@ export default async function CoursePage({ params }: { params: { id: string } })
         where: { id },
         include: {
             reviews: {
-                include: { user: true },
+                include: { user: true, likes: true },
                 orderBy: { createdAt: 'desc' }
             }
         }
@@ -21,8 +22,9 @@ export default async function CoursePage({ params }: { params: { id: string } })
     if (!course) notFound()
 
     const session = await getSession()
+    const sortedReviews = [...course.reviews].sort((a, b) => b.likes.length - a.likes.length)
     const avgRating = course.reviews.length > 0
-        ? course.reviews.reduce((acc, r) => acc + r.rating, 0) / course.reviews.length
+        ? course.reviews.reduce((acc: number, r: any) => acc + r.rating, 0) / course.reviews.length
         : 0
 
     return (
@@ -59,10 +61,10 @@ export default async function CoursePage({ params }: { params: { id: string } })
                         </div>
                     )}
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Reviews</h2>
-                    {course.reviews.length === 0 ? (
+                    {sortedReviews.length === 0 ? (
                         <div className="card" style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-muted)' }}>No reviews yet. Be the first!</div>
                     ) : (
-                        course.reviews.map(review => (
+                        sortedReviews.map(review => (
                             <div key={review.id} className="card">
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                                     <div>
@@ -100,6 +102,15 @@ export default async function CoursePage({ params }: { params: { id: string } })
                                     <div style={{ marginTop: '1rem' }}>
                                         <h4 style={{ fontWeight: 'bold', fontSize: '0.875rem', color: '#a855f7', marginBottom: '0.25rem' }}>Test Tip</h4>
                                         <p dir="auto" style={{ fontSize: '0.875rem', backgroundColor: 'var(--bg-color)', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)' }}>{review.testTip}</p>
+                                    </div>
+                                )}
+                                {session && (
+                                    <div style={{ marginTop: '0.75rem' }}>
+                                        <LikeButton
+                                            reviewId={review.id}
+                                            initialLiked={review.likes.some((l: any) => l.userId === session.userId)}
+                                            initialCount={review.likes.length}
+                                        />
                                     </div>
                                 )}
                             </div>

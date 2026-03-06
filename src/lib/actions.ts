@@ -108,3 +108,27 @@ export async function deleteReviewAction(reviewId: string) {
 
     return { success: true }
 }
+
+export async function toggleLikeAction(reviewId: string) {
+    const session = await getSession()
+    if (!session) return { error: 'Unauthorized' }
+
+    const userId = session.userId as string
+
+    try {
+        const existing = await prisma.like.findUnique({
+            where: { reviewId_userId: { reviewId, userId } }
+        })
+
+        if (existing) {
+            await prisma.like.delete({ where: { id: existing.id } })
+            return { liked: false }
+        } else {
+            await prisma.like.create({ data: { reviewId, userId } })
+            return { liked: true }
+        }
+    } catch (err) {
+        console.error('Failed to toggle like:', err)
+        return { error: 'Failed to update like.' }
+    }
+}

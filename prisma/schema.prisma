@@ -15,6 +15,7 @@ model User {
   emailVerified     Boolean  @default(false)
   verificationToken String?  @unique
   reviews           Review[]
+  likes             Like[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }
@@ -41,13 +42,29 @@ model Review {
   testTip     String?
   yearTaken   Int?
   isAnonymous Boolean  @default(false)
-  
+
   courseId  String
   course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  likes     Like[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        String   @id @default(cuid())
+
+  reviewId  String
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  @@unique([reviewId, userId])
 }
