@@ -61,11 +61,11 @@ const translations = {
 
   // Login
   signInTitle: { en: 'Sign In', he: 'התחברות' },
-  useReichmanAccount: { en: 'Use your Reichman university account.', he: 'השתמשו בחשבון אוניברסיטת רייכמן.' },
+  useReichmanAccount: { en: 'Use your Reichman university account.', he: 'השתמשו בחשבון אימייל של רייכמן שלכם.' },
   username: { en: 'Username', he: 'שם משתמש' },
   sendingLink: { en: 'Sending link...', he: 'שולח קישור...' },
-  checkInbox: { en: 'Check your inbox', he: 'בדקו את תיבת הדואר' },
-  checkInboxDesc: { en: 'We sent a sign-in link to your Reichman email. Click it and you\'ll be signed in automatically, in the meantime, close this tab.', he: 'שלחנו קישור התחברות למייל הרייכמן שלכם. לחצו עליו ותתחברו אוטומטית, בינתיים סגרו את הטאב.' },
+  checkInbox: { en: 'Check your inbox', he: ' בדקו את תיבת הדואר ' },
+  checkInboxDesc: { en: 'We sent a sign-in link to your Reichman email. Click it and you\'ll be signed in automatically, in the meantime, close this tab.', he: 'שלחנו קישור התחברות למייל של רייכמן . לחצו עליו ותתחברו אוטומטית, בינתיים סגרו את הטאב.' },
   waitingForVerification: { en: 'Waiting for verification...', he: 'ממתין לאימות...' },
   linkExpired: {
     en: 'This link has expired or already been used. Enter your username to get a new one.',

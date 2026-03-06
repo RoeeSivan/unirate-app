@@ -107,11 +107,11 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                     <textarea
                         id="courseTip"
                         name="courseTip"
-                        dir="auto"
+                        dir={isRtl ? 'rtl' : 'ltr'}
                         className="input"
                         placeholder={t('courseTipPlaceholder', lang)}
                         rows={3}
-                        style={{ resize: 'vertical', textAlign: isRtl ? 'right' : 'left' }}
+                        style={{ resize: 'vertical' }}
                     />
                 </div>
 
@@ -120,11 +120,11 @@ export default function AddReviewForm({ courseId, isMandatory }: { courseId: str
                     <textarea
                         id="testTip"
                         name="testTip"
-                        dir="auto"
+                        dir={isRtl ? 'rtl' : 'ltr'}
                         className="input"
                         placeholder={t('testTipPlaceholder', lang)}
                         rows={2}
-                        style={{ resize: 'vertical', textAlign: isRtl ? 'right' : 'left' }}
+                        style={{ resize: 'vertical' }}
                     />
                 </div>
 
