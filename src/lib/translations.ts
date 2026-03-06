@@ -30,6 +30,7 @@ const translations = {
   all: { en: 'All', he: 'הכל' },
   mandatory: { en: 'Mandatory', he: 'חובה' },
   elective: { en: 'Elective', he: 'בחירה' },
+  resetFilters: { en: 'Reset', he: 'איפוס' },
   noCoursesFound: { en: 'No courses found matching your filters.', he: 'לא נמצאו קורסים התואמים את הסינון.' },
   moreCourses: { en: 'more courses', he: 'קורסים נוספים' },
   signInToSeeAll: { en: 'Sign in with your Reichman account to see all courses.', he: 'התחברו עם חשבון רייכמן כדי לראות את כל הקורסים.' },

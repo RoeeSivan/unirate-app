@@ -94,6 +94,18 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
           <option value="true">{t('mandatory', lang)}</option>
           <option value="false">{t('elective', lang)}</option>
         </select>
+        {(q || year || semester || mandatory) && (
+          <button
+            className="btn-outline"
+            style={{ padding: '0.5rem 1rem', fontSize: '0.875rem', whiteSpace: 'nowrap' }}
+            onClick={() => {
+              setQ(''); setYear(''); setSemester(''); setMandatory('');
+              router.replace('?', { scroll: false });
+            }}
+          >
+            {t('resetFilters', lang)}
+          </button>
+        )}
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
