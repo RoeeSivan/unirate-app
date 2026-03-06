@@ -72,10 +72,10 @@ export default function LoginForm() {
 
                 {error && <div className="error-message">{error}</div>}
 
-                <form onSubmit={handleSubmit} className="auth-form">
+                <form onSubmit={handleSubmit} className="auth-form" dir={lang === 'he' ? 'rtl' : 'ltr'}>
                     <div className="form-group">
                         <label htmlFor="username">{t('username', lang)}</label>
-                        <div className="email-input-row">
+                        <div className="email-input-row" style={{ direction: 'ltr' }}>
                             <input
                                 id="username"
                                 name="username"
@@ -83,6 +83,7 @@ export default function LoginForm() {
                                 className="input"
                                 placeholder="firstname.lastname"
                                 required
+                                style={{ textAlign: 'left' }}
                             />
                             <span className="email-suffix">@post.runi.ac.il</span>
                         </div>
