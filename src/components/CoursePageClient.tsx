@@ -162,11 +162,28 @@ export default function CoursePageClient({ course, sortedReviews, avgRating, ses
                 </div>
                 <p dir="auto" className="text-muted text-lg mt-2">{courseDesc}</p>
                 {(course.courseNumber || course.finalAssignment) && (
-                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.5rem', opacity: 0.7 }}>
-                        {course.courseNumber && <>{t('courseNumber', lang)}: {course.courseNumber}</>}
-                        {course.courseNumber && course.finalAssignment && <> &middot; </>}
-                        {course.finalAssignment && <>{t('finalAssignment', lang)}: {course.finalAssignment === 'exam' ? t('finalExam', lang) : t('finalPaper', lang)}</>}
-                    </p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.75rem' }}>
+                        {course.courseNumber && (
+                            <span style={{
+                                fontSize: '0.8rem', fontWeight: 500,
+                                backgroundColor: 'var(--surface-hover)', color: 'var(--text-muted)',
+                                padding: '0.25rem 0.625rem', borderRadius: '6px',
+                            }}>
+                                {t('courseNumber', lang)}: {course.courseNumber}
+                            </span>
+                        )}
+                        {course.finalAssignment && (
+                            <span style={{
+                                fontSize: '0.8rem', fontWeight: 500,
+                                backgroundColor: course.finalAssignment === 'exam' ? 'rgba(239, 68, 68, 0.08)' : 'rgba(34, 197, 94, 0.08)',
+                                color: course.finalAssignment === 'exam' ? '#ef4444' : '#16a34a',
+                                border: `1px solid ${course.finalAssignment === 'exam' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)'}`,
+                                padding: '0.25rem 0.625rem', borderRadius: '6px',
+                            }}>
+                                {t('finalAssignment', lang)}: {course.finalAssignment === 'exam' ? t('finalExam', lang) : t('finalPaper', lang)}
+                            </span>
+                        )}
+                    </div>
                 )}
                 {!course.isMandatory && (
                     <div className="rating-badge" style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
