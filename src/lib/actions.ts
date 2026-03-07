@@ -5,6 +5,17 @@ import { logout, getSession } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import { sendVerificationEmail } from '@/lib/email'
 import { randomBytes } from 'crypto'
+import { headers } from 'next/headers'
+import { rateLimit } from '@/lib/rate-limit'
+
+function getClientIp(): string {
+    try {
+        const hdrs = headers()
+        const forwarded = (hdrs as any).get?.('x-forwarded-for')
+        if (forwarded) return forwarded.split(',')[0].trim()
+    } catch {}
+    return 'unknown'
+}
 
 export async function loginAction(formData: FormData) {
     const username = formData.get('username') as string
@@ -14,6 +25,13 @@ export async function loginAction(formData: FormData) {
     // Only allow letters, numbers, dots, hyphens, underscores (valid email usernames)
     if (!/^[a-zA-Z0-9._-]+$/.test(username)) {
         return { error: 'Invalid username. Use only letters, numbers, dots, or hyphens.' }
+    }
+
+    // Rate limit: 5 login attempts per 15 minutes per IP
+    const ip = getClientIp()
+    const { success: allowed } = rateLimit(`login:${ip}`, { maxRequests: 5, windowMs: 15 * 60 * 1000 })
+    if (!allowed) {
+        return { error: 'Too many login attempts. Please try again in a few minutes.' }
     }
 
     const email = `${username}@post.runi.ac.il`
@@ -49,6 +67,12 @@ export async function logoutAction() {
 export async function addReviewAction(formData: FormData) {
     const session = await getSession()
     if (!session) return { error: 'Unauthorized' }
+
+    // Rate limit: 10 reviews per hour per user
+    const { success: allowed } = rateLimit(`review:${session.userId}`, { maxRequests: 10, windowMs: 60 * 60 * 1000 })
+    if (!allowed) {
+        return { error: 'Too many reviews submitted. Please try again later.' }
+    }
 
     const courseId = formData.get('courseId') as string
     const ratingRaw = formData.get('rating')
@@ -112,6 +136,12 @@ export async function deleteReviewAction(reviewId: string) {
 export async function toggleLikeAction(reviewId: string) {
     const session = await getSession()
     if (!session) return { error: 'Unauthorized' }
+
+    // Rate limit: 60 likes per minute per user
+    const { success: allowed } = rateLimit(`like:${session.userId}`, { maxRequests: 60, windowMs: 60 * 1000 })
+    if (!allowed) {
+        return { error: 'Too many requests. Please slow down.' }
+    }
 
     const userId = session.userId as string
 
