@@ -34,13 +34,18 @@ export async function loginAction(formData: FormData) {
         return { error: 'Too many login attempts. Please try again in a few minutes.' }
     }
 
-    const email = `${username}@post.runi.ac.il`
+    const normalizedUsername = username.toLowerCase()
+    const email = `${normalizedUsername}@post.runi.ac.il`
+    const displayName = normalizedUsername
+        .split(/[._-]/)
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' ')
 
     try {
         let user = await prisma.user.findUnique({ where: { email } })
         if (!user) {
             user = await prisma.user.create({
-                data: { email, name: username, emailVerified: false }
+                data: { email, name: displayName, emailVerified: false }
             })
         }
 
