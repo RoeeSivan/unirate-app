@@ -52,7 +52,7 @@ export async function loginAction(formData: FormData) {
         const token = randomBytes(32).toString('hex')
         await prisma.user.update({
             where: { id: user.id },
-            data: { verificationToken: token },
+            data: { verificationToken: token, name: displayName },
         })
 
         await sendVerificationEmail(email, token)
