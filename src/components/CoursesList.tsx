@@ -86,13 +86,21 @@ function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' })
   );
 }
 
-function AccordionSection({ title, courses, lang, defaultOpen = false }: {
+function AccordionSection({ title, courses, lang, defaultOpen = false, filterOptions }: {
   title: string;
   courses: CourseData[];
   lang: 'en' | 'he';
   defaultOpen?: boolean;
+  filterOptions?: { label: string; options: { value: string; label: string }[] };
 }) {
   const [open, setOpen] = useState(defaultOpen);
+  const [filter, setFilter] = useState('');
+
+  const displayed = useMemo(() => {
+    if (!filter || !filterOptions) return courses;
+    if (filter === 'theoretical') return courses.filter(c => c.isTheoretical);
+    return courses;
+  }, [courses, filter, filterOptions]);
 
   if (courses.length === 0) return null;
 
@@ -121,7 +129,7 @@ function AccordionSection({ title, courses, lang, defaultOpen = false }: {
             fontSize: '0.75rem', fontWeight: 'normal', color: 'var(--text-muted)',
             backgroundColor: 'var(--surface-hover)', padding: '0.125rem 0.5rem', borderRadius: '10px',
           }}>
-            {courses.length}
+            {displayed.length}
           </span>
         </div>
         <ChevronDown
@@ -139,9 +147,29 @@ function AccordionSection({ title, courses, lang, defaultOpen = false }: {
           display: 'flex', flexDirection: 'column', gap: '0.5rem',
           borderTop: '1px solid var(--border)',
         }}>
-          {courses.map(course => (
+          {filterOptions && (
+            <select
+              value={filter}
+              className="input"
+              style={{
+                fontSize: '0.85rem', padding: '0.4rem 0.75rem', marginBottom: '0.25rem',
+                backgroundColor: filter ? 'rgba(99, 102, 241, 0.05)' : undefined,
+                borderColor: filter ? 'rgba(99, 102, 241, 0.2)' : undefined,
+              }}
+              onClick={e => e.stopPropagation()}
+              onChange={e => setFilter(e.target.value)}
+            >
+              {filterOptions.options.map(opt => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          )}
+          {displayed.map(course => (
             <CourseCard key={course.id} course={course} lang={lang} />
           ))}
+          {displayed.length === 0 && (
+            <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '1rem' }}>{t('noCourses', lang)}</p>
+          )}
         </div>
       )}
     </div>
@@ -223,6 +251,13 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
               title={section.title}
               courses={section.courses}
               lang={lang}
+              filterOptions={section.key === 'electives' ? {
+                label: t('allElectives', lang),
+                options: [
+                  { value: '', label: t('allElectives', lang) },
+                  { value: 'theoretical', label: t('theoreticalCluster', lang) },
+                ],
+              } : undefined}
             />
           ))
         ) : (
