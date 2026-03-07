@@ -86,14 +86,16 @@ function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' })
   );
 }
 
-function AccordionSection({ title, courses, lang, defaultOpen = false, filterOptions }: {
+function AccordionSection({ title, courses, lang, defaultOpen = false, filterOptions, forceOpen = false }: {
   title: string;
   courses: CourseData[];
   lang: 'en' | 'he';
   defaultOpen?: boolean;
   filterOptions?: { label: string; options: { value: string; label: string }[] };
+  forceOpen?: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
+  const isOpen = forceOpen || open;
   const [filter, setFilter] = useState('');
 
   const displayed = useMemo(() => {
@@ -114,7 +116,7 @@ function AccordionSection({ title, courses, lang, defaultOpen = false, filterOpt
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '0.875rem 1.25rem',
-          background: open ? 'var(--surface)' : 'var(--bg)',
+          background: isOpen ? 'var(--surface)' : 'var(--bg)',
           border: 'none',
           cursor: 'pointer',
           color: 'var(--text-main)',
@@ -137,11 +139,11 @@ function AccordionSection({ title, courses, lang, defaultOpen = false, filterOpt
           style={{
             color: 'var(--text-muted)',
             transition: 'transform 0.2s ease',
-            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
           }}
         />
       </button>
-      {open && (
+      {isOpen && (
         <div style={{
           padding: '0.5rem 0.75rem 0.75rem',
           display: 'flex', flexDirection: 'column', gap: '0.5rem',
@@ -251,6 +253,7 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
               title={section.title}
               courses={section.courses}
               lang={lang}
+              forceOpen={!!q}
               filterOptions={section.key === 'electives' ? {
                 label: t('allElectives', lang),
                 options: [
