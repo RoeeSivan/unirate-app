@@ -138,6 +138,40 @@ export async function deleteReviewAction(reviewId: string) {
     return { success: true }
 }
 
+export async function editReviewAction(reviewId: string, formData: FormData) {
+    const session = await getSession()
+    if (!session) return { error: 'Unauthorized' }
+
+    if (!reviewId) return { error: 'Missing review id' }
+
+    const review = await prisma.review.findUnique({ where: { id: reviewId } })
+    if (!review) return { error: 'Review not found' }
+
+    if (review.userId !== session.userId) {
+        return { error: 'Forbidden' }
+    }
+
+    const ratingRaw = formData.get('rating')
+    const rating = typeof ratingRaw === 'string' ? parseInt(ratingRaw, 10) : review.rating
+    const courseTip = (formData.get('courseTip') as string) || null
+    const testTip = (formData.get('testTip') as string) || null
+    const yearTakenRaw = formData.get('yearTaken')
+    const yearTaken = yearTakenRaw ? parseInt(yearTakenRaw as string, 10) : null
+    const isAnonymous = formData.get('isAnonymous') === 'true'
+
+    try {
+        await prisma.review.update({
+            where: { id: reviewId },
+            data: { rating, courseTip, testTip, yearTaken, isAnonymous },
+        })
+    } catch (err) {
+        console.error('Failed to edit review:', err)
+        return { error: 'Failed to update review.' }
+    }
+
+    return { success: true }
+}
+
 export async function toggleLikeAction(reviewId: string) {
     const session = await getSession()
     if (!session) return { error: 'Unauthorized' }

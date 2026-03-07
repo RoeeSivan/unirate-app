@@ -48,6 +48,10 @@ const translations = {
   anonymous: { en: 'Anonymous', he: 'אנונימי' },
   delete: { en: 'Delete', he: 'מחיקה' },
   deleting: { en: 'Deleting...', he: 'מוחק...' },
+  edit: { en: 'Edit', he: 'עריכה' },
+  saveEdit: { en: 'Save', he: 'שמירה' },
+  cancelEdit: { en: 'Cancel', he: 'ביטול' },
+  saving: { en: 'Saving...', he: 'שומר...' },
 
   // Add review form
   addYourRating: { en: 'Add Your Rating', he: 'הוסיפו דירוג' },
