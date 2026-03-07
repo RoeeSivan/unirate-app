@@ -161,9 +161,11 @@ export default function CoursePageClient({ course, sortedReviews, avgRating, ses
                     )}
                 </div>
                 <p dir="auto" className="text-muted text-lg mt-2">{courseDesc}</p>
-                {course.courseNumber && (
+                {(course.courseNumber || course.finalAssignment) && (
                     <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.5rem', opacity: 0.7 }}>
-                        {t('courseNumber', lang)}: {course.courseNumber}
+                        {course.courseNumber && <>{t('courseNumber', lang)}: {course.courseNumber}</>}
+                        {course.courseNumber && course.finalAssignment && <> &middot; </>}
+                        {course.finalAssignment && <>{t('finalAssignment', lang)}: {course.finalAssignment === 'exam' ? t('finalExam', lang) : t('finalPaper', lang)}</>}
                     </p>
                 )}
                 {!course.isMandatory && (

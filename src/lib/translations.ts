@@ -41,6 +41,9 @@ const translations = {
 
   // Course page
   courseNumber: { en: 'Course Number', he: 'מספר הקורס' },
+  finalAssignment: { en: 'Final Assignment', he: 'מטלה סופית' },
+  finalExam: { en: 'Final Exam', he: 'מבחן סופי' },
+  finalPaper: { en: 'Final Paper', he: 'עבודה מסכמת' },
   reviewsTitle: { en: 'Reviews', he: 'ביקורות' },
   noReviewsYet: { en: 'No reviews yet. Be the first!', he: 'אין עדיין ביקורות. היו הראשונים!' },
   courseTip: { en: 'Course Tip', he: 'טיפ לקורס' },
