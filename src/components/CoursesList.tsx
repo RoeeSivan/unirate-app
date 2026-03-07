@@ -217,13 +217,12 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
       {/* Accordion sections */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         {sections.length > 0 ? (
-          sections.map((section, i) => (
+          sections.map(section => (
             <AccordionSection
               key={section.key}
               title={section.title}
               courses={section.courses}
               lang={lang}
-              defaultOpen={i === 0}
             />
           ))
         ) : (
