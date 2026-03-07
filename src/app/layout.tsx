@@ -33,7 +33,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <LanguageProvider>
-          <Navbar session={session ? { email: session.email } : null} />
+          <Navbar session={session ? { email: session.email, name: session.name } : null} />
           <main className="container">
             {children}
           </main>

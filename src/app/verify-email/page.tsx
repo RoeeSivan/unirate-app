@@ -27,7 +27,7 @@ export default async function VerifyEmailPage({
             data: { emailVerified: true, verificationToken: null },
         })
 
-        const session = await encrypt({ userId: u.id, email: u.email })
+        const session = await encrypt({ userId: u.id, email: u.email, name: u.name })
         const cookieStore = await cookies()
         cookieStore.set('session', session, {
             httpOnly: true,
