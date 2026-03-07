@@ -16,6 +16,7 @@ interface CourseData {
   year?: number | null;
   semester?: string | null;
   isMandatory?: boolean;
+  isTheoretical?: boolean;
   tags?: string[];
   reviews: { id: string; rating: number }[];
 }
@@ -34,6 +35,7 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
   const [year, setYear] = useState(searchParams.get('year') || '');
   const [semester, setSemester] = useState(searchParams.get('semester') || '');
   const [mandatory, setMandatory] = useState(searchParams.get('type') || '');
+  const [cluster, setCluster] = useState(searchParams.get('cluster') || '');
 
   const updateURL = useCallback((key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -60,9 +62,11 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
       let matchesMandatory = true;
       if (mandatory === 'true') matchesMandatory = c.isMandatory === true;
       if (mandatory === 'false') matchesMandatory = c.isMandatory === false;
-      return matchesQuery && matchesYear && matchesSemester && matchesMandatory;
+      let matchesCluster = true;
+      if (cluster === 'theoretical') matchesCluster = c.isTheoretical === true;
+      return matchesQuery && matchesYear && matchesSemester && matchesMandatory && matchesCluster;
     });
-  }, [courses, q, year, semester, mandatory, lang]);
+  }, [courses, q, year, semester, mandatory, cluster, lang]);
 
   if (!mounted) return null;
 
@@ -89,17 +93,32 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
           <option value="A">{lang === 'he' ? "א'" : 'A'}</option>
           <option value="B">{lang === 'he' ? "ב'" : 'B'}</option>
         </select>
-        <select value={mandatory} className="input" onChange={e => { setMandatory(e.target.value); updateURL('type', e.target.value); }}>
+        <select value={mandatory} className="input" onChange={e => {
+          setMandatory(e.target.value);
+          updateURL('type', e.target.value);
+          if (e.target.value !== 'false') { setCluster(''); updateURL('cluster', ''); }
+        }}>
           <option value="">{t('all', lang)}</option>
           <option value="true">{t('mandatory', lang)}</option>
           <option value="false">{t('elective', lang)}</option>
         </select>
-        {(q || year || semester || mandatory) && (
+        {mandatory === 'false' && (
+          <select
+            value={cluster}
+            className="input"
+            style={{ backgroundColor: 'rgba(99, 102, 241, 0.05)', borderColor: 'rgba(99, 102, 241, 0.2)' }}
+            onChange={e => { setCluster(e.target.value); updateURL('cluster', e.target.value); }}
+          >
+            <option value="">{t('allElectives', lang)}</option>
+            <option value="theoretical">{t('theoreticalCluster', lang)}</option>
+          </select>
+        )}
+        {(q || year || semester || mandatory || cluster) && (
           <button
             className="btn-outline"
             style={{ padding: '0.5rem 1rem', fontSize: '0.875rem', whiteSpace: 'nowrap' }}
             onClick={() => {
-              setQ(''); setYear(''); setSemester(''); setMandatory('');
+              setQ(''); setYear(''); setSemester(''); setMandatory(''); setCluster('');
               router.replace('?', { scroll: false });
             }}
           >

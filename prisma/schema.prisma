@@ -27,8 +27,9 @@ model Course {
   description String?
   descriptionHe String?
   courseNumber String?
-  isMandatory Boolean  @default(true)
-  tags        String[] @default([])   // e.g. "Elective","E","A","ML"
+  isMandatory    Boolean  @default(true)
+  isTheoretical  Boolean  @default(false)
+  tags           String[] @default([])   // e.g. "Elective","E","A","ML"
   // added for filtering
   year        Int?                  // 1, 2, or 3 for academic year
   semester    String?               // "A" or "B"
