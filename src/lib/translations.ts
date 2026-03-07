@@ -30,7 +30,7 @@ const translations = {
   all: { en: 'All', he: 'הכל' },
   mandatory: { en: 'Mandatory', he: 'חובה' },
   elective: { en: 'Elective', he: 'בחירה' },
-  allElectives: { en: 'All Electives', he: 'כל הבחירה' },
+  allElectives: { en: 'All Electives', he: 'כל קורסי הבחירה' },
   theoreticalCluster: { en: 'Theoretical Cluster', he: 'אשכול עיוני' },
   resetFilters: { en: 'Reset', he: 'איפוס' },
   noCoursesFound: { en: 'No courses found matching your filters.', he: 'לא נמצאו קורסים התואמים את הסינון.' },
