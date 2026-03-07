@@ -81,6 +81,18 @@ const translations = {
   completeSignIn: { en: 'Complete Sign In', he: 'השלמת התחברות' },
   completeSignInDesc: { en: 'Click the button below to complete your sign-in.', he: 'לחצו על הכפתור למטה להשלמת ההתחברות.' },
 
+  // View toggle
+  listView: { en: 'List', he: 'רשימה' },
+  byYearView: { en: 'By Year', he: 'לפי שנה' },
+  year1: { en: 'Year 1', he: 'שנה א\'' },
+  year2: { en: 'Year 2', he: 'שנה ב\'' },
+  year3: { en: 'Year 3', he: 'שנה ג\'' },
+  electives: { en: 'Electives', he: 'בחירה' },
+  semesterA: { en: 'Semester A', he: 'סמסטר א\'' },
+  semesterB: { en: 'Semester B', he: 'סמסטר ב\'' },
+  otherSemester: { en: 'Other', he: 'אחר' },
+  noCourses: { en: 'No courses', he: 'אין קורסים' },
+
   // Review sidebar
   wantToAddReview: { en: 'Want to add a review?', he: 'רוצים להוסיף ביקורת?' },
   signInToReview: { en: 'Sign in with your university email to share your experience.', he: 'התחברו עם המייל האוניברסיטאי כדי לשתף את החוויה שלכם.' },
