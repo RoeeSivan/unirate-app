@@ -178,28 +178,14 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
     });
   }, [courses, q, lang]);
 
-  // Group into sections: Year 1 Sem A, Year 1 Sem B, Year 2 Sem A, ...
   const sections = useMemo(() => {
     const result: { key: string; title: string; courses: CourseData[] }[] = [];
 
     for (const yr of [1, 2, 3]) {
       const yearLabel = t(`year${yr}` as 'year1' | 'year2' | 'year3', lang);
-      const semALabel = t('semesterA', lang);
-      const semBLabel = t('semesterB', lang);
-
       const yearCourses = filtered.filter(c => c.year === yr && c.isMandatory);
-      const semA = yearCourses.filter(c => c.semester?.toUpperCase() === 'A');
-      const semB = yearCourses.filter(c => c.semester?.toUpperCase() === 'B');
-      const other = yearCourses.filter(c => !c.semester || (c.semester.toUpperCase() !== 'A' && c.semester.toUpperCase() !== 'B'));
-
-      if (semA.length > 0) {
-        result.push({ key: `y${yr}a`, title: `${yearLabel} — ${semALabel}`, courses: semA });
-      }
-      if (semB.length > 0) {
-        result.push({ key: `y${yr}b`, title: `${yearLabel} — ${semBLabel}`, courses: semB });
-      }
-      if (other.length > 0) {
-        result.push({ key: `y${yr}o`, title: `${yearLabel} — ${t('otherSemester', lang)}`, courses: other });
+      if (yearCourses.length > 0) {
+        result.push({ key: `y${yr}`, title: yearLabel, courses: yearCourses });
       }
     }
 
