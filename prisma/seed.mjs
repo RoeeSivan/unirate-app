@@ -39,7 +39,7 @@ async function main() {
         // additional electives
         { title: "Advanced Machine Learning", description: "Deep dive into ML algorithms.", isMandatory: false,year:3, tags: ["Elective","E","A","ML"] ,semester:"A"},
         { title: "Reinforcement Learning", description: "Agents that learn by interacting with environments.", isMandatory: false,year:3, tags: ["Elective","E","B","ML"],semester:"A" },
-        { title: "Cryptography", description: "Encryption, decryption and security protocols.", isMandatory: false, tags: ["Elective","A"],semester:"A",year:3 },
+        { title: "Cryptography", description: "Encryption, decryption and security protocols.", isMandatory: false, tags: ["Elective","E","A"],semester:"A",year:3 },
         { title: "Data Streaming and Online Learning", description: "Real-time data processing techniques.", isMandatory: false, tags: ["Elective","B","ML"],semester:"A",year:3 },
         { title: "Natural Language Processing", description: "Computational treatment of human language.", isMandatory: false, tags: ["Elective","E","B","ML"] ,semester:"B",year:3},
         { title: "Artificial intelligence and Moral", description: "", isMandatory: false, tags: ["Elective","E","A"] ,semester:"A",year:2},
@@ -53,7 +53,7 @@ async function main() {
         { title: "Recommendation Systems", description: "Personalized recommendation algorithms and systems.", isMandatory: false, tags: ["Elective","ML","A"],semester:"A",year:3},
         { title: "Introduction to Speech Recognition", description: "Fundamentals of automatic speech recognition technology.", isMandatory: false, tags: ["Elective","A"],semester:"A" ,year:3},
         { title: "The Art of Rhetoric in the Hi-Tech World", description: "Effective communication and rhetoric in technology contexts.", isMandatory: false, tags: ["Elective","A"],semester:"A" ,year:3},
-        { title: "Attacks on Secure Implementations", description: "Security vulnerabilities and attacks in cryptographic implementations.", isMandatory: false, tags: ["Elective","A"],semester:"A" ,year:3},
+        { title: "Attacks on Secure Implementations", description: "Security vulnerabilities and attacks in cryptographic implementations.", isMandatory: false, tags: ["Elective","E","A"],semester:"A" ,year:3},
         { title: "Applied Methods in Computer Science", description: "Practical application of computational methods.", isMandatory: false, tags: ["Elective","A"] ,semester:"A",year:3},
         { title: "Intelligent Autonomous Agents: Design and Implementation", description: "Design and implementation of autonomous intelligent agents.", isMandatory: false, tags: ["Elective","A"],semester:"A" ,year:3},
         {title:"Introdcution to Image Processing and Analysis",description:"Introdcution to Image Processing and Analysis",isMandatory:false,tags: ["Elective","A"],semester:"A" ,year:3},
@@ -68,8 +68,7 @@ async function main() {
         {title:"Text Retreival and Search Engines",description:"Text Retreival and Search Engines",isMandatory:false,tags: ["Elective","A"],semester:"A" ,year:3},
         {title:"Introduction to Quantum Computing",description:"No prior background in physics or quantum mechanics is required. In the course, we will learn the ׳rules of the game׳ of quantum computing, learn about interesting applications such as teleportation, dense coding, and quantum cryptography, try to understand what the advantages of quantum computing over classical computing could be, and learn the best-known quantum algorithms: Grover's algorithm for searching an unsorted array, and Shor's algorithm for factoring numbers in polynomial time. Finally, we will learn about quantum error correction and dealing with noise on the way to creating useful quantum computers on large scales.",isMandatory:false,tags: ["Elective","A"],semester:"A" ,year:3},
 
-כג
-    ]           
+    ]
     
 
     // The previous version wiped the whole database, which also removed
