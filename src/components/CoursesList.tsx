@@ -86,23 +86,32 @@ function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' })
   );
 }
 
-function AccordionSection({ title, courses, lang, defaultOpen = false, filterOptions, forceOpen = false }: {
+function AccordionSection({ title, courses, lang, defaultOpen = false, filterOptions, languageFilter = false, forceOpen = false }: {
   title: string;
   courses: CourseData[];
   lang: 'en' | 'he';
   defaultOpen?: boolean;
   filterOptions?: { label: string; options: { value: string; label: string }[] };
+  languageFilter?: boolean;
   forceOpen?: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
   const isOpen = forceOpen || open;
   const [filter, setFilter] = useState('');
+  const [langFilter, setLangFilter] = useState('');
 
   const displayed = useMemo(() => {
-    if (!filter || !filterOptions) return courses;
-    if (filter === 'theoretical') return courses.filter(c => c.isTheoretical);
-    return courses;
-  }, [courses, filter, filterOptions]);
+    let result = courses;
+    if (filter === 'theoretical' && filterOptions) {
+      result = result.filter(c => c.isTheoretical);
+    }
+    if (langFilter === 'english') {
+      result = result.filter(c => c.tags?.includes('E'));
+    } else if (langFilter === 'hebrew') {
+      result = result.filter(c => !c.tags?.includes('E'));
+    }
+    return result;
+  }, [courses, filter, filterOptions, langFilter]);
 
   if (courses.length === 0) return null;
 
@@ -149,22 +158,43 @@ function AccordionSection({ title, courses, lang, defaultOpen = false, filterOpt
           display: 'flex', flexDirection: 'column', gap: '0.5rem',
           borderTop: '1px solid var(--border)',
         }}>
-          {filterOptions && (
-            <select
-              value={filter}
-              className="input"
-              style={{
-                fontSize: '0.85rem', padding: '0.4rem 0.75rem', marginBottom: '0.25rem',
-                backgroundColor: filter ? 'rgba(99, 102, 241, 0.05)' : undefined,
-                borderColor: filter ? 'rgba(99, 102, 241, 0.2)' : undefined,
-              }}
-              onClick={e => e.stopPropagation()}
-              onChange={e => setFilter(e.target.value)}
-            >
-              {filterOptions.options.map(opt => (
-                <option key={opt.value} value={opt.value}>{opt.label}</option>
-              ))}
-            </select>
+          {(filterOptions || languageFilter) && (
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.25rem' }}>
+              {filterOptions && (
+                <select
+                  value={filter}
+                  className="input"
+                  style={{
+                    fontSize: '0.85rem', padding: '0.4rem 0.75rem', flex: 1, minWidth: '140px',
+                    backgroundColor: filter ? 'rgba(99, 102, 241, 0.05)' : undefined,
+                    borderColor: filter ? 'rgba(99, 102, 241, 0.2)' : undefined,
+                  }}
+                  onClick={e => e.stopPropagation()}
+                  onChange={e => setFilter(e.target.value)}
+                >
+                  {filterOptions.options.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              )}
+              {languageFilter && (
+                <select
+                  value={langFilter}
+                  className="input"
+                  style={{
+                    fontSize: '0.85rem', padding: '0.4rem 0.75rem', flex: 1, minWidth: '140px',
+                    backgroundColor: langFilter ? 'rgba(59, 130, 246, 0.05)' : undefined,
+                    borderColor: langFilter ? 'rgba(59, 130, 246, 0.2)' : undefined,
+                  }}
+                  onClick={e => e.stopPropagation()}
+                  onChange={e => setLangFilter(e.target.value)}
+                >
+                  <option value="">{t('all', lang)}</option>
+                  <option value="english">{t('langEnglish', lang)}</option>
+                  <option value="hebrew">{t('langHebrew', lang)}</option>
+                </select>
+              )}
+            </div>
           )}
           {displayed.map(course => (
             <CourseCard key={course.id} course={course} lang={lang} />
@@ -254,6 +284,7 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
               courses={section.courses}
               lang={lang}
               forceOpen={!!q}
+              languageFilter={section.key === 'electives'}
               filterOptions={section.key === 'electives' ? {
                 label: t('allElectives', lang),
                 options: [
