@@ -70,6 +70,7 @@ const finalAssignments: Record<string, "exam" | "paper"> = {
   "Artificial intelligence and Moral": "paper",
   "From idea to App Using AI tools": "paper",
   "The Art of Rhetoric in the Hi-Tech World": "paper",
+  "Advanced Systems Development Using AI": "paper",
 }
 
 async function main() {

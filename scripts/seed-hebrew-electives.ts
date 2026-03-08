@@ -139,6 +139,10 @@ const electiveHebrew: Record<string, { titleHe: string; descriptionHe: string }>
     titleHe: 'בינה מלאכותית ומוסר',
     descriptionHe: 'קורס ייחודי הפתוח בפני סטודנטים למשפטים ולמדעי המחשב. שילוב בין בינה מלאכותית וסוגיות אתיות, משפטיות וחברתיות.',
   },
+  'Advanced Systems Development Using AI': {
+    titleHe: 'פיתוח מערכות מתקדמות מבוסס AI',
+    descriptionHe: 'פיתוח מערכות מתקדמות תוך שימוש בכלים וטכניקות של בינה מלאכותית לבניית אפליקציות מודרניות.',
+  },
 }
 
 async function main() {

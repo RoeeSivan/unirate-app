@@ -57,6 +57,7 @@ const courseNumbers: Record<string, string> = {
   'Data Streaming Algorithms and Online Learning': '3604',
   'Data Streaming and Online Learning': '3604',
   'Recommendation Systems': '3639',
+  'Advanced Systems Development Using AI': '3924',
 }
 
 async function main() {

@@ -13,6 +13,7 @@ interface CourseData {
   titleHe?: string | null;
   description: string | null;
   descriptionHe?: string | null;
+  courseNumber?: string | null;
   year?: number | null;
   semester?: string | null;
   isMandatory?: boolean;
@@ -232,9 +233,11 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
   const filtered = useMemo(() => {
     if (!courses) return [];
     if (!q) return courses;
+    const query = q.toLowerCase();
     return courses.filter(c => {
       const title = (lang === 'he' && c.titleHe) ? c.titleHe : c.title;
-      return title && title.toLowerCase().includes(q.toLowerCase());
+      return (title && title.toLowerCase().includes(query)) ||
+             (c.courseNumber && c.courseNumber.includes(query));
     });
   }, [courses, q, lang]);
 
