@@ -15,6 +15,7 @@ interface CoursePageClientProps {
     sortedReviews: any[]
     avgRating: number
     session: { userId: string; email: string } | null
+    reviewsLocked?: boolean
 }
 
 function EditReviewForm({ review, isMandatory, lang, onCancel, onSaved }: {
@@ -137,7 +138,7 @@ function EditReviewForm({ review, isMandatory, lang, onCancel, onSaved }: {
     )
 }
 
-export default function CoursePageClient({ course, sortedReviews, avgRating, session }: CoursePageClientProps) {
+export default function CoursePageClient({ course, sortedReviews, avgRating, session, reviewsLocked }: CoursePageClientProps) {
     const { lang } = useLang()
     const router = useRouter()
     const [editingId, setEditingId] = useState<string | null>(null)
@@ -213,11 +214,18 @@ export default function CoursePageClient({ course, sortedReviews, avgRating, ses
                         </div>
                     )}
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{t('reviewsTitle', lang)}</h2>
+                    {reviewsLocked && sortedReviews.length > 0 && (
+                        <div className="card" style={{ textAlign: 'center', padding: '1.5rem', background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(99, 102, 241, 0.1))', border: '1px solid rgba(99, 102, 241, 0.2)' }}>
+                            <h3 style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>{t('reviewsLockedTitle', lang)}</h3>
+                            <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>{t('reviewsLockedDesc', lang)}</p>
+                            <a href="/login" className="btn-primary" style={{ display: 'inline-block', padding: '0.5rem 1.5rem' }}>{t('signIn', lang)}</a>
+                        </div>
+                    )}
                     {sortedReviews.length === 0 ? (
                         <div className="card" style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-muted)' }}>{t('noReviewsYet', lang)}</div>
                     ) : (
                         sortedReviews.map((review: any) => (
-                            <div key={review.id} className="card">
+                            <div key={review.id} className="card" style={reviewsLocked ? { filter: 'blur(4px)', pointerEvents: 'none', userSelect: 'none' } : undefined}>
                                 {editingId === review.id ? (
                                     <EditReviewForm
                                         review={review}

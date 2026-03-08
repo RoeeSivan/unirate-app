@@ -104,6 +104,10 @@ const translations = {
   otherSemester: { en: 'Other', he: 'אחר' },
   noCourses: { en: 'No courses', he: 'אין קורסים' },
 
+  // Locked reviews
+  reviewsLockedTitle: { en: 'Reviews are locked', he: 'הביקורות נעולות' },
+  reviewsLockedDesc: { en: 'Sign in with your Reichman account to read all reviews.', he: 'התחברו עם חשבון רייכמן כדי לקרוא את כל הביקורות.' },
+
   // Review sidebar
   wantToAddReview: { en: 'Want to add a review?', he: 'רוצים להוסיף ביקורת?' },
   signInToReview: { en: 'Sign in with your university email to share your experience.', he: 'התחברו עם המייל האוניברסיטאי כדי לשתף את החוויה שלכם.' },

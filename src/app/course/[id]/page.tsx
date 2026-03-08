@@ -35,10 +35,21 @@ export default async function CoursePage({ params }: { params: { id: string } })
         return review
     })
 
+    // For non-logged-in users on non-Year-1 courses, strip review content
+    const isLocked = !session && course.year !== 1
+    const clientReviews = isLocked
+        ? safeReviews.map((review: any) => ({
+            ...review,
+            courseTip: review.courseTip ? '██████████████████████████' : null,
+            testTip: review.testTip ? '██████████████████████████' : null,
+        }))
+        : safeReviews
+
     return (
         <CoursePageClient
             course={JSON.parse(JSON.stringify(course))}
-            sortedReviews={JSON.parse(JSON.stringify(safeReviews))}
+            sortedReviews={JSON.parse(JSON.stringify(clientReviews))}
+            reviewsLocked={isLocked}
             avgRating={avgRating}
             session={session ? { userId: session.userId as string, email: session.email as string } : null}
         />
