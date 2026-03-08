@@ -18,8 +18,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Runi Course Ratings",
-  description: "A platform for running university students to rate and review courses",
+  description: "Rate and review courses at Reichman University",
   viewport: 'width=device-width,initial-scale=1',
+  openGraph: {
+    title: "Runi Course Ratings",
+    description: "Rate and review courses at Reichman University",
+    type: "website",
+  },
 };
 
 export default async function RootLayout({
