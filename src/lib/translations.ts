@@ -34,8 +34,7 @@ const translations = {
   theoreticalCluster: { en: 'Theoretical Cluster', he: 'אשכול עיוני' },
   resetFilters: { en: 'Reset', he: 'איפוס' },
   noCoursesFound: { en: 'No courses found matching your filters.', he: 'לא נמצאו קורסים התואמים את הסינון.' },
-  moreCourses: { en: 'more courses', he: 'קורסים נוספים' },
-  signInToSeeAll: { en: 'Sign in with your Reichman account to see all courses.', he: 'התחברו עם חשבון רייכמן כדי לראות את כל הקורסים.' },
+  signInCta: { en: 'Sign in with your Reichman email to read reviews, share tips, and rate courses.', he: 'התחברו עם המייל האוניברסיטאי שלכם כדי לקרוא ביקורות, לשתף טיפים ולדרג קורסים.' },
   review: { en: 'review', he: 'ביקורת' },
   reviews: { en: 'reviews', he: 'ביקורות' },
 

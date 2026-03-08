@@ -262,7 +262,7 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
 
   if (!mounted) return null;
 
-  const hiddenCount = isLoggedIn ? 0 : Math.max(0, filtered.length - 10);
+  const showSignInCta = !isLoggedIn;
 
   return (
     <>
@@ -301,10 +301,9 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
           <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '2rem' }}>{t('noCoursesFound', lang)}</p>
         )}
 
-        {hiddenCount > 0 && (
+        {showSignInCta && (
           <div style={{ textAlign: 'center', padding: '2rem', borderRadius: 'var(--radius)', border: '1px dashed var(--border)', marginTop: '0.5rem' }}>
-            <p style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>+{hiddenCount} {t('moreCourses', lang)}</p>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: '1rem' }}>{t('signInToSeeAll', lang)}</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: '1rem' }}>{t('signInCta', lang)}</p>
             <a href="/login" className="btn-primary" style={{ display: 'inline-block', padding: '0.5rem 1.5rem' }}>{t('signIn', lang)}</a>
           </div>
         )}
