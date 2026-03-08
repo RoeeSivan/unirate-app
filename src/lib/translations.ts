@@ -24,7 +24,7 @@ const translations = {
   testStrategiesDesc: { en: 'Learn exactly how to study for the midterm and final exams.', he: 'למדו בדיוק איך ללמוד לבחינות האמצע והסוף.' },
 
   // Filters
-  searchCourses: { en: 'Search courses...', he: 'חיפוש קורסים...' },
+  searchCourses: { en: 'Search by name or course number...', he: 'חיפוש לפי שם או מספר קורס...' },
   year: { en: 'Year', he: 'שנה' },
   semester: { en: 'Semester', he: 'סמסטר' },
   all: { en: 'All', he: 'הכל' },
