@@ -161,30 +161,41 @@ export default function CoursePageClient({ course, sortedReviews, avgRating, ses
                     )}
                 </div>
                 <p dir="auto" className="text-muted text-lg mt-2">{courseDesc}</p>
-                {(course.courseNumber || course.finalAssignment) && (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.75rem' }}>
-                        {course.courseNumber && (
-                            <span style={{
-                                fontSize: '0.8rem', fontWeight: 500,
-                                backgroundColor: 'var(--surface-hover)', color: 'var(--text-muted)',
-                                padding: '0.25rem 0.625rem', borderRadius: '6px',
-                            }}>
-                                {t('courseNumber', lang)}: {course.courseNumber}
-                            </span>
-                        )}
-                        {course.finalAssignment && (
-                            <span style={{
-                                fontSize: '0.8rem', fontWeight: 500,
-                                backgroundColor: course.finalAssignment === 'exam' ? 'rgba(239, 68, 68, 0.08)' : 'rgba(34, 197, 94, 0.08)',
-                                color: course.finalAssignment === 'exam' ? '#ef4444' : '#16a34a',
-                                border: `1px solid ${course.finalAssignment === 'exam' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)'}`,
-                                padding: '0.25rem 0.625rem', borderRadius: '6px',
-                            }}>
-                                {t('finalAssignment', lang)}: {course.finalAssignment === 'exam' ? t('finalExam', lang) : t('finalPaper', lang)}
-                            </span>
-                        )}
-                    </div>
-                )}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.75rem' }}>
+                    {course.courseNumber && (
+                        <span style={{
+                            fontSize: '0.8rem', fontWeight: 500,
+                            backgroundColor: 'var(--surface-hover)', color: 'var(--text-muted)',
+                            padding: '0.25rem 0.625rem', borderRadius: '6px',
+                        }}>
+                            {t('courseNumber', lang)}: {course.courseNumber}
+                        </span>
+                    )}
+                    {course.finalAssignment && (
+                        <span style={{
+                            fontSize: '0.8rem', fontWeight: 500,
+                            backgroundColor: course.finalAssignment === 'exam' ? 'rgba(239, 68, 68, 0.08)' : 'rgba(34, 197, 94, 0.08)',
+                            color: course.finalAssignment === 'exam' ? '#ef4444' : '#16a34a',
+                            border: `1px solid ${course.finalAssignment === 'exam' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)'}`,
+                            padding: '0.25rem 0.625rem', borderRadius: '6px',
+                        }}>
+                            {t('finalAssignment', lang)}: {course.finalAssignment === 'exam' ? t('finalExam', lang) : t('finalPaper', lang)}
+                        </span>
+                    )}
+                    <span style={{
+                        fontSize: '0.8rem', fontWeight: 500,
+                        backgroundColor: 'rgba(59, 130, 246, 0.08)',
+                        color: '#3b82f6',
+                        border: '1px solid rgba(59, 130, 246, 0.2)',
+                        padding: '0.25rem 0.625rem', borderRadius: '6px',
+                    }}>
+                        {t('language', lang)}: {course.isMandatory
+                            ? t('langHebrewAndEnglish', lang)
+                            : course.tags?.includes('E')
+                                ? t('langEnglish', lang)
+                                : t('langHebrew', lang)}
+                    </span>
+                </div>
                 {!course.isMandatory && (
                     <div className="rating-badge" style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
                         <Star style={{ color: '#fbbf24', fill: '#fbbf24' }} />
