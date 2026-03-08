@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Runi Course Ratings",
     description: "Rate and review courses at Reichman University",
+    url: "https://www.uni-rate.com",
     type: "website",
   },
 };
