@@ -102,7 +102,7 @@ const translations = {
   year2: { en: 'Year 2', he: 'שנה ב\'' },
   year3: { en: 'Year 3', he: 'שנה ג\'' },
   electives: { en: 'Electives', he: 'בחירה' },
-  verticals: { en: 'Verticals (וורטיקלים)', he: 'וורטיקלים' },
+  verticals: { en: 'Verticals', he: 'וורטיקלים' },
   vertical: { en: 'Vertical', he: 'וורטיקל' },
   semesterA: { en: 'Semester A', he: 'סמסטר א\'' },
   semesterB: { en: 'Semester B', he: 'סמסטר ב\'' },
