@@ -63,6 +63,9 @@ const prerequisiteData: Record<string, { title: string; simultaneous?: boolean }
     ],
 
     // Year 3
+    'Computer Graphics': [
+        { title: 'Algorithms' },
+    ],
     'Computer Networks': [
         { title: 'Algorithms' },
         { title: 'Operating Systems' },
@@ -75,6 +78,9 @@ const prerequisiteData: Record<string, { title: string; simultaneous?: boolean }
     // Electives
     '3D Graphics and Animation with Unreal engine': [
         { title: 'Advanced Programming', simultaneous: true },
+    ],
+    'Introduction to Statistics': [
+        { title: 'Introduction to Probability' },
     ],
     'Cloud Computing and Software Engineering': [
         { title: 'Advanced Programming', simultaneous: true },
