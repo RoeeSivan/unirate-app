@@ -76,14 +76,34 @@ const prerequisiteData: Record<string, { title: string; simultaneous?: boolean }
     ],
 
     // Electives
+    'Cryptography': [
+        { title: 'Algorithms' },
+    ],
     '3D Graphics and Animation with Unreal engine': [
-        { title: 'Advanced Programming', simultaneous: true },
+        { title: 'Advanced Programming' },
     ],
     'Introduction to Statistics': [
         { title: 'Introduction to Probability' },
     ],
+    'Statistics and Data Analysis': [
+        { title: 'Introduction to Probability' },
+    ],
+    'Advanced Systems Development Using AI': [
+        { title: 'Advanced Programming' },
+    ],
+    'Text Retreival and Search Engines': [
+        { title: 'Linear Algebra I' },
+        { title: 'Linear Algebra II' },
+        { title: 'Introduction to Probability' },
+        { title: 'Introduction to Computer Science' },
+        { title: 'Machine Learning from Data' },
+    ],
     'Cloud Computing and Software Engineering': [
-        { title: 'Advanced Programming', simultaneous: true },
+        { title: 'Advanced Programming' },
+    ],
+    'Natural Language Processing': [
+        { title: 'Algorithms' },
+        { title: 'Machine Learning from Data' },
     ],
 }
 
