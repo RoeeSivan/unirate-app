@@ -251,6 +251,18 @@ h6 {
   animation-delay: 300ms;
 }
 
+/* Mobile greeting bar — hidden on desktop */
+.navbar-greeting-mobile {
+  display: none;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
 /* ── iOS / Mobile improvements ── */
 
 /* Remove tap highlight flash on iOS */
@@ -312,9 +324,13 @@ body {
     justify-content: flex-end;
   }
 
-  /* Hide greeting text on very small screens to save space */
-  .navbar-links .text-muted {
-    display: none;
+  /* Hide desktop greeting, show mobile greeting bar */
+  .navbar-greeting-desktop {
+    display: none !important;
+  }
+
+  .navbar-greeting-mobile {
+    display: block !important;
   }
 
   /* Features grid: allow cards to shrink on small screens */
