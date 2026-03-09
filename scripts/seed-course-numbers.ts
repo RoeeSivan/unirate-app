@@ -59,6 +59,9 @@ const courseNumbers: Record<string, string> = {
   'Recommendation Systems': '3639',
   'Advanced Systems Development Using AI': '3924',
   'Information Theory': '3798',
+  'Introduction to Bioinformatics': '3613',
+  'Advanced Topics in Computer Systems Security': '3643',
+  'Using AI for Malware and Intrusion Detection': '3917',
 }
 
 async function main() {

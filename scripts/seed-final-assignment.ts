@@ -50,6 +50,8 @@ const finalAssignments: Record<string, "exam" | "paper"> = {
   "Information Theory": "exam",
 
   // Electives - paper
+  "Introduction to Bioinformatics": "paper",
+  "Advanced Topics in Computer Systems Security": "paper",
   "Applied Methods in Computer Science": "paper",
   "Natural Language Processing": "paper",
   "Data Streaming Algorithms and Online Learning": "paper",
@@ -72,6 +74,7 @@ const finalAssignments: Record<string, "exam" | "paper"> = {
   "From idea to App Using AI tools": "paper",
   "The Art of Rhetoric in the Hi-Tech World": "paper",
   "Advanced Systems Development Using AI": "paper",
+  "Using AI for Malware and Intrusion Detection": "paper",
 }
 
 async function main() {
