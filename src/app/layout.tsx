@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.uni-rate.com'),
   title: "Runi Course Ratings",
   description: "Rate and review courses at Reichman University",
-  viewport: 'width=device-width,initial-scale=1',
+  viewport: 'width=device-width,initial-scale=1,viewport-fit=cover',
   openGraph: {
     title: "Runi Course Ratings",
     description: "Rate and review courses at Reichman University",
