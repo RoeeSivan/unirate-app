@@ -258,12 +258,17 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
       }
     }
 
+    const entrepreneurship = filtered.filter(c => c.tags?.includes('Entrepreneurship') && !c.tags?.includes('Vertical'));
+    if (entrepreneurship.length > 0) {
+      result.push({ key: 'entrepreneurship', title: t('entrepreneurshipCourses', lang), courses: entrepreneurship });
+    }
+
     const verticals = filtered.filter(c => c.tags?.includes('Vertical'));
     if (verticals.length > 0) {
       result.push({ key: 'verticals', title: t('verticals', lang), courses: verticals });
     }
 
-    const electives = filtered.filter(c => !c.isMandatory && !c.tags?.includes('Vertical'));
+    const electives = filtered.filter(c => !c.isMandatory && !c.tags?.includes('Vertical') && !c.tags?.includes('Entrepreneurship'));
     if (electives.length > 0) {
       result.push({ key: 'electives', title: t('electives', lang), courses: electives });
     }

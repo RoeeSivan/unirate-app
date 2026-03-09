@@ -101,6 +101,7 @@ const translations = {
   year1: { en: 'Year 1', he: 'שנה א\'' },
   year2: { en: 'Year 2', he: 'שנה ב\'' },
   year3: { en: 'Year 3', he: 'שנה ג\'' },
+  entrepreneurshipCourses: { en: 'Entrepreneurship', he: 'יזמות' },
   electives: { en: 'Electives', he: 'בחירה' },
   verticals: { en: 'Verticals', he: 'וורטיקלים' },
   vertical: { en: 'Vertical', he: 'וורטיקל' },
