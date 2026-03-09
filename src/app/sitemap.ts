@@ -1,7 +1,6 @@
 import { prisma } from '@/lib/prisma'
-import type { MetadataRoute } from 'next'
 
-export default async function sitemap(): Promise<MetadataRoute['Sitemap']> {
+export default async function sitemap() {
     const courses = await prisma.course.findMany({ select: { id: true } })
 
     const courseUrls = courses.map((course) => ({
@@ -12,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute['Sitemap']> {
     return [
         {
             url: 'https://www.uni-rate.com',
-            changeFrequency: 'daily',
+            changeFrequency: 'daily' as const,
         },
         ...courseUrls,
     ]
