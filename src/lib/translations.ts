@@ -47,6 +47,8 @@ const translations = {
   langHebrew: { en: 'Hebrew', he: 'עברית' },
   langEnglish: { en: 'English', he: 'אנגלית' },
   langHebrewAndEnglish: { en: 'Hebrew & English', he: 'עברית ואנגלית' },
+  prerequisites: { en: 'Prerequisites', he: 'תנאי קדם' },
+  simultaneous: { en: 'simultaneously', he: 'במקביל' },
   reviewsTitle: { en: 'Reviews', he: 'ביקורות' },
   noReviewsYet: { en: 'No reviews yet. Be the first!', he: 'אין עדיין ביקורות. היו הראשונים!' },
   courseTip: { en: 'Course Tip', he: 'טיפ לקורס' },

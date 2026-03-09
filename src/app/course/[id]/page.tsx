@@ -12,11 +12,24 @@ export default async function CoursePage({ params }: { params: { id: string } })
             reviews: {
                 include: { user: true, likes: true },
                 orderBy: { createdAt: 'desc' }
+            },
+            prerequisites: {
+                include: {
+                    prerequisite: { select: { id: true, title: true, titleHe: true } }
+                }
             }
         }
     })
 
     if (!course) notFound()
+
+    // Format prerequisites for the client
+    const prerequisites = course.prerequisites.map((p: any) => ({
+        id: p.prerequisite.id,
+        title: p.prerequisite.title,
+        titleHe: p.prerequisite.titleHe,
+        simultaneous: p.simultaneous,
+    }))
 
     const session = await getSession()
     const sortedReviews = [...course.reviews].sort((a, b) => b.likes.length - a.likes.length)
@@ -49,6 +62,7 @@ export default async function CoursePage({ params }: { params: { id: string } })
         <CoursePageClient
             course={JSON.parse(JSON.stringify(course))}
             sortedReviews={JSON.parse(JSON.stringify(clientReviews))}
+            prerequisites={JSON.parse(JSON.stringify(prerequisites))}
             reviewsLocked={isLocked}
             avgRating={avgRating}
             session={session ? { userId: session.userId as string, email: session.email as string } : null}

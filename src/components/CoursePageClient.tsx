@@ -10,9 +10,17 @@ import { useLang } from './LanguageProvider'
 import { t } from '@/lib/translations'
 import { editReviewAction } from '@/lib/actions'
 
+interface Prerequisite {
+    id: string
+    title: string
+    titleHe: string | null
+    simultaneous: boolean
+}
+
 interface CoursePageClientProps {
     course: any
     sortedReviews: any[]
+    prerequisites: Prerequisite[]
     avgRating: number
     session: { userId: string; email: string } | null
     reviewsLocked?: boolean
@@ -138,7 +146,7 @@ function EditReviewForm({ review, isMandatory, lang, onCancel, onSaved }: {
     )
 }
 
-export default function CoursePageClient({ course, sortedReviews, avgRating, session, reviewsLocked }: CoursePageClientProps) {
+export default function CoursePageClient({ course, sortedReviews, prerequisites, avgRating, session, reviewsLocked }: CoursePageClientProps) {
     const { lang } = useLang()
     const router = useRouter()
     const [editingId, setEditingId] = useState<string | null>(null)
@@ -202,6 +210,35 @@ export default function CoursePageClient({ course, sortedReviews, avgRating, ses
                         <Star style={{ color: '#fbbf24', fill: '#fbbf24' }} />
                         <span style={{ fontWeight: 'bold', fontSize: '1.25rem', marginLeft: '0.5rem' }}>{avgRating.toFixed(1)}</span>
                         <span className="text-muted" style={{ marginLeft: '0.5rem' }}>({course.reviews.length} {t('reviews', lang)})</span>
+                    </div>
+                )}
+                {prerequisites.length > 0 && (
+                    <div style={{ marginTop: '1rem' }}>
+                        <h4 style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
+                            {t('prerequisites', lang)}
+                        </h4>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                            {prerequisites.map((p) => (
+                                <a
+                                    key={p.id}
+                                    href={`/course/${p.id}`}
+                                    style={{
+                                        fontSize: '0.8rem', fontWeight: 500,
+                                        backgroundColor: 'rgba(99, 102, 241, 0.08)',
+                                        color: 'var(--primary)',
+                                        border: '1px solid rgba(99, 102, 241, 0.2)',
+                                        padding: '0.25rem 0.625rem', borderRadius: '6px',
+                                        textDecoration: 'none',
+                                        transition: 'background-color 0.2s',
+                                    }}
+                                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.15)')}
+                                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.08)')}
+                                >
+                                    {(lang === 'he' && p.titleHe) ? p.titleHe : p.title}
+                                    {p.simultaneous && ` (${t('simultaneous', lang)})`}
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>

@@ -36,8 +36,24 @@ model Course {
   semester    String?               // "A" or "B"
 
   reviews     Review[]
+
+  // Prerequisites (self-referencing many-to-many via explicit join table)
+  prerequisites   CoursePrerequisite[] @relation("CoursePrereqs")
+  prerequisiteOf  CoursePrerequisite[] @relation("PrereqOf")
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model CoursePrerequisite {
+  id              String  @id @default(cuid())
+  courseId         String
+  course          Course  @relation("CoursePrereqs", fields: [courseId], references: [id], onDelete: Cascade)
+  prerequisiteId  String
+  prerequisite    Course  @relation("PrereqOf", fields: [prerequisiteId], references: [id], onDelete: Cascade)
+  simultaneous    Boolean @default(false)
+
+  @@unique([courseId, prerequisiteId])
 }
 
 model Review {
