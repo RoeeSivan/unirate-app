@@ -105,6 +105,17 @@ const prerequisiteData: Record<string, { title: string; simultaneous?: boolean }
         { title: 'Algorithms' },
         { title: 'Machine Learning from Data' },
     ],
+    'Information Theory': [
+        { title: 'Calculus I' },
+        { title: 'Calculus II' },
+        { title: 'Linear Algebra I' },
+        { title: 'Linear Algebra II' },
+        { title: 'Discrete Mathematics' },
+        { title: 'Data Structures' },
+        { title: 'Logic and Set Theory' },
+        { title: 'Introduction to Probability' },
+        { title: 'Introduction to Computer Science' },
+    ],
 }
 
 async function main() {

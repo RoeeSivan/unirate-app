@@ -47,6 +47,7 @@ const finalAssignments: Record<string, "exam" | "paper"> = {
   "Algorithmic Game Theory": "exam",
   "Introduction to Statistics": "exam",
   "Cryptography": "exam",
+  "Information Theory": "exam",
 
   // Electives - paper
   "Applied Methods in Computer Science": "paper",
