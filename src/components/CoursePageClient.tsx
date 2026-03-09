@@ -22,7 +22,7 @@ interface CoursePageClientProps {
     sortedReviews: any[]
     prerequisites: Prerequisite[]
     avgRating: number
-    session: { userId: string; email: string } | null
+    session: { userId: string; email: string; isAdmin?: boolean } | null
     reviewsLocked?: boolean
 }
 
@@ -300,7 +300,7 @@ export default function CoursePageClient({ course, sortedReviews, prerequisites,
                                                 )}
                                                 {(
                                                     session?.userId === review.userId ||
-                                                    session?.email === 'roee.sivan@post.runi.ac.il'
+                                                    session?.isAdmin
                                                 ) && (
                                                     <DeleteReviewButton reviewId={review.id} />
                                                 )}

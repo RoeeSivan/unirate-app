@@ -121,8 +121,8 @@ export async function deleteReviewAction(reviewId: string) {
     const review = await prisma.review.findUnique({ where: { id: reviewId } })
     if (!review) return { error: 'Review not found' }
 
-    const ADMIN_EMAIL = 'roee.sivan@post.runi.ac.il'
-    const isAdmin = session.email === ADMIN_EMAIL
+    const adminEmail = process.env.ADMIN_EMAIL
+    const isAdmin = adminEmail ? session.email === adminEmail : false
 
     if (review.userId !== session.userId && !isAdmin) {
         return { error: 'Forbidden' }

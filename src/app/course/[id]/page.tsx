@@ -65,7 +65,7 @@ export default async function CoursePage({ params }: { params: { id: string } })
             prerequisites={JSON.parse(JSON.stringify(prerequisites))}
             reviewsLocked={isLocked}
             avgRating={avgRating}
-            session={session ? { userId: session.userId as string, email: session.email as string } : null}
+            session={session ? { userId: session.userId as string, email: session.email as string, isAdmin: !!(process.env.ADMIN_EMAIL && session.email === process.env.ADMIN_EMAIL) } : null}
         />
     )
 }
