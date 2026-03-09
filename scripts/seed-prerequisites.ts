@@ -82,6 +82,16 @@ const prerequisiteData: Record<string, { title: string; simultaneous?: boolean }
     '3D Graphics and Animation with Unreal engine': [
         { title: 'Advanced Programming' },
     ],
+    'Artificial intelligence and Moral': [
+        { title: 'Calculus I' },
+        { title: 'Calculus II' },
+        { title: 'Linear Algebra I' },
+        { title: 'Linear Algebra II' },
+        { title: 'Discrete Mathematics' },
+        { title: 'Data Structures' },
+        { title: 'Logic and Set Theory' },
+        { title: 'Introduction to Computer Science' },
+    ],
     'Algorithmic Game Theory': [
         { title: 'Calculus I' },
         { title: 'Calculus II' },
