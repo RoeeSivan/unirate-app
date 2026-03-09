@@ -82,6 +82,17 @@ const prerequisiteData: Record<string, { title: string; simultaneous?: boolean }
     '3D Graphics and Animation with Unreal engine': [
         { title: 'Advanced Programming' },
     ],
+    'Algorithmic Game Theory': [
+        { title: 'Calculus I' },
+        { title: 'Calculus II' },
+        { title: 'Linear Algebra I' },
+        { title: 'Linear Algebra II' },
+        { title: 'Discrete Mathematics' },
+        { title: 'Data Structures' },
+        { title: 'Logic and Set Theory' },
+        { title: 'Algorithms' },
+        { title: 'Introduction to Computer Science' },
+    ],
     'Introduction to Statistics': [
         { title: 'Introduction to Probability' },
     ],
