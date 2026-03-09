@@ -18,6 +18,11 @@ export function HeroSection() {
                     {t('yedion', lang)}
                 </a>
             </p>
+            <p className="hero-subtitle" style={{ marginTop: '0.5rem' }}>
+                <a href="https://postidcac-my.sharepoint.com/personal/etausi_runi_ac_il/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fetausi%5Fruni%5Fac%5Fil%2FDocuments%2F%D7%A1%D7%A8%D7%98%D7%95%D7%A0%D7%99%D7%9D%20%D7%A7%D7%95%D7%A8%D7%A1%D7%99%20%D7%91%D7%97%D7%99%D7%A8%D7%94%2F%D7%AA%D7%A9%D7%A4%D7%95%2F%D7%A1%D7%A8%D7%98%D7%95%D7%A0%D7%99%D7%9D%20%D7%AA%D7%A9%D7%A4%D7%95%2Epdf&parent=%2Fpersonal%2Fetausi%5Fruni%5Fac%5Fil%2FDocuments%2F%D7%A1%D7%A8%D7%98%D7%95%D7%A0%D7%99%D7%9D%20%D7%A7%D7%95%D7%A8%D7%A1%D7%99%20%D7%91%D7%97%D7%99%D7%A8%D7%94%2F%D7%AA%D7%A9%D7%A4%D7%95&ga=1" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'var(--primary)' }}>
+                    {t('electiveVideos', lang)}
+                </a>
+            </p>
         </header>
     )
 }

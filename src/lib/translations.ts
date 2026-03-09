@@ -14,6 +14,7 @@ const translations = {
     he: 'דירוגים אמיתיים וטיפים למבחנים מעמיתים שלכם באוניברסיטה. קבלו החלטות מושכלות לסמסטר הבא. למידע מדויק יותר על הקורסים, חפשו ב'
   },
   yedion: { en: 'Yedion', he: 'ידיעון' },
+  electiveVideos: { en: 'Curious about the electives? Check out video previews for each course.', he: 'סקרנים לגבי קורסי הבחירה? צפו בסרטון היכרות לכל קורס.' },
 
   // Features
   honestRatings: { en: 'Honest Ratings', he: 'דירוגים כנים' },
