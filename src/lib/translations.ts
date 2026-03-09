@@ -48,6 +48,7 @@ const translations = {
   langHebrew: { en: 'Hebrew', he: 'עברית' },
   langEnglish: { en: 'English', he: 'אנגלית' },
   langHebrewAndEnglish: { en: 'Hebrew & English', he: 'עברית ואנגלית' },
+  entrepreneurshipMandatory: { en: 'Entrepreneurship Mandatory', he: 'יזמות חובה' },
   prerequisites: { en: 'Prerequisites', he: 'תנאי קדם' },
   simultaneous: { en: 'simultaneously', he: 'במקביל' },
   reviewsTitle: { en: 'Reviews', he: 'ביקורות' },

@@ -75,6 +75,19 @@ const finalAssignments: Record<string, "exam" | "paper"> = {
   "The Art of Rhetoric in the Hi-Tech World": "paper",
   "Advanced Systems Development Using AI": "paper",
   "Using AI for Malware and Intrusion Detection": "paper",
+  // Entrepreneurship
+  "Entrepreneurship, Creativity and Innovation - From 0 to 1": "exam",
+  "Research Methods for Entrepreneurs": "exam",
+  "Entrepreneurship and Innovation within Organization": "exam",
+  "Practical Tools and Strategies for Entrepreneurs": "paper",
+  "Digital Marketing for Entrepreneurs": "exam",
+  "Legal and Tax Aspects of Entrepreneurial Ventures": "exam",
+  "UX/UI and Prototyping": "paper",
+  "Product Management": "paper",
+  "Accounting & Finance Fundamentals for Entrepreneurs": "exam",
+  "AI Tools for Entrepreneurs": "paper",
+  "Human Capital in Ventures and Innovative Organizations": "exam",
+  "Decision Making in Entrepreneurship": "exam",
 }
 
 async function main() {

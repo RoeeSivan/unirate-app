@@ -62,6 +62,19 @@ const courseNumbers: Record<string, string> = {
   'Introduction to Bioinformatics': '3613',
   'Advanced Topics in Computer Systems Security': '3643',
   'Using AI for Malware and Intrusion Detection': '3917',
+  // Entrepreneurship
+  'Entrepreneurship, Creativity and Innovation - From 0 to 1': '3101',
+  'Research Methods for Entrepreneurs': '3913',
+  'Entrepreneurship and Innovation within Organization': '5047',
+  'Practical Tools and Strategies for Entrepreneurs': '5070',
+  'Digital Marketing for Entrepreneurs': '5392',
+  'Legal and Tax Aspects of Entrepreneurial Ventures': '5393',
+  'UX/UI and Prototyping': '5394',
+  'Product Management': '5395',
+  'Accounting & Finance Fundamentals for Entrepreneurs': '5396',
+  'AI Tools for Entrepreneurs': '5090',
+  'Human Capital in Ventures and Innovative Organizations': '5454',
+  'Decision Making in Entrepreneurship': '26013',
 }
 
 async function main() {

@@ -159,6 +159,55 @@ const electiveHebrew: Record<string, { titleHe: string; descriptionHe: string }>
     titleHe: 'שימוש בטכניקות בינה מלאכותית לזיהוי נוזק',
     descriptionHe: 'הקורס עוסק ביישום טכניקות בינה מלאכותית לזיהוי תוכנות זדוניות וחדירות לרשת. הסטודנטים ילמדו ליישם שיטות למידת מכונה ולמידה עמוקה לאתגרי אבטחת סייבר.',
   },
+  // Entrepreneurship
+  'Entrepreneurship, Creativity and Innovation - From 0 to 1': {
+    titleHe: 'יזמות, יצירתיות וחדשנות - מ-0 ל-1',
+    descriptionHe: '',
+  },
+  'Research Methods for Entrepreneurs': {
+    titleHe: 'שיטות מחקר ליזמים',
+    descriptionHe: '',
+  },
+  'Entrepreneurship and Innovation within Organization': {
+    titleHe: 'יזמות וחדשנות בתוך ארגון',
+    descriptionHe: '',
+  },
+  'Practical Tools and Strategies for Entrepreneurs': {
+    titleHe: 'כלים ואסטרטגיות מעשיות ליזמים',
+    descriptionHe: '',
+  },
+  'Digital Marketing for Entrepreneurs': {
+    titleHe: 'שיווק דיגיטלי ליזמים - מדע"ח',
+    descriptionHe: '',
+  },
+  'Legal and Tax Aspects of Entrepreneurial Ventures': {
+    titleHe: 'הבטי משפט ומיסוי ביזמות',
+    descriptionHe: '',
+  },
+  'UX/UI and Prototyping': {
+    titleHe: 'עיצוב מוצר, אב טיפוס וחווית משתמש',
+    descriptionHe: '',
+  },
+  'Product Management': {
+    titleHe: 'ניהול מוצר',
+    descriptionHe: '',
+  },
+  'Accounting & Finance Fundamentals for Entrepreneurs': {
+    titleHe: 'חשבונאות ויסודות המימון ליזמים',
+    descriptionHe: '',
+  },
+  'AI Tools for Entrepreneurs': {
+    titleHe: 'כלי AI ליזמים',
+    descriptionHe: '',
+  },
+  'Human Capital in Ventures and Innovative Organizations': {
+    titleHe: 'הון אנושי במיזמים ובארגונים חדשניים',
+    descriptionHe: '',
+  },
+  'Decision Making in Entrepreneurship': {
+    titleHe: 'קבלת החלטות ביזמות',
+    descriptionHe: '',
+  },
 }
 
 async function main() {

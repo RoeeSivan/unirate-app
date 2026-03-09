@@ -73,6 +73,20 @@ async function main() {
         {title:"Advanced Topics in Computer Systems Security",description:"The goal of computer systems security is to ensure that our computer systems are reliable and safe, taking into account that they often face an adversarial environment. We need to protect our systems not just from random errors and inadvertant bugs, but also against actively malicious actors. In this course, we will study the fundamentals of computer systems security from both a theoretical and a practical standpoint. We will approach the subject from two angles: security analysis (attacking systems) and secure systems construction (defending systems).",isMandatory:false,tags: ["Elective","E","B"],semester:"B" ,year:3},
         {title:"Using AI for Malware and Intrusion Detection",description:"This course covers the application of artificial intelligence techniques for detecting malware and network intrusions. Students will learn to apply machine learning and deep learning methods to cybersecurity challenges.",isMandatory:false,tags: ["Elective","E","B"],semester:"B" ,year:3},
 
+        // Entrepreneurship electives
+        {title:"Entrepreneurship, Creativity and Innovation - From 0 to 1",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"Research Methods for Entrepreneurs",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"Entrepreneurship and Innovation within Organization",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"Practical Tools and Strategies for Entrepreneurs",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"Digital Marketing for Entrepreneurs",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"Legal and Tax Aspects of Entrepreneurial Ventures",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"UX/UI and Prototyping",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"Product Management",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"Accounting & Finance Fundamentals for Entrepreneurs",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"AI Tools for Entrepreneurs",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"Human Capital in Ventures and Innovative Organizations",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+        {title:"Decision Making in Entrepreneurship",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
+
     ]
     
 

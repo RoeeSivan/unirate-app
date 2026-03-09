@@ -204,6 +204,17 @@ export default function CoursePageClient({ course, sortedReviews, prerequisites,
                                 ? t('langEnglish', lang)
                                 : t('langHebrew', lang)}
                     </span>
+                    {course.tags?.includes('Entrepreneurship') && (
+                        <span style={{
+                            fontSize: '0.8rem', fontWeight: 500,
+                            backgroundColor: 'rgba(245, 158, 11, 0.08)',
+                            color: '#d97706',
+                            border: '1px solid rgba(245, 158, 11, 0.2)',
+                            padding: '0.25rem 0.625rem', borderRadius: '6px',
+                        }}>
+                            {t('entrepreneurshipMandatory', lang)}
+                        </span>
+                    )}
                 </div>
                 {!course.isMandatory && (
                     <div className="rating-badge" style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
