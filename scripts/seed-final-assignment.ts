@@ -88,6 +88,24 @@ const finalAssignments: Record<string, "exam" | "paper"> = {
   "AI Tools for Entrepreneurs": "paper",
   "Human Capital in Ventures and Innovative Organizations": "exam",
   "Decision Making in Entrepreneurship": "exam",
+  // Vertical Courses
+  "Real Estate Entrepreneurship": "paper",
+  "Consumer Products Entrepreneurship": "paper",
+  "Fintech Entrepreneurship": "paper",
+  "Medical Entrepreneurship and BioTech": "exam",
+  "Sport Tech and Wellness Entrepreneurship": "paper",
+  "FashionTech Entrepreneurship": "paper",
+  "Internet, E-commerce, New Media & Social Entrepreneurship": "paper",
+  "Cannabis Tech": "paper",
+  "Cyber and Software Solutions Entrepreneurship": "paper",
+  "Founding and Managing Accelerators and VC Funds": "paper",
+  "Impact Entrepreneurship": "paper",
+  "Org Innovation w/Digitization, AI & Robotics": "paper",
+  "The Playtika Gaming Vertical": "paper",
+  "Cross Vertical Acceleration": "paper",
+  "Power and Influence in Entrepreneurship": "exam",
+  "GreenTech Entrepreneurship": "paper",
+  "Psychology of Language in Innovation and Entrepreneurship": "paper",
 }
 
 async function main() {

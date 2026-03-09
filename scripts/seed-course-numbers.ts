@@ -75,6 +75,24 @@ const courseNumbers: Record<string, string> = {
   'AI Tools for Entrepreneurs': '5090',
   'Human Capital in Ventures and Innovative Organizations': '5454',
   'Decision Making in Entrepreneurship': '26013',
+  // Vertical Courses
+  'Real Estate Entrepreneurship': '5397',
+  'Consumer Products Entrepreneurship': '5399',
+  'Fintech Entrepreneurship': '5400',
+  'Medical Entrepreneurship and BioTech': '5402',
+  'Sport Tech and Wellness Entrepreneurship': '5403',
+  'FashionTech Entrepreneurship': '5405',
+  'Internet, E-commerce, New Media & Social Entrepreneurship': '5406',
+  'Cannabis Tech': '5407',
+  'Founding and Managing Accelerators and VC Funds': '5423',
+  'Impact Entrepreneurship': '5424',
+  'Org Innovation w/Digitization, AI & Robotics': '5425',
+  'The Playtika Gaming Vertical': '5426',
+  'Cross Vertical Acceleration': '5432',
+  'Power and Influence in Entrepreneurship': '5440',
+  'GreenTech Entrepreneurship': '5474',
+  'Psychology of Language in Innovation and Entrepreneurship': '5475',
+  'Cyber and Software Solutions Entrepreneurship': '5629',
 }
 
 async function main() {

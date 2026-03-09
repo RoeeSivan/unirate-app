@@ -54,6 +54,9 @@ function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' })
           {course.tags?.includes('Entrepreneurship') && (
             <span style={{ fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(245, 158, 11, 0.08)', color: '#d97706', border: '1px solid rgba(245, 158, 11, 0.2)', padding: '0.125rem 0.375rem', borderRadius: '4px' }}>{t('entrepreneurshipMandatory', lang)}</span>
           )}
+          {course.tags?.includes('Vertical') && (
+            <span style={{ fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(16, 185, 129, 0.08)', color: '#059669', border: '1px solid rgba(16, 185, 129, 0.2)', padding: '0.125rem 0.375rem', borderRadius: '4px' }}>{t('vertical', lang)}</span>
+          )}
         </div>
         <p dir="auto" style={{ color: 'var(--text-muted)' }}>{courseDesc}</p>
       </div>
@@ -255,7 +258,12 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
       }
     }
 
-    const electives = filtered.filter(c => !c.isMandatory);
+    const verticals = filtered.filter(c => c.tags?.includes('Vertical'));
+    if (verticals.length > 0) {
+      result.push({ key: 'verticals', title: t('verticals', lang), courses: verticals });
+    }
+
+    const electives = filtered.filter(c => !c.isMandatory && !c.tags?.includes('Vertical'));
     if (electives.length > 0) {
       result.push({ key: 'electives', title: t('electives', lang), courses: electives });
     }

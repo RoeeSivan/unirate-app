@@ -208,6 +208,75 @@ const electiveHebrew: Record<string, { titleHe: string; descriptionHe: string }>
     titleHe: 'קבלת החלטות ביזמות',
     descriptionHe: '',
   },
+  // Vertical Courses
+  'Real Estate Entrepreneurship': {
+    titleHe: 'יזמות בנדל"ן',
+    descriptionHe: 'חדשנות בפרופטק ויסודות השקעות נדל"ן עם כלי ניתוח פיננסי. טכנולוגיית נדל"ן, ניתוח שוק ואסטרטגיות השקעה.',
+  },
+  'Consumer Products Entrepreneurship': {
+    titleHe: 'יזמות מוצרי צריכה',
+    descriptionHe: 'התמקדות במוצרים פיזיים ומוחשיים — פריטים שניתן להחזיק ביד — ולא במוצרים דיגיטליים בלבד. פיתוח מוצר, ייצור, שרשרת אספקה ואסטרטגיות שיווק.',
+  },
+  'Fintech Entrepreneurship': {
+    titleHe: 'יזמות פינטק',
+    descriptionHe: 'שירותים פיננסיים מונעי טכנולוגיה וטכנולוגיות מאפשרות לחדשנות במגזר הפיננסי. בלוקצ׳יין, מדעי נתונים ומודלים עסקיים בפינטק.',
+  },
+  'Medical Entrepreneurship and BioTech': {
+    titleHe: 'יזמות רפואית וביוטק',
+    descriptionHe: 'חדשנות בתחום הבריאות כולל מסלולים רגולטוריים, פתרונות בריאות דיגיטליים ודרישות ניסויים קליניים לסטארטאפים רפואיים.',
+  },
+  'Sport Tech and Wellness Entrepreneurship': {
+    titleHe: 'יזמות ספורטק ובריאות',
+    descriptionHe: 'התפתחות טכנולוגיית הספורט וחדשנות בארגוני ספורט גלובליים ובהקשרי סטארטאפ. לבישים, אנליטיקה ומגמות בתעשיית הבריאות.',
+  },
+  'FashionTech Entrepreneurship': {
+    titleHe: 'יזמות אופנה וטכנולוגיה',
+    descriptionHe: 'כיצד הטכנולוגיה מחוללת מהפכה בייצור האופנה ובקמעונאות, תעשייה בשווי של כ-2.4 טריליון דולר בעולם.',
+  },
+  'Internet, E-commerce, New Media & Social Entrepreneurship': {
+    titleHe: 'יזמות אינטרנט, מסחר אלקטרוני, ניו מדיה וחברתי',
+    descriptionHe: 'השקת מיזמים דיגיטליים כולל מגמות אינטרנט נייד, שווקי IoT מתפתחים, פלטפורמות מדיה חברתית ומודלים עסקיים למסחר אלקטרוני.',
+  },
+  'Cannabis Tech': {
+    titleHe: 'יזמות קנאביסטק',
+    descriptionHe: 'שרשרת הערך של תעשיית הקנאביס מגידול ועד יישומים רוקחיים, תוך שימוש בישראל כמקרה בוחן מרכזי.',
+  },
+  'Cyber and Software Solutions Entrepreneurship': {
+    titleHe: 'יזמות סייבר ופתרונות תוכנה לארגונים',
+    descriptionHe: 'אתגרי אבטחת מחשוב ופיתוח תוכנה ארגוני. תעשיית הסייבר הישראלית ומודלים עסקיים של SaaS.',
+  },
+  'Founding and Managing Accelerators and VC Funds': {
+    titleHe: 'השקעות הון סיכון',
+    descriptionHe: 'מכניקת הון סיכון כולל הערכות שווי, term sheets, בדיקת נאותות ואסטרטגיות אקזיט.',
+  },
+  'Impact Entrepreneurship': {
+    titleHe: 'חדשנות ביזמות אימפקט בארגונים ומיזמים',
+    descriptionHe: 'מיזמים בעלי מודעות חברתית המתואמים עם מעבר לכלכלה ירוקה ותוצאות חברתיות חיוביות מדידות.',
+  },
+  'Org Innovation w/Digitization, AI & Robotics': {
+    titleHe: 'חדשנות ארגונית באמצעות דיגיטציה, AI ורובוטיקה',
+    descriptionHe: 'סימולציות עסקיות ואינטראקציה עם מובילי תעשייה לפיתוח יכולות טרנספורמציה דיגיטלית באמצעות AI ורובוטיקה.',
+  },
+  'The Playtika Gaming Vertical': {
+    titleHe: 'וורטיקל גיימינג של פלייטיקה',
+    descriptionHe: 'מבנה אקוסיסטם הגיימינג, מודלים עסקיים ופיתוח מיזמי גיימינג. בשיתוף פעולה עם פלייטיקה.',
+  },
+  'Cross Vertical Acceleration': {
+    titleHe: 'פרה-אקסלרציה בין-וורטיקלית',
+    descriptionHe: 'פיתוח מיזמים בשלב מוקדם לתמיכה בהכנה לתוכנית ההאצה של שנה ג׳.',
+  },
+  'Power and Influence in Entrepreneurship': {
+    titleHe: 'כוח השפעה ביזמות',
+    descriptionHe: 'דינמיקת השפעה באמצעות מקרי בוחן, טכניקות משא ומתן ובניית קשרים עם בעלי עניין.',
+  },
+  'GreenTech Entrepreneurship': {
+    titleHe: 'יזמות גרינטק',
+    descriptionHe: 'הפיכת אתגרים סביבתיים להזדמנויות סטארטאפ, תוך דגש על כלי הערכת קיימות.',
+  },
+  'Psychology of Language in Innovation and Entrepreneurship': {
+    titleHe: 'הפסיכולוגיה של השפה בחדשנות ויזמות',
+    descriptionHe: 'בניית נרטיב, תקשורת משכנעת ואסטרטגיות לשוניות להצלחה יזמית.',
+  },
 }
 
 async function main() {

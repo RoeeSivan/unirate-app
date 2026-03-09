@@ -87,6 +87,25 @@ async function main() {
         {title:"Human Capital in Ventures and Innovative Organizations",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
         {title:"Decision Making in Entrepreneurship",description:"",isMandatory:false,tags: ["Elective","Entrepreneurship"],year:3},
 
+        // Vertical Courses (Year 2)
+        {title:"Real Estate Entrepreneurship",description:"Proptech innovations and real estate investment fundamentals with financial analysis tools. Covers real estate technology, market analysis, and investment strategies.",isMandatory:false,tags:["Vertical"],year:2,semester:"A"},
+        {title:"Consumer Products Entrepreneurship",description:"Focuses on physical, tangible products — items we can physically hold in our hands — rather than purely digital offerings. Covers product development, manufacturing, supply chain, and go-to-market strategies.",isMandatory:false,tags:["Vertical"],year:2,semester:"A"},
+        {title:"Fintech Entrepreneurship",description:"Technology-driven financial services and enabling technologies for finance sector innovation. Explores blockchain, data science, and fintech business models.",isMandatory:false,tags:["Vertical"],year:2,semester:"A"},
+        {title:"Medical Entrepreneurship and BioTech",description:"Healthcare innovation including regulatory pathways, digital health solutions, and clinical trial requirements for medical startups.",isMandatory:false,tags:["Vertical"],year:2,semester:"A"},
+        {title:"Sport Tech and Wellness Entrepreneurship",description:"Sports technology evolution and innovation within global athletic organizations and startup contexts. Covers wearables, analytics, and wellness industry trends.",isMandatory:false,tags:["Vertical"],year:2,semester:"A"},
+        {title:"FashionTech Entrepreneurship",description:"How technology revolutionizes fashion manufacturing and retail, an industry valued at approximately 2.4 trillion dollars globally.",isMandatory:false,tags:["Vertical"],year:2,semester:"A"},
+        {title:"Internet, E-commerce, New Media & Social Entrepreneurship",description:"Digital venture launching including mobile internet trends, IoT emerging markets, social media platforms, and e-commerce business models.",isMandatory:false,tags:["Vertical"],year:2,semester:"A"},
+        {title:"Cannabis Tech",description:"The cannabis industry value chain from cultivation through pharmaceutical applications, using Israel as a primary case study.",isMandatory:false,tags:["Vertical"],year:2,semester:"A"},
+        {title:"Cyber and Software Solutions Entrepreneurship",description:"Computing security challenges and enterprise software development. Covers Israel's cybersecurity industry and SaaS business models.",isMandatory:false,tags:["Vertical"],year:2,semester:"A"},
+        {title:"Founding and Managing Accelerators and VC Funds",description:"Venture capital mechanics including valuations, term sheets, due diligence, and exit strategies.",isMandatory:false,tags:["Vertical"],year:2,semester:"B"},
+        {title:"Impact Entrepreneurship",description:"Socially-conscious ventures aligned with green economy transformation and measurable positive social outcomes.",isMandatory:false,tags:["Vertical"],year:2,semester:"B"},
+        {title:"Org Innovation w/Digitization, AI & Robotics",description:"Business simulations and industry leader interaction to develop digital transformation competencies using AI and robotics.",isMandatory:false,tags:["Vertical"],year:2,semester:"B"},
+        {title:"The Playtika Gaming Vertical",description:"Gaming ecosystem structure, business models, and gaming venture development. In collaboration with Playtika.",isMandatory:false,tags:["Vertical"],year:2,semester:"B"},
+        {title:"Cross Vertical Acceleration",description:"Early-stage venture development supporting preparation for the third-year acceleration program.",isMandatory:false,tags:["Vertical"],year:2,semester:"B"},
+        {title:"Power and Influence in Entrepreneurship",description:"Influence dynamics through case studies, negotiation techniques, and stakeholder relationship building.",isMandatory:false,tags:["Vertical"],year:2,semester:"B"},
+        {title:"GreenTech Entrepreneurship",description:"Transforms environmental challenges into startup opportunities, emphasizing sustainability assessment tools.",isMandatory:false,tags:["Vertical"],year:2,semester:"B"},
+        {title:"Psychology of Language in Innovation and Entrepreneurship",description:"Narrative building, persuasive communication, and linguistic strategies for entrepreneurial success.",isMandatory:false,tags:["Vertical"],year:2,semester:"B"},
+
     ]
     
 
