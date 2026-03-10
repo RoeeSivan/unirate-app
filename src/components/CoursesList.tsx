@@ -249,13 +249,17 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
 
   const sections = useMemo(() => {
     const result: { key: string; title: string; courses: CourseData[] }[] = [];
-
+    //for years 1 2 3 
     for (const yr of [1, 2, 3]) {
       const yearLabel = t(`year${yr}` as 'year1' | 'year2' | 'year3', lang);
       const yearCourses = filtered.filter(c => c.year === yr && c.isMandatory);
       if (yearCourses.length > 0) {
         result.push({ key: `y${yr}`, title: yearLabel, courses: yearCourses });
       }
+    }
+        const electives = filtered.filter(c => !c.isMandatory && !c.tags?.includes('Vertical') && !c.tags?.includes('Entrepreneurship'));
+    if (electives.length > 0) {
+      result.push({ key: 'electives', title: t('electives', lang), courses: electives });
     }
 
     const entrepreneurship = filtered.filter(c => c.tags?.includes('Entrepreneurship') && !c.tags?.includes('Vertical'));
@@ -268,10 +272,7 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
       result.push({ key: 'verticals', title: t('verticals', lang), courses: verticals });
     }
 
-    const electives = filtered.filter(c => !c.isMandatory && !c.tags?.includes('Vertical') && !c.tags?.includes('Entrepreneurship'));
-    if (electives.length > 0) {
-      result.push({ key: 'electives', title: t('electives', lang), courses: electives });
-    }
+
 
     return result;
   }, [filtered, lang]);
