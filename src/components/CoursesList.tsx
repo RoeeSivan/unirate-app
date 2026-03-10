@@ -43,7 +43,7 @@ function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' })
       <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
           <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: 'var(--text-main)' }}>{courseTitle}</h3>
-          {course.tags && course.tags.filter(tag => tag !== 'Vertical').length > 0 && (
+          {course.tags && course.tags.filter(tag => tag !== 'Vertical' && tag !== 'E' && tag.toLowerCase()).length > 0 && (
             <span style={{ fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'var(--surface-hover)', color: 'var(--text-muted)', padding: '0.125rem 0.375rem', borderRadius: '4px' }}>
               {course.tags.filter(tag => tag !== 'Vertical' && tag !== 'E' && tag !== 'Elective' && tag !== 'ELECTIVE').join(', ')}
             </span>
