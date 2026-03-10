@@ -51,9 +51,6 @@ function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' })
           {course.isMandatory && (
             <span style={{ fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary)', border: '1px solid rgba(99, 102, 241, 0.2)', padding: '0.125rem 0.375rem', borderRadius: '4px' }}>{t('mandatory', lang)}</span>
           )}
-          {course.tags?.includes('Entrepreneurship') && (
-            <span style={{ fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(245, 158, 11, 0.08)', color: '#d97706', border: '1px solid rgba(245, 158, 11, 0.2)', padding: '0.125rem 0.375rem', borderRadius: '4px' }}>{t('entrepreneurshipMandatory', lang)}</span>
-          )}
           {course.tags?.includes('Vertical') && (
             <span style={{ fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(16, 185, 129, 0.08)', color: '#059669', border: '1px solid rgba(16, 185, 129, 0.2)', padding: '0.125rem 0.375rem', borderRadius: '4px' }}>{t('vertical', lang)}</span>
           )}
