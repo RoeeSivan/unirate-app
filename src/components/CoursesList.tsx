@@ -28,6 +28,7 @@ interface CoursesListProps {
 }
 
 function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' }) {
+  const [expanded, setExpanded] = useState(false);
   const avgRating = course.reviews && course.reviews.length > 0
     ? course.reviews.reduce((acc, r) => acc + r.rating, 0) / course.reviews.length
     : 0;
@@ -55,7 +56,35 @@ function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' })
             <span style={{ fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(16, 185, 129, 0.08)', color: '#059669', border: '1px solid rgba(16, 185, 129, 0.2)', padding: '0.125rem 0.375rem', borderRadius: '4px' }}>{t('vertical', lang)}</span>
           )}
         </div>
-        <p dir="auto" style={{ color: 'var(--text-muted)' }}>{courseDesc}</p>
+        <p dir="auto" style={{
+          color: 'var(--text-muted)',
+          ...(!expanded && courseDesc && courseDesc.length > 150 ? {
+            display: '-webkit-box',
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: 'vertical' as const,
+            overflow: 'hidden',
+          } : {}),
+        }}>{courseDesc}</p>
+        {courseDesc && courseDesc.length > 150 && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setExpanded(!expanded);
+            }}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--primary)',
+              cursor: 'pointer',
+              padding: '0.25rem 0',
+              fontSize: '0.8rem',
+              fontWeight: 500,
+            }}
+          >
+            {expanded ? (lang === 'he' ? 'הצג פחות' : 'Show less') : (lang === 'he' ? 'הצג עוד' : 'Show more')}
+          </button>
+        )}
       </div>
 
       {course.isMandatory ? (
