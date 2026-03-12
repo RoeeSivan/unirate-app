@@ -17,14 +17,30 @@ export default async function VerifyEmailPage({
 
     if (!user) redirect('/login?error=invalid')
 
+    if (user.verificationTokenExpiresAt && user.verificationTokenExpiresAt < new Date()) {
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { verificationToken: null, verificationTokenExpiresAt: null },
+        })
+        redirect('/login?error=expired')
+    }
+
     async function confirm() {
         'use server'
         const u = await prisma.user.findUnique({ where: { verificationToken: token } })
         if (!u) redirect('/login?error=invalid')
 
+        if (u.verificationTokenExpiresAt && u.verificationTokenExpiresAt < new Date()) {
+            await prisma.user.update({
+                where: { id: u.id },
+                data: { verificationToken: null, verificationTokenExpiresAt: null },
+            })
+            redirect('/login?error=expired')
+        }
+
         await prisma.user.update({
             where: { id: u.id },
-            data: { emailVerified: true, verificationToken: null },
+            data: { emailVerified: true, verificationToken: null, verificationTokenExpiresAt: null },
         })
 
         const session = await encrypt({ userId: u.id, email: u.email, name: u.name })

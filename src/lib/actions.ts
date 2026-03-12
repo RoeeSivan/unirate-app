@@ -50,9 +50,10 @@ export async function loginAction(formData: FormData) {
         }
 
         const token = randomBytes(32).toString('hex')
+        const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
         await prisma.user.update({
             where: { id: user.id },
-            data: { verificationToken: token, name: displayName },
+            data: { verificationToken: token, verificationTokenExpiresAt: expiresAt, name: displayName },
         })
 
         await sendVerificationEmail(email, token)
