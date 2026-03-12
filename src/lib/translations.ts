@@ -54,6 +54,7 @@ const translations = {
   finalAssignment: { en: 'Final Assignment', he: 'מטלה סופית' },
   finalExam: { en: 'Final Exam', he: 'מבחן סופי' },
   finalPaper: { en: 'Final Paper', he: 'עבודה מסכמת' },
+  midterm: { en: 'Midterm', he: 'מבחן אמצע' },
   language: { en: 'Language', he: 'שפה' },
   langHebrew: { en: 'Hebrew', he: 'עברית' },
   langEnglish: { en: 'English', he: 'אנגלית' },

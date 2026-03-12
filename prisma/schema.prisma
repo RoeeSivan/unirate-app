@@ -29,6 +29,7 @@ model Course {
   descriptionHe String?
   courseNumber    String?
   finalAssignment String?    // "exam", "paper", or null
+  hasMidterm     Boolean  @default(false)
   isMandatory    Boolean  @default(true)
   isTheoretical  Boolean  @default(false)
   tags           String[] @default([])   // e.g. "Elective","E","A","ML"

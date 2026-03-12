@@ -205,6 +205,17 @@ export default function CoursePageClient({ course, sortedReviews, prerequisites,
                                 ? t('langEnglish', lang)
                                 : t('langHebrew', lang)}
                     </span>
+                    {course.hasMidterm && (
+                        <span style={{
+                            fontSize: '0.8rem', fontWeight: 500,
+                            backgroundColor: 'rgba(168, 85, 247, 0.08)',
+                            color: '#9333ea',
+                            border: '1px solid rgba(168, 85, 247, 0.2)',
+                            padding: '0.25rem 0.625rem', borderRadius: '6px',
+                        }}>
+                            {t('midterm', lang)}
+                        </span>
+                    )}
                     {course.tags?.includes('Entrepreneurship') && (
                         <span style={{
                             fontSize: '0.8rem', fontWeight: 500,
