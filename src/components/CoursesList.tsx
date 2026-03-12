@@ -18,6 +18,7 @@ interface CourseData {
   semester?: string | null;
   isMandatory?: boolean;
   isTheoretical?: boolean;
+  finalAssignment?: string | null;
   tags?: string[];
   reviews: { id: string; rating: number }[];
 }
@@ -128,19 +129,21 @@ function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' })
   );
 }
 
-function AccordionSection({ title, courses, lang, defaultOpen = false, filterOptions, languageFilter = false, forceOpen = false }: {
+function AccordionSection({ title, courses, lang, defaultOpen = false, filterOptions, languageFilter = false, assignmentFilter = false, forceOpen = false }: {
   title: string;
   courses: CourseData[];
   lang: 'en' | 'he';
   defaultOpen?: boolean;
   filterOptions?: { label: string; options: { value: string; label: string }[] };
   languageFilter?: boolean;
+  assignmentFilter?: boolean;
   forceOpen?: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
   const isOpen = forceOpen || open;
   const [filter, setFilter] = useState('');
   const [langFilter, setLangFilter] = useState('');
+  const [assignFilter, setAssignFilter] = useState('');
 
   const displayed = useMemo(() => {
     let result = courses;
@@ -152,8 +155,13 @@ function AccordionSection({ title, courses, lang, defaultOpen = false, filterOpt
     } else if (langFilter === 'hebrew') {
       result = result.filter(c => !c.tags?.includes('E'));
     }
+    if (assignFilter === 'exam') {
+      result = result.filter(c => c.finalAssignment === 'exam');
+    } else if (assignFilter === 'paper') {
+      result = result.filter(c => c.finalAssignment === 'paper');
+    }
     return result;
-  }, [courses, filter, filterOptions, langFilter]);
+  }, [courses, filter, filterOptions, langFilter, assignFilter]);
 
   if (courses.length === 0) return null;
 
@@ -200,7 +208,7 @@ function AccordionSection({ title, courses, lang, defaultOpen = false, filterOpt
           display: 'flex', flexDirection: 'column', gap: '0.5rem',
           borderTop: '1px solid var(--border)',
         }}>
-          {(filterOptions || languageFilter) && (
+          {(filterOptions || languageFilter || assignmentFilter) && (
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.25rem' }}>
               {filterOptions && (
                 <select
@@ -234,6 +242,23 @@ function AccordionSection({ title, courses, lang, defaultOpen = false, filterOpt
                   <option value="">{t('all', lang)}</option>
                   <option value="english">{t('langEnglish', lang)}</option>
                   <option value="hebrew">{t('langHebrew', lang)}</option>
+                </select>
+              )}
+              {assignmentFilter && (
+                <select
+                  value={assignFilter}
+                  className="input"
+                  style={{
+                    fontSize: '0.85rem', padding: '0.4rem 0.75rem', flex: 1, minWidth: '140px',
+                    backgroundColor: assignFilter ? 'rgba(245, 158, 11, 0.05)' : undefined,
+                    borderColor: assignFilter ? 'rgba(245, 158, 11, 0.2)' : undefined,
+                  }}
+                  onClick={e => e.stopPropagation()}
+                  onChange={e => setAssignFilter(e.target.value)}
+                >
+                  <option value="">{t('finalAssignment', lang)}</option>
+                  <option value="exam">{t('finalExam', lang)}</option>
+                  <option value="paper">{t('finalPaper', lang)}</option>
                 </select>
               )}
             </div>
@@ -340,6 +365,7 @@ export default function CoursesList({ courses, isLoggedIn }: CoursesListProps) {
               lang={lang}
               forceOpen={!!q}
               languageFilter={section.key === 'electives'}
+              assignmentFilter={section.key === 'electives'}
               filterOptions={section.key === 'electives' ? {
                 label: t('allElectives', lang),
                 options: [
