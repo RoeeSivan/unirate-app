@@ -14,7 +14,7 @@ export default async function Home() {
 
   const totalReviews = courses.reduce((sum, c) => sum + c.reviews.length, 0);
   const totalCourses = courses.length;
-  const activeUsers = new Set(courses.flatMap(c => c.reviews.map(r => r.userId))).size;
+  const activeUsers = await prisma.user.count();
 
   return (
     <div className="page-wrapper animate-fade-in">
