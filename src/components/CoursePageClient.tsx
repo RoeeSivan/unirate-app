@@ -123,7 +123,7 @@ function EditReviewForm({ review, isMandatory, lang, onCancel, onSaved }: {
                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>{t('yearTaken', lang)}</label>
                 <select className="input" value={yearTaken} onChange={e => setYearTaken(e.target.value)} style={{ cursor: 'pointer' }}>
                     <option value="">{t('selectYear', lang)}</option>
-                    {[2022, 2023, 2024, 2025, 2026].map(y => (
+                    {[2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026].map(y => (
                         <option key={y} value={y}>{y}</option>
                     ))}
                 </select>
