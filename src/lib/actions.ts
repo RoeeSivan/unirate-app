@@ -93,6 +93,18 @@ export async function addReviewAction(formData: FormData) {
         return { error: 'Missing or invalid required fields' }
     }
 
+    // Limit: 2 reviews per course per user (admins exempt)
+    const adminEmail = process.env.ADMIN_EMAIL
+    const isAdmin = adminEmail ? session.email === adminEmail : false
+    if (!isAdmin) {
+        const existingCount = await prisma.review.count({
+            where: { userId: session.userId as string, courseId }
+        })
+        if (existingCount >= 2) {
+            return { error: 'You can only submit up to 2 reviews per course.' }
+        }
+    }
+
     try {
         await prisma.review.create({
             data: {

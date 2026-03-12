@@ -86,6 +86,7 @@ const translations = {
   submitRating: { en: 'Submit Rating', he: 'שלחו דירוג' },
   submitting: { en: 'Submitting...', he: 'שולח...' },
   pleaseSelectRating: { en: 'Please select a rating', he: 'אנא בחרו דירוג' },
+  maxReviewsReached: { en: 'You can only submit up to 2 reviews per course.', he: 'ניתן לשלוח עד 2 ביקורות לכל קורס.' },
 
   // Login
   signInTitle: { en: 'Sign In', he: 'התחברות' },
