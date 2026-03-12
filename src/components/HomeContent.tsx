@@ -12,6 +12,9 @@ export function HeroSection() {
             <h1 className="hero-title">
                 {t('heroTitle1', lang)}<span className="text-gradient">{t('heroTitleHighlight', lang)}</span>
             </h1>
+            <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '1rem', fontWeight: 500 }}>
+                {t('heroDescription', lang)}
+            </p>
             <p className="hero-subtitle">
                 {t('heroSubtitle', lang)}{' '}
                 <a href="https://www.runi.ac.il/yedion/en/pages/generalsearch.aspx" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'inherit' }}>
