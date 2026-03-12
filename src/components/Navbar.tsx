@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import ThemeToggle from './ThemeToggle'
 import LanguageToggle from './LanguageToggle'
 import { useLang } from './LanguageProvider'
@@ -15,7 +16,8 @@ export default function Navbar({ session }: { session: { email: string; name?: s
     return (
         <>
             <nav className="navbar container">
-                <Link href="/" className="navbar-logo">
+                <Link href="/" className="navbar-logo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Image src="/logo.png" alt="uni-rate logo" width={28} height={28} style={{ borderRadius: '6px' }} />
                     <span className="text-gradient">Uni-Rate.com</span>
                 </Link>
                 <div className="navbar-links" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
