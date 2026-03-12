@@ -19,13 +19,28 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.uni-rate.com'),
   title: "Runi Course Ratings",
-  description: "Rate and review courses at Reichman University",
+  description: "Course reviews and ratings for Computer Science & Entrepreneurship at Reichman University. Real ratings and test tips from your peers.",
   viewport: 'width=device-width,initial-scale=1,viewport-fit=cover',
   openGraph: {
     title: "Runi Course Ratings",
-    description: "Rate and review courses at Reichman University",
+    description: "Course reviews and ratings for Computer Science & Entrepreneurship at Reichman University. Real ratings and test tips from your peers.",
     url: "https://www.uni-rate.com",
+    siteName: "uni-rate",
     type: "website",
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Runi Course Ratings',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Runi Course Ratings',
+    description: 'Course reviews and ratings for Computer Science & Entrepreneurship at Reichman University.',
+    images: ['/opengraph-image.png'],
   },
 };
 
