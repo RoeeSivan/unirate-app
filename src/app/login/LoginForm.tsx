@@ -73,20 +73,17 @@ export default function LoginForm() {
                 {error && <div className="error-message">{error}</div>}
 
                 <form onSubmit={handleSubmit} className="auth-form" dir={lang === 'he' ? 'rtl' : 'ltr'}>
-                    <div className="form-group">
-                        <label htmlFor="username">{t('username', lang)}</label>
-                        <div className="email-input-row" style={{ direction: 'ltr' }}>
-                            <input
-                                id="username"
-                                name="username"
-                                type="text"
-                                className="input"
-                                placeholder="firstname.lastname"
-                                required
-                                style={{ textAlign: 'left' }}
-                            />
-                            <span className="email-suffix">@post.runi.ac.il</span>
-                        </div>
+                    <div className="email-input-row" style={{ direction: 'ltr' }}>
+                        <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            className="input"
+                            placeholder="firstname.lastname"
+                            required
+                            style={{ textAlign: 'left' }}
+                        />
+                        <span className="email-suffix">@post.runi.ac.il</span>
                     </div>
                     <button type="submit" className="btn-primary w-full" disabled={loading}>
                         {loading ? t('sendingLink', lang) : t('signIn', lang)}
