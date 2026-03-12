@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { Star, ChevronDown } from 'lucide-react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -29,11 +29,20 @@ interface CoursesListProps {
 
 function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' }) {
   const [expanded, setExpanded] = useState(false);
+  const [isClamped, setIsClamped] = useState(false);
+  const descRef = useRef<HTMLParagraphElement>(null);
   const avgRating = course.reviews && course.reviews.length > 0
     ? course.reviews.reduce((acc, r) => acc + r.rating, 0) / course.reviews.length
     : 0;
   const courseTitle = (lang === 'he' && course.titleHe) ? course.titleHe : course.title;
   const courseDesc = (lang === 'he' && course.descriptionHe) ? course.descriptionHe : course.description;
+
+  useEffect(() => {
+    const el = descRef.current;
+    if (el) {
+      setIsClamped(el.scrollHeight > el.clientHeight);
+    }
+  }, [courseDesc]);
 
   return (
     <Link
@@ -56,16 +65,16 @@ function CourseCard({ course, lang }: { course: CourseData; lang: 'en' | 'he' })
             <span style={{ fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', backgroundColor: 'rgba(16, 185, 129, 0.08)', color: '#059669', border: '1px solid rgba(16, 185, 129, 0.2)', padding: '0.125rem 0.375rem', borderRadius: '4px' }}>{t('vertical', lang)}</span>
           )}
         </div>
-        <p dir="auto" style={{
+        <p ref={descRef} dir="auto" style={{
           color: 'var(--text-muted)',
-          ...(!expanded && courseDesc && courseDesc.length > 150 ? {
+          ...(!expanded ? {
             display: '-webkit-box',
             WebkitLineClamp: 3,
             WebkitBoxOrient: 'vertical' as const,
             overflow: 'hidden',
           } : {}),
         }}>{courseDesc}</p>
-        {courseDesc && courseDesc.length > 150 && (
+        {isClamped && (
           <button
             onClick={(e) => {
               e.preventDefault();
