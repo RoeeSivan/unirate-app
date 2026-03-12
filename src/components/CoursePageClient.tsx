@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Star } from 'lucide-react'
+import { Star, Share2 } from 'lucide-react'
 import AddReviewForm from './AddReviewForm'
 import DeleteReviewButton from './DeleteReviewButton'
 import LikeButton from './LikeButton'
@@ -252,6 +252,30 @@ export default function CoursePageClient({ course, sortedReviews, prerequisites,
                         </div>
                     </div>
                 )}
+                <a
+                    href={`https://wa.me/?text=${encodeURIComponent(`Hey, check out the reviews for "${courseTitle}" on uni-rate!\n${process.env.NEXT_PUBLIC_APP_URL}/course/${course.id}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        marginTop: '1rem',
+                        padding: '0.5rem 1rem',
+                        backgroundColor: '#25D366',
+                        color: '#fff',
+                        borderRadius: '8px',
+                        fontSize: '0.875rem',
+                        fontWeight: 600,
+                        textDecoration: 'none',
+                        transition: 'opacity 0.2s',
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
+                    onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+                >
+                    <Share2 size={16} />
+                    {t('shareWhatsApp', lang)}
+                </a>
             </div>
 
             <div className="grid-2cols">
