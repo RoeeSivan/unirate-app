@@ -15,6 +15,7 @@ const translations = {
   },
   statCourses: { en: 'Courses', he: 'קורסים' },
   statReviews: { en: 'Reviews', he: 'ביקורות' },
+  statUsers: { en: 'Active Users', he: 'משתמשים פעילים' },
   heroSubtitle: {
     en: 'Real ratings and test tips from your peers at the university. Make informed decisions for your next semester. For more precise information about the courses, you should search the',
     he: 'דירוגים אמיתיים וטיפים למבחנים מעמיתים שלכם באוניברסיטה. קבלו החלטות מושכלות לסמסטר הבא. למידע מדויק יותר על הקורסים, חפשו ב'

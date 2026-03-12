@@ -1,10 +1,49 @@
 'use client'
 
-import { BookOpen, Star, MessageSquare } from 'lucide-react'
+import { BookOpen, Star, MessageSquare, Users } from 'lucide-react'
 import { useLang } from './LanguageProvider'
 import { t } from '@/lib/translations'
+import { useEffect, useRef, useState } from 'react'
 
-export function HeroSection({ totalCourses, totalReviews }: { totalCourses: number; totalReviews: number }) {
+function CountUp({ target, suffix = '' }: { target: number; suffix?: string }) {
+    const [count, setCount] = useState(0)
+    const ref = useRef<HTMLSpanElement>(null)
+    const hasAnimated = useRef(false)
+
+    useEffect(() => {
+        const el = ref.current
+        if (!el) return
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasAnimated.current) {
+                    hasAnimated.current = true
+                    const duration = 1500
+                    const start = performance.now()
+
+                    function animate(now: number) {
+                        const elapsed = now - start
+                        const progress = Math.min(elapsed / duration, 1)
+                        // Ease-out cubic: fast start, slow finish
+                        const eased = 1 - Math.pow(1 - progress, 3)
+                        setCount(Math.round(eased * target))
+                        if (progress < 1) requestAnimationFrame(animate)
+                    }
+
+                    requestAnimationFrame(animate)
+                }
+            },
+            { threshold: 0.5 }
+        )
+
+        observer.observe(el)
+        return () => observer.disconnect()
+    }, [target])
+
+    return <span ref={ref} style={{ fontSize: '1.5rem', fontWeight: 700 }}>{count}{suffix}</span>
+}
+
+export function HeroSection({ totalCourses, totalReviews, activeUsers }: { totalCourses: number; totalReviews: number; activeUsers: number }) {
     const { lang } = useLang()
 
     return (
@@ -25,14 +64,20 @@ export function HeroSection({ totalCourses, totalReviews }: { totalCourses: numb
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <BookOpen size={20} style={{ color: 'var(--primary)' }} />
-                    <span style={{ fontSize: '1.5rem', fontWeight: 700 }}>{totalCourses}</span>
+                    <CountUp target={totalCourses} />
                     <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{t('statCourses', lang)}</span>
                 </div>
                 <div style={{ width: '1px', backgroundColor: 'var(--border)', alignSelf: 'stretch' }} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <MessageSquare size={20} style={{ color: 'var(--primary)' }} />
-                    <span style={{ fontSize: '1.5rem', fontWeight: 700 }}>{totalReviews}+</span>
+                    <CountUp target={totalReviews} suffix="+" />
                     <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{t('statReviews', lang)}</span>
+                </div>
+                <div style={{ width: '1px', backgroundColor: 'var(--border)', alignSelf: 'stretch' }} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Users size={20} style={{ color: 'var(--primary)' }} />
+                    <CountUp target={activeUsers} />
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{t('statUsers', lang)}</span>
                 </div>
             </div>
 
