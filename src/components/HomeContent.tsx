@@ -4,7 +4,7 @@ import { BookOpen, Star, MessageSquare } from 'lucide-react'
 import { useLang } from './LanguageProvider'
 import { t } from '@/lib/translations'
 
-export function HeroSection() {
+export function HeroSection({ totalCourses, totalReviews }: { totalCourses: number; totalReviews: number }) {
     const { lang } = useLang()
 
     return (
@@ -15,6 +15,27 @@ export function HeroSection() {
             <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '1rem', fontWeight: 500 }}>
                 {t('heroDescription', lang)}
             </p>
+
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '2rem',
+                marginBottom: '2rem',
+                flexWrap: 'wrap',
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <BookOpen size={20} style={{ color: 'var(--primary)' }} />
+                    <span style={{ fontSize: '1.5rem', fontWeight: 700 }}>{totalCourses}</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{t('statCourses', lang)}</span>
+                </div>
+                <div style={{ width: '1px', backgroundColor: 'var(--border)', alignSelf: 'stretch' }} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <MessageSquare size={20} style={{ color: 'var(--primary)' }} />
+                    <span style={{ fontSize: '1.5rem', fontWeight: 700 }}>{totalReviews}+</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{t('statReviews', lang)}</span>
+                </div>
+            </div>
+
             <p className="hero-subtitle">
                 {t('heroSubtitle', lang)}{' '}
                 <a href="https://www.runi.ac.il/yedion/en/pages/generalsearch.aspx" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'inherit' }}>

@@ -12,9 +12,12 @@ export default async function Home() {
     include: { reviews: true }
   });
 
+  const totalReviews = courses.reduce((sum, c) => sum + c.reviews.length, 0);
+  const totalCourses = courses.length;
+
   return (
     <div className="page-wrapper animate-fade-in">
-      <HeroSection />
+      <HeroSection totalCourses={totalCourses} totalReviews={totalReviews} />
 
       <section style={{ maxWidth: '800px', margin: '0 auto 4rem auto' }}>
         <Suspense fallback={null}>

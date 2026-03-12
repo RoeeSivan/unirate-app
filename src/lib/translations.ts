@@ -13,6 +13,8 @@ const translations = {
     en: 'Course reviews and ratings for Computer Science & Entrepreneurship at Reichman University',
     he: 'ביקורות ודירוגים על קורסים במדעי המחשב ויזמות באוניברסיטת רייכמן'
   },
+  statCourses: { en: 'Courses', he: 'קורסים' },
+  statReviews: { en: 'Reviews', he: 'ביקורות' },
   heroSubtitle: {
     en: 'Real ratings and test tips from your peers at the university. Make informed decisions for your next semester. For more precise information about the courses, you should search the',
     he: 'דירוגים אמיתיים וטיפים למבחנים מעמיתים שלכם באוניברסיטה. קבלו החלטות מושכלות לסמסטר הבא. למידע מדויק יותר על הקורסים, חפשו ב'
