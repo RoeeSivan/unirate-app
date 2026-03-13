@@ -1,7 +1,44 @@
+import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { getSession } from '@/lib/auth'
 import CoursePageClient from '@/components/CoursePageClient'
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+    const { id } = await params
+    const course = await prisma.course.findUnique({
+        where: { id },
+        select: { title: true, titleHe: true, isMandatory: true, reviews: { select: { rating: true } } }
+    })
+
+    if (!course) return { title: 'Course Not Found' }
+
+    const reviewCount = course.reviews.length
+    const avgRating = reviewCount > 0
+        ? (course.reviews.reduce((acc, r) => acc + r.rating, 0) / reviewCount).toFixed(1)
+        : null
+
+    const title = `${course.title} - Reviews | Uni-Rate`
+    const ratingText = !course.isMandatory && avgRating ? ` ⭐ ${avgRating}/5` : ''
+    const description = `${reviewCount} student review${reviewCount !== 1 ? 's' : ''} for ${course.title}${ratingText} at Reichman University. Real tips from your peers.`
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            url: `https://www.uni-rate.com/course/${id}`,
+            siteName: 'uni-rate',
+            type: 'article',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+        },
+    }
+}
 
 export default async function CoursePage({ params }: { params: { id: string } }) {
     const { id } = await params
