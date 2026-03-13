@@ -278,7 +278,7 @@ export default function CoursePageClient({ course, sortedReviews, prerequisites,
                 )}
                 <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
                     <a
-                        href={`https://wa.me/?text=${encodeURIComponent(`Hey, check out the reviews for "${courseTitle}" on uni-rate!\n${process.env.NEXT_PUBLIC_APP_URL}/course/${course.id}`)}`}
+                        href={`https://wa.me/?text=${encodeURIComponent(`Hey, check out the reviews for "${courseTitle}" (Reichman University) on uni-rate!\n${process.env.NEXT_PUBLIC_APP_URL}/course/${course.id}`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
