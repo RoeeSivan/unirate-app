@@ -345,8 +345,8 @@ export default function CoursePageClient({ course, sortedReviews, prerequisites,
                             >
                                 <option value="newest">{t('sortNewest', lang)}</option>
                                 <option value="oldest">{t('sortOldest', lang)}</option>
-                                <option value="highest">{t('sortHighest', lang)}</option>
-                                <option value="lowest">{t('sortLowest', lang)}</option>
+                                {!course.isMandatory && <option value="highest">{t('sortHighest', lang)}</option>}
+                                {!course.isMandatory && <option value="lowest">{t('sortLowest', lang)}</option>}
                                 <option value="helpful">{t('sortHelpful', lang)}</option>
                             </select>
                         )}
