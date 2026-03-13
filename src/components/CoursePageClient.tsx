@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { Star, Link2, Check } from 'lucide-react'
 import AddReviewForm from './AddReviewForm'
@@ -151,8 +151,20 @@ export default function CoursePageClient({ course, sortedReviews, prerequisites,
     const router = useRouter()
     const [editingId, setEditingId] = useState<string | null>(null)
     const [copied, setCopied] = useState(false)
+    const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'highest' | 'lowest' | 'helpful'>('newest')
     const courseTitle = (lang === 'he' && course.titleHe) ? course.titleHe : course.title
     const courseDesc = (lang === 'he' && course.descriptionHe) ? course.descriptionHe : course.description
+
+    const displayedReviews = useMemo(() => {
+        const copy = [...sortedReviews]
+        switch (sortBy) {
+            case 'newest': return copy.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+            case 'oldest': return copy.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+            case 'highest': return copy.sort((a, b) => b.rating - a.rating)
+            case 'lowest': return copy.sort((a, b) => a.rating - b.rating)
+            case 'helpful': return copy.sort((a, b) => (b.likes?.length || 0) - (a.likes?.length || 0))
+        }
+    }, [sortedReviews, sortBy])
 
     return (
         <div className="course-page animate-fade-in py-12" style={{ padding: '2rem 0' }}>
@@ -322,7 +334,23 @@ export default function CoursePageClient({ course, sortedReviews, prerequisites,
                             <AddReviewForm courseId={course.id} isMandatory={course.isMandatory} />
                         </div>
                     )}
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{t('reviewsTitle', lang)}</h2>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }}>{t('reviewsTitle', lang)}</h2>
+                        {sortedReviews.length > 1 && (
+                            <select
+                                className="input"
+                                value={sortBy}
+                                onChange={e => setSortBy(e.target.value as typeof sortBy)}
+                                style={{ fontSize: '0.85rem', padding: '0.4rem 0.75rem', width: 'auto', cursor: 'pointer' }}
+                            >
+                                <option value="newest">{t('sortNewest', lang)}</option>
+                                <option value="oldest">{t('sortOldest', lang)}</option>
+                                <option value="highest">{t('sortHighest', lang)}</option>
+                                <option value="lowest">{t('sortLowest', lang)}</option>
+                                <option value="helpful">{t('sortHelpful', lang)}</option>
+                            </select>
+                        )}
+                    </div>
                     {reviewsLocked && sortedReviews.length > 0 && (
                         <div className="card" style={{ textAlign: 'center', padding: '1.5rem', background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(99, 102, 241, 0.1))', border: '1px solid rgba(99, 102, 241, 0.2)' }}>
                             <h3 style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>{t('reviewsLockedTitle', lang)}</h3>
@@ -330,10 +358,10 @@ export default function CoursePageClient({ course, sortedReviews, prerequisites,
                             <a href="/login" className="btn-primary" style={{ display: 'inline-block', padding: '0.5rem 1.5rem' }}>{t('signIn', lang)}</a>
                         </div>
                     )}
-                    {sortedReviews.length === 0 ? (
+                    {displayedReviews.length === 0 ? (
                         <div className="card" style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-muted)' }}>{t('noReviewsYet', lang)}</div>
                     ) : (
-                        sortedReviews.map((review: any) => (
+                        displayedReviews.map((review: any) => (
                             <div key={review.id} className="card" style={reviewsLocked ? { filter: 'blur(4px)', pointerEvents: 'none', userSelect: 'none' } : undefined}>
                                 {editingId === review.id ? (
                                     <EditReviewForm

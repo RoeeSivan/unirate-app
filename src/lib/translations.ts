@@ -122,6 +122,14 @@ const translations = {
   otherSemester: { en: 'Other', he: 'אחר' },
   noCourses: { en: 'No courses', he: 'אין קורסים' },
 
+  // Sort reviews
+  sortBy: { en: 'Sort by', he: 'מיון לפי' },
+  sortNewest: { en: 'Newest', he: 'החדשות ביותר' },
+  sortOldest: { en: 'Oldest', he: 'הישנות ביותר' },
+  sortHighest: { en: 'Highest Rating', he: 'דירוג גבוה' },
+  sortLowest: { en: 'Lowest Rating', he: 'דירוג נמוך' },
+  sortHelpful: { en: 'Most Helpful', he: 'הכי מועילות' },
+
   // Locked reviews
   reviewsLockedTitle: { en: 'Reviews are locked', he: 'הביקורות נעולות' },
   reviewsLockedDesc: { en: 'Sign in with your Reichman account to read all reviews.', he: 'התחברו עם חשבון רייכמן כדי לקרוא את כל הביקורות.' },
